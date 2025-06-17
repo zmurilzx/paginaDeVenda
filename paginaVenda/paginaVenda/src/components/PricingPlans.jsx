@@ -10,8 +10,8 @@ const PricingPlans = () => {
       period: "por mês",
       description: "Perfeito para indivíduos",
       features: [
-        "Streaming SD, HD, Ultra HD",
-        "Acesso a filmes e séries",
+        "Streaming SD, HD",
+        "Acesso a todo o conteúdo",
         "Experiência sem anúncios",
         "Cancele a qualquer momento"
       ],
@@ -19,7 +19,7 @@ const PricingPlans = () => {
     },
     {
       name: "Trimestral",
-      price: "R$78,90 ou 12x de R$6,58",
+      price: "R$59,90 ou 12x de R$5,58",
       period: "por mês",
       description: "Melhor para famílias",
       features: [
@@ -33,7 +33,7 @@ const PricingPlans = () => {
     },
     {
       name: "Semestral",
-      price: "R$137,90 ou 12x de R$11,72",
+      price: "R$89,90 ou 12x de R$7,50",
       period: "por mês",
       description: "Para o fã definitivo",
       features: [
@@ -44,11 +44,11 @@ const PricingPlans = () => {
         "Experiência sem anúncios",
         "Cancele a qualquer momento"
       ],
-      popular: false
+      popular: true
     },
     {
       name: "Anual",
-      price: "R$179,90 ou 12x de R$15,22",
+      price: "R$169,90 ou 12x de R$14,16",
       period: "por mês",
       description: "Para o maratoneiro",
       features: [

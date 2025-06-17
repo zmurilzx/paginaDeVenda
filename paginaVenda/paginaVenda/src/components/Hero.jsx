@@ -11,7 +11,7 @@ const Hero = () => {
     document.body.appendChild(script1);
 
     const script2 = document.createElement('script');
-    script2.src = 'https://fast.wistia.com/embed/ws7xaa44sm.js';
+    script2.src = 'https://fast.wistia.com/embed/5gt55026re.js';
     script2.async = true;
     script2.type = 'module';
     document.body.appendChild(script2);
@@ -59,6 +59,7 @@ const Hero = () => {
               <li>&bull; Assista filmes <span className='gradient-text'>que ainda estão no Cinema</span></li>
               <li>&bull; Suporte <span className='gradient-text'>Vitalício</span></li>
               <li>&bull; Acesso <span className='gradient-text'>Imediato</span></li>
+              <li>&bull; Acesse diversos <span className='gradient-text'>Canais adultos </span>🔥</li>
             </ul>
             <a href="https://wa.me/5543999748808" target="_blank" rel="noopener noreferrer">
               <motion.div
@@ -66,7 +67,7 @@ const Hero = () => {
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
                 <Button className="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-900 hover:to-green-900 text-white px-8 py-7 text-lg rounded-full shadow-lg">
-                 Enviar mensagem no WhatsApp
+                  Enviar mensagem no WhatsApp
                 </Button>
               </motion.div>
             </a>
@@ -87,15 +88,15 @@ const Hero = () => {
               <div className="relative bg-background rounded-2xl overflow-hidden shadow-2xl">
                 <style>
                   {`
-                    wistia-player[media-id='ws7xaa44sm']:not(:defined) {
-                      background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/ws7xaa44sm/swatch');
+                    wistia-player[media-id='5gt55026re']:not(:defined) {
+                      background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5gt55026re/swatch');
                       display: block;
                       filter: blur(5px);
                       padding-top: 56.25%;
                     }
                   `}
                 </style>
-                <wistia-player media-id="ws7xaa44sm" aspect="1.7777777777777777" />
+                <wistia-player media-id="5gt55026re" aspect="1.7777777777777777" />
               </div>
             </div>
           </motion.div>
