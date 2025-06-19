@@ -19,7 +19,7 @@ const PricingPlans = () => {
     },
     {
       name: "Trimestral",
-      price: "R$59,90 ou 12x de R$5,58",
+      price: "R$65,90 ou 12x de R$5,50",
       period: "por mês",
       description: "Melhor para famílias",
       features: [
@@ -48,13 +48,13 @@ const PricingPlans = () => {
     },
     {
       name: "Anual",
-      price: "R$169,90 ou 12x de R$14,16",
+      price: "R$189,90 ou 12x de R$15,80",
       period: "por mês",
       description: "Para o maratoneiro",
       features: [
         "Streaming 4K Ultra HD + HDR",
         "Acesso simultâneo",
-        "Acesso a todo o conteúdo, incluindo exclusivos",
+        "Acesso a todo o conteúdo, incluindo adultos",
         "Experiência sem anúncios",
         "Cancele a qualquer momento"
       ],
@@ -62,7 +62,7 @@ const PricingPlans = () => {
     },
     {
       name: "Vitalício",
-      price: "R$128,90 ou 12x de R$10,85",
+      price: "R$152,90 ou 12x de R$12,75",
       period: "por mês",
       description: "Amante do streaming",
       features: [
