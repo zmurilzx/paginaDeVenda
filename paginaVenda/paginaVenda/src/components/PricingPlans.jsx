@@ -75,22 +75,6 @@ const PricingPlans = () => {
         "Suporte vitalício"
       ],
       popular: true
-    },
-    {
-      name: "Vitalício P2P",
-      price: "R$449,90 ou 12x de R$37,50",
-      period: "por mês",
-      description: "Amante do streaming",
-      features: [
-        "Streaming 4K Ultra HD + HDR",
-        "Acesso simultâneo",
-        "Acesso a todo o conteúdo, incluindo exclusivos",
-        "Experiência sem anúncios",
-        "Cancele a qualquer momento",
-        "Sem pagamentos recorrentes",
-        "Suporte vitalício"
-      ],
-      popular: true
     }
   ];
 
