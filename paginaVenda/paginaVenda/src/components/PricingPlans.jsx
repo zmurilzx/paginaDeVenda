@@ -8,9 +8,9 @@ const PricingPlans = () => {
       name: "Mensal",
       price: "R$29,90",
       period: "por mês",
-      description: "Perfeito para indivíduos",
+      description: "Ideal para testar",
       features: [
-        "Streaming SD, HD",
+        "Streaming SD, HD, FHD, 4K",
         "Acesso a todo o conteúdo",
         "Experiência sem anúncios",
         "Cancele a qualquer momento"
@@ -23,7 +23,7 @@ const PricingPlans = () => {
       period: "por mês",
       description: "Melhor para famílias",
       features: [
-        "Streaming 4K Ultra HD",
+        "Streaming SD, HD, FHD, 4K",
         "Acesso simultâneo",
         "Acesso a todo o conteúdo, incluindo +18",
         "Experiência sem anúncios",
@@ -37,10 +37,10 @@ const PricingPlans = () => {
       period: "por mês",
       description: "Para o fã definitivo",
       features: [
-        "Streaming 4K Ultra HD + HDR",
+        "Streaming SD, HD, FHD, 4K",
         "Acesso simultâneo",
         "Acesso a todo o conteúdo, incluindo +18",
-        "Acesso antecipado a estreias",
+        "Suporte prioritário",
         "Experiência sem anúncios",
         "Cancele a qualquer momento"
       ],
@@ -52,10 +52,13 @@ const PricingPlans = () => {
       period: "por mês",
       description: "Para o maratoneiro",
       features: [
-        "Streaming 4K Ultra HD + HDR",
+        "Streaming SD, HD, FHD, 4K",
         "Acesso simultâneo",
-        "Acesso a todo o conteúdo, incluindo adultos",
+        "Acesso a todo o conteúdo, incluindo adultos +18",
         "Experiência sem anúncios",
+        "Suporte prioritário",
+        "Acesso a novos lançamentos",
+        "BÔNUS",
         "Cancele a qualquer momento"
       ],
       popular: false
@@ -66,12 +69,14 @@ const PricingPlans = () => {
       period: "por mês",
       description: "Amante do streaming",
       features: [
-        "Streaming 4K Ultra HD + HDR",
+        "Streaming SD, HD, FHD, 4K",
         "Acesso simultâneo",
-        "Acesso a todo o conteúdo, incluindo exclusivos",
+        "Acesso a todo o conteúdo, incluindo adultos +18",
         "Experiência sem anúncios",
         "Cancele a qualquer momento",
         "Sem pagamentos recorrentes",
+        "Acesso a novos lançamentos",
+        "BÔNUS EXCLUSIVO",
         "Suporte vitalício"
       ],
       popular: true
