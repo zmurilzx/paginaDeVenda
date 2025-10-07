@@ -13,7 +13,7 @@ const FeaturedContent = () => {
           transition={{ duration: 0.6 }}
           className="mb- text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">Pare de pagar por várias plataformas e <span className="gradient-text">assista tudo em uma só!</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-2">Filmes e Séries em<span className="gradient-text"> Destaque na semana!</span></h2>
           <p className="text-foreground/70 max-w-3xl mx-auto">
             Conteúdo exclusivo que ainda estão no cinema você assiste de casa!
           </p>
