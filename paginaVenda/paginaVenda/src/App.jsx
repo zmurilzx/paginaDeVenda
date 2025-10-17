@@ -17,6 +17,57 @@ import Footer from '@/components/Footer';
 function App() {
   const { toast } = useToast();
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [allowed, setAllowed] = useState(false);
+
+  useEffect(() => {
+    // 🔒 Domínio permitido
+    const allowedDomain = "cinestream2k.site";
+    if (window.location.hostname !== allowedDomain) {
+      window.location.href = `https://${allowedDomain}`;
+      return;
+    }
+
+    // 📱 Detecta dispositivo móvel
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (!isMobile) {
+      document.body.innerHTML = `
+        <div style="text-align:center;margin-top:25vh;padding:20px;font-family:sans-serif">
+          <h2>📱 Este site está disponível apenas para dispositivos móveis.</h2>
+          <p style="margin-top:20px;font-size:18px;color:#555">
+            Acesse pelo seu celular para continuar navegando no <strong>CineStream2K</strong>.
+          </p>
+        </div>
+      `;
+      return;
+    }
+
+    // 🚫 Bloqueia ações de cópia e inspeção
+    const preventAction = (e) => e.preventDefault();
+    document.addEventListener("contextmenu", preventAction);
+    document.addEventListener("copy", preventAction);
+    document.addEventListener("cut", preventAction);
+    document.addEventListener("selectstart", preventAction);
+
+    // 🔐 Bloqueia teclas comuns de inspeção
+    document.addEventListener("keydown", (e) => {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && ["u", "s", "c", "x", "p"].includes(e.key.toLowerCase()))
+      ) {
+        e.preventDefault();
+      }
+    });
+
+    setAllowed(true);
+
+    // 🧹 Limpa eventos ao desmontar
+    return () => {
+      document.removeEventListener("contextmenu", preventAction);
+      document.removeEventListener("copy", preventAction);
+      document.removeEventListener("cut", preventAction);
+      document.removeEventListener("selectstart", preventAction);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +84,8 @@ function App() {
       behavior: 'smooth',
     });
   };
+
+  if (!allowed) return null;
 
   return (
     <div className="min-h-screen bg-background text-foreground">

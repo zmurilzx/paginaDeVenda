@@ -9,6 +9,7 @@ const PricingPlans = () => {
       price: "R$29,90",
       period: "por mês",
       description: "Ideal para testar",
+      link: "https://pay.cakto.com.br/33pbxy7_610779",
       features: [
         "Streaming SD, HD, FHD, 4K",
         "Acesso a todo o conteúdo",
@@ -22,6 +23,7 @@ const PricingPlans = () => {
       price: "R$65,90 ou 12x de R$5,50",
       period: "por mês",
       description: "Melhor para famílias",
+      link: "https://pay.cakto.com.br/38db6w6_608242",
       features: [
         "Streaming SD, HD, FHD, 4K",
         "Acesso simultâneo",
@@ -36,6 +38,7 @@ const PricingPlans = () => {
       price: "R$89,90 ou 12x de R$7,50",
       period: "por mês",
       description: "Para o fã definitivo",
+      link: "https://pay.cakto.com.br/xkehep2_608252",
       features: [
         "Streaming SD, HD, FHD, 4K",
         "Acesso simultâneo",
@@ -51,6 +54,7 @@ const PricingPlans = () => {
       price: "R$189,90 ou 12x de R$15,80",
       period: "por mês",
       description: "Para o maratoneiro",
+      link: "https://pay.cakto.com.br/3b87s8g_608254",
       features: [
         "Streaming SD, HD, FHD, 4K",
         "Acesso simultâneo",
@@ -68,6 +72,7 @@ const PricingPlans = () => {
       price: "R$235,90 ou 12x de R$12,75",
       period: "por mês",
       description: "Amante do streaming",
+      link: "https://pay.cakto.com.br/39ink3t_605690",
       features: [
         "Streaming SD, HD, FHD, 4K",
         "Acesso simultâneo",
@@ -89,15 +94,8 @@ const PricingPlans = () => {
       
       <motion.div 
         className="absolute top-40 left-10 w-72 h-72 rounded-full bg-purple-600/5 blur-3xl"
-        animate={{ 
-          x: [0, 50, 0],
-          y: [0, 30, 0],
-        }}
-        transition={{ 
-          duration: 20,
-          repeat: Infinity,
-          repeatType: "reverse"
-        }}
+        animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
+        transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
       />
       
       <div className="container mx-auto px-4 relative z-10">
@@ -108,7 +106,9 @@ const PricingPlans = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Escolha Seu <span className="gradient-text">Plano</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Escolha Seu <span className="gradient-text">Plano</span>
+          </h2>
           <p className="text-foreground/70 max-w-2xl mx-auto">
             Selecione o plano perfeito para suas necessidades de entretenimento. Todos os planos incluem nossa biblioteca de conteúdo completa.
           </p>
@@ -122,7 +122,9 @@ const PricingPlans = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`pricing-card rounded-xl p-6 bg-secondary/10 backdrop-blur-sm ${plan.popular ? 'pricing-popular' : ''}`}
+              className={`pricing-card rounded-xl p-6 bg-secondary/10 backdrop-blur-sm ${
+                plan.popular ? 'pricing-popular' : ''
+              }`}
             >
               <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
               <div className="mb-4">
@@ -130,11 +132,17 @@ const PricingPlans = () => {
                 <span className="text-foreground/60 ml-1">{plan.period}</span>
               </div>
               <p className="text-foreground/70 mb-6">{plan.description}</p>
-              
-              <a href="https://wa.me/5543999748808" target="_blank" rel="noopener noreferrer">
-              <Button className={`w-full mb-6 ${plan.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700' : ''}`}>
-                Conheça o Plano {plan.name}
-              </Button>
+
+              <a href={plan.link} target="_blank" rel="noopener noreferrer">
+                <Button
+                  className={`w-full mb-6 ${
+                    plan.popular
+                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
+                      : ''
+                  }`}
+                >
+                  Conheça o Plano {plan.name}
+                </Button>
               </a>
 
               <ul className="space-y-3">
@@ -157,7 +165,7 @@ const PricingPlans = () => {
           className="mt-12 text-center"
         >
           <p className="text-foreground/60 text-sm">
-          Sem contratos, cancele a qualquer momento.
+            Sem contratos, cancele a qualquer momento.
           </p>
         </motion.div>
       </div>
