@@ -6,27 +6,6 @@ import { CheckCircle } from 'lucide-react'; // ✅ Ícone de concluído
 
 const Hero = () => {
   useEffect(() => {
-    // --- Meta Pixel Code ---
-    !(function (f, b, e, v, n, t, s) {
-      if (f.fbq) return;
-      n = f.fbq = function () {
-        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-      };
-      if (!f._fbq) f._fbq = n;
-      n.push = n;
-      n.loaded = !0;
-      n.version = '2.0';
-      n.queue = [];
-      t = b.createElement(e);
-      t.async = !0;
-      t.src = v;
-      s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s);
-    })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-
-    window.fbq('init', '1786682021966649');
-    window.fbq('track', 'PageView');
-
     // --- Scripts do vídeo Wistia ---
     const script1 = document.createElement('script');
     script1.src = 'https://fast.wistia.com/player.js';
@@ -39,26 +18,35 @@ const Hero = () => {
     script2.type = 'module';
     document.body.appendChild(script2);
 
-    // --- Adiciona o noscript fallback ---
-    const noscript = document.createElement('noscript');
-    noscript.innerHTML = `
-      <img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=1786682021966649&ev=PageView&noscript=1"
-      />
-    `;
-    document.body.appendChild(noscript);
-
     return () => {
       document.body.removeChild(script1);
       document.body.removeChild(script2);
-      document.body.removeChild(noscript);
     };
   }, []);
 
   // --- Evento do clique no botão WhatsApp (Lead) ---
   const handleWhatsAppClick = () => {
+    const eventId =
+      typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
     if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead');
+      window.fbq('track', 'Lead', {}, { eventID: eventId });
+    }
+
+    try {
+      void fetch('/api/meta-conversions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_name: 'Lead',
+          event_id: eventId,
+          event_source_url: window.location.href,
+        }),
+      });
+    } catch (error) {
+      console.error('Erro ao enviar evento para Meta Conversions API', error);
     }
   };
 
