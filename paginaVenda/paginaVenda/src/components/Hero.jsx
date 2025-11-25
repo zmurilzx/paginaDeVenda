@@ -24,32 +24,6 @@ const Hero = () => {
     };
   }, []);
 
-  // --- Evento do clique no botão WhatsApp (Lead) ---
-  const handleWhatsAppClick = () => {
-    const eventId =
-      typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-        ? crypto.randomUUID()
-        : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-
-    if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', {}, { eventID: eventId });
-    }
-
-    try {
-      void fetch('/api/meta-conversions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event_name: 'Lead',
-          event_id: eventId,
-          event_source_url: window.location.href,
-        }),
-      });
-    } catch (error) {
-      console.error('Erro ao enviar evento para Meta Conversions API', error);
-    }
-  };
-
   return (
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-purple-900/20 z-0"></div>
@@ -149,7 +123,6 @@ const Hero = () => {
                 href="https://wa.me/5543999748808"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={handleWhatsAppClick}
               >
                 <motion.div
                   animate={{ scale: [1, 1.05, 1] }}
