@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
+import { sendMetaPurchaseEvent } from '@/lib/metaConversions';
 
 const PricingPlans = () => {
   const plans = [
@@ -140,6 +141,7 @@ const PricingPlans = () => {
                       ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
                       : ''
                   }`}
+                  onClick={sendMetaPurchaseEvent}
                 >
                   Conheça o Plano {plan.name}
                 </Button>
