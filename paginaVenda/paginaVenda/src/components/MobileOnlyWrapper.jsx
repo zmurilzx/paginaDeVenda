@@ -5,18 +5,20 @@ import { useRouter } from "next/navigation";
 export default function MobileOnlyWrapper({ children }) {
   const router = useRouter();
   const [allowed, setAllowed] = useState(false);
-
+  
   useEffect(() => {
-    // 🔒 Bloqueia domínios clonados
+    // 🔒 Bloqueia domínios clonados (exceto localhost)
     const allowedDomain = "cinestream2k.site";
-    if (window.location.hostname !== allowedDomain) {
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    
+    if (!isLocalhost && window.location.hostname !== allowedDomain) {
       window.location.href = `https://${allowedDomain}`;
       return;
     }
 
-    // 📱 Permite apenas acesso via celular
+    // 📱 Permite apenas acesso via celular (desabilitado em localhost)
     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (!isMobile) {
+    if (!isLocalhost && !isMobile) {
       router.push("/mobile-only");
     } else {
       setAllowed(true);

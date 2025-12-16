@@ -9,6 +9,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import FeaturedContent from '@/components/FeaturedContent';
 import ContentCategories from '@/components/ContentCategories';
+import Testimonials from '@/components/Testimonials';
 import PricingPlans from '@/components/PricingPlans';
 import Devices from '@/components/Devices';
 import FAQ from '@/components/FAQ';
@@ -20,16 +21,18 @@ function App() {
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    // 🔒 Domínio permitido
+    // 🔒 Domínio permitido (exceto localhost)
     const allowedDomain = "cinestream2k.site";
-    if (window.location.hostname !== allowedDomain) {
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    
+    if (!isLocalhost && window.location.hostname !== allowedDomain) {
       window.location.href = `https://${allowedDomain}`;
       return;
     }
 
-    // 📱 Detecta dispositivo móvel
+    // 📱 Detecta dispositivo móvel (desabilitado em localhost)
     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (!isMobile) {
+    if (!isLocalhost && !isMobile) {
       document.body.innerHTML = `
         <div style="text-align:center;margin-top:25vh;padding:20px;font-family:sans-serif">
           <h2>📱 Este site está disponível apenas para dispositivos móveis.</h2>
@@ -93,6 +96,7 @@ function App() {
       <Hero />
       <FeaturedContent />
       <ContentCategories />
+      <Testimonials />
       <PricingPlans />
       <Devices />
       <FAQ />
