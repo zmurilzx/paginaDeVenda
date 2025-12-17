@@ -168,7 +168,7 @@ const CountdownTimer = ({ variant = 'default' }) => {
           {isUrgent 
             ? '🔥 Garanta agora antes que acabe!' 
             : '⚡ Vagas limitadas para hoje'}
-        </p>
+        </motion.p>
       </div>
     </motion.div>
   );
