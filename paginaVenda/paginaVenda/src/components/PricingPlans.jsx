@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
+import CountdownTimer from './CountdownTimer';
 
 const PricingPlans = () => {
   const plans = [
@@ -124,13 +125,24 @@ const PricingPlans = () => {
           <p className="text-sm md:text-base text-foreground/60 max-w-2xl mx-auto mb-2 md:mb-3 font-light">
             <strong className="text-purple-400 font-medium">15.847 clientes</strong> já economizaram milhares de reais
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-foreground/50 max-w-2xl mx-auto font-light">
+          <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-foreground/50 max-w-2xl mx-auto font-light mb-6">
             <span>Acesso completo</span>
             <span>•</span>
             <span>Pagamento seguro</span>
             <span>•</span>
             <span>Garantia 7 dias</span>
           </div>
+          
+          {/* Contador Regressivo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl mx-auto"
+          >
+            <CountdownTimer />
+          </motion.div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">

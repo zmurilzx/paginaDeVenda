@@ -2,7 +2,8 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { CheckCircle } from 'lucide-react'; // ✅ Ícone de concluído
+import { CheckCircle } from 'lucide-react';
+import CountdownTimer from './CountdownTimer';
 
 const Hero = () => {
   useEffect(() => {
@@ -56,6 +57,12 @@ const Hero = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-[1.1] tracking-tight">
               Economize <span className="gradient-text">+R$2.000/ano</span> em Streaming
             </h1>
+            
+            {/* Contador Regressivo */}
+            <div className="mb-4 md:mb-6">
+              <CountdownTimer variant="compact" />
+            </div>
+
             <div className="bg-white/60 border-l-2 border-purple-500 p-4 md:p-6 mb-4 md:mb-6 rounded-lg shadow-sm">
               <p className="text-sm md:text-base lg:text-lg text-foreground/90 font-medium mb-2">
                 <span className="text-purple-400">15.847 clientes</span> já cancelaram Netflix, Prime e Disney+

@@ -69,35 +69,6 @@ const Devices = () => {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mt-8 md:mt-16 relative rounded-xl md:rounded-2xl overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-background z-10"></div>
-          
-          <img  className="w-full h-[300px] object-cover" alt="Múltiplos dispositivos exibindo o serviço de streaming" src="https://i0.wp.com/assets.b9.com.br/wp-content/uploads/2016/10/netflix-catalogo.jpg?fit=1060%2C596&ssl=1" />
-          
-          <div className="absolute inset-0 flex items-center z-20">
-            <div className="container mx-auto px-4">
-              <div className="max-w-lg">
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2 md:mb-4 tracking-tight">
-                  <span className="gradient-text">Sincronização Perfeita</span>
-                </h3>
-                <p className="text-foreground/70 mb-2 md:mb-3 text-sm md:text-base font-light">
-                  Comece a assistir na sua TV, pause e continue no celular ou tablet. Tudo sincronizado automaticamente.
-                </p>
-                <ul className="text-foreground/60 text-xs md:text-sm space-y-1 font-light hidden md:block">
-                  <li>• Sua lista de favoritos sempre atualizada</li>
-                  <li>• Continue de onde parou em qualquer tela</li>
-                  <li>• Até 3 dispositivos simultâneos</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

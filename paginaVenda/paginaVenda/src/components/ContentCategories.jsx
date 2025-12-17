@@ -1,5 +1,7 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 
 const TabsComponent = () => {
   const filmes = [
@@ -61,37 +63,129 @@ const TabsComponent = () => {
 };
 
 const ContentGrid = ({ categories }) => {
-  return (
-    <div className="space-y-12">
-      {categories.map((category, categoryIndex) => (
-        <div key={categoryIndex}>
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-xl font-bold">{category.name}</h3>
-          </div>
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = {
+    mobile: 2,
+    tablet: 4,
+    desktop: 6
+  };
+  
+  const items = categories[0]?.items || [];
+  const totalPages = Math.ceil(items.length / itemsPerPage.desktop);
+  
+  const getCurrentItems = () => {
+    const start = currentPage * itemsPerPage.desktop;
+    return items.slice(start, start + itemsPerPage.desktop);
+  };
 
-          <div className="grid grid-cols-2 md:grid-cols-8 gap-8">
-            {category.items.map((item, itemIndex) => (
-              <motion.div
-                key={itemIndex}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: itemIndex * 0.1 }}
-                className="content-card"
-              >
-                <img
-                  className="w-full h-70 object-cover rounded-lg md:h-80"
-                  alt={`${item.name} miniatura`}
-                  src={item.image}
-                />
-                <div className="content-overlay">
-                  <h4 className="font-medium">{item.name}</h4>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+  const nextPage = () => {
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const prevPage = () => {
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="relative">
+        {/* Botão Anterior */}
+        <button
+          onClick={prevPage}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white border border-purple-200 rounded-full p-2 md:p-3 shadow-lg transition-all hover:scale-110 hidden md:flex items-center justify-center"
+          aria-label="Anterior"
+        >
+          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
+        </button>
+
+        {/* Carrossel */}
+        <div className="overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPage}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4"
+            >
+              {getCurrentItems().map((item, itemIndex) => (
+                <motion.div
+                  key={itemIndex}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: itemIndex * 0.05 }}
+                  whileHover={{ scale: 1.05, y: -8 }}
+                  className="content-card group cursor-pointer"
+                >
+                  <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <img
+                      className="w-full h-64 md:h-72 lg:h-80 object-cover"
+                      alt={`${item.name} miniatura`}
+                      src={item.image}
+                    />
+                    <div className="content-overlay">
+                      <h4 className="font-medium text-sm md:text-base text-white">{item.name}</h4>
+                    </div>
+                    {/* Borda de destaque no hover */}
+                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-purple-400 rounded-lg transition-all"></div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
-      ))}
+
+        {/* Botão Próximo */}
+        <button
+          onClick={nextPage}
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white border border-purple-200 rounded-full p-2 md:p-3 shadow-lg transition-all hover:scale-110 hidden md:flex items-center justify-center"
+          aria-label="Próximo"
+        >
+          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
+        </button>
+      </div>
+
+      {/* Indicadores de página (dots) */}
+      <div className="flex items-center justify-center gap-2 mt-6">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToPage(index)}
+            className={`transition-all rounded-full ${
+              currentPage === index
+                ? 'w-8 h-2 bg-gradient-to-r from-purple-600 to-pink-600'
+                : 'w-2 h-2 bg-purple-200 hover:bg-purple-300'
+            }`}
+            aria-label={`Ir para página ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Navegação mobile (setas embaixo) */}
+      <div className="flex md:hidden items-center justify-center gap-4 mt-4">
+        <button
+          onClick={prevPage}
+          className="bg-white border border-purple-200 rounded-full p-2 shadow-md active:scale-95 transition-transform"
+          aria-label="Anterior"
+        >
+          <ChevronLeft className="w-5 h-5 text-purple-600" />
+        </button>
+        <span className="text-sm text-foreground/60 font-medium">
+          {currentPage + 1} / {totalPages}
+        </span>
+        <button
+          onClick={nextPage}
+          className="bg-white border border-purple-200 rounded-full p-2 shadow-md active:scale-95 transition-transform"
+          aria-label="Próximo"
+        >
+          <ChevronRight className="w-5 h-5 text-purple-600" />
+        </button>
+      </div>
     </div>
   );
 };

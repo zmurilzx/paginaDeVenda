@@ -165,3 +165,16 @@
 .bg-gradient-animated {
   background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #ec4899 100%);
 }
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+}
