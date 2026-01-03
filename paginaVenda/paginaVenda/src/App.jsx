@@ -7,9 +7,6 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import FeaturedContent from '@/components/FeaturedContent';
-import ContentCategories from '@/components/ContentCategories';
-import Testimonials from '@/components/Testimonials';
 import PricingPlans from '@/components/PricingPlans';
 import Devices from '@/components/Devices';
 import FAQ from '@/components/FAQ';
@@ -94,9 +91,6 @@ function App() {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <Hero />
-      <FeaturedContent />
-      <ContentCategories />
-      <Testimonials />
       <PricingPlans />
       <Devices />
       <FAQ />
