@@ -92,7 +92,6 @@ function App() {
       <Navbar />
       <Hero />
       <PricingPlans />
-      <Devices />
       <FAQ />
       <Footer />
 

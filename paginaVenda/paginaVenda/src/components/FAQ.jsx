@@ -7,7 +7,7 @@ const FAQ = () => {
   const faqs = [
     {
       question: "O CineStream2K é legal e seguro?",
-      answer: "Sim, absolutamente. Somos uma plataforma consolidada com mais de 15.847 clientes ativos e satisfeitos. Oferecemos suporte 24h via WhatsApp com resposta em menos de 5 minutos e garantia incondicional de 7 dias. Seu pagamento é 100% seguro e criptografado."
+      answer: "Sim, absolutamente. Somos uma plataforma consolidada com mais de 15.847 clientes ativos e satisfeitos. Oferecemos suporte 24h via WhatsApp com resposta em menos de 5 minutos. Seu pagamento é 100% seguro e criptografado."
     },
     {
       question: "Quanto vou economizar comparado a Netflix, Prime e Disney+?",
@@ -27,7 +27,7 @@ const FAQ = () => {
     },
     {
       question: "E se eu não gostar? Posso cancelar?",
-      answer: "Sim. Temos garantia incondicional de 7 dias. Se por qualquer motivo você não ficar satisfeito, devolvemos 100% do seu dinheiro sem perguntas ou burocracia. Basta enviar uma mensagem no WhatsApp."
+      answer: "Sim. Se por qualquer motivo você não ficar satisfeito, entre em contato conosco via WhatsApp e resolveremos sua situação."
     },
     {
       question: "Tem conteúdo para crianças?",
@@ -46,8 +46,8 @@ const FAQ = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden" id="faq">
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-50/30 via-pink-50/20 to-background z-0"></div>
+    <section className="pt-16 pb-16 md:pt-24 md:pb-24 relative overflow-hidden" id="faq">
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-950/15 via-pink-950/10 to-background z-0"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -79,8 +79,8 @@ const FAQ = () => {
                 onClick={() => toggleFaq(index)}
                 className={`w-full text-left p-4 md:p-5 rounded-xl flex justify-between items-center transition-all ${
                   openIndex === index 
-                    ? 'bg-gradient-to-r from-purple-100 to-pink-100 text-foreground shadow-md border border-purple-300' 
-                    : 'bg-white/70 hover:bg-white/90 text-foreground/80 hover:shadow-sm border border-purple-200'
+                    ? 'bg-gradient-to-r from-purple-900/40 to-pink-900/40 text-foreground shadow-md border border-purple-500/50' 
+                    : 'bg-gray-800/60 hover:bg-gray-800/80 text-foreground/90 hover:shadow-sm border border-purple-500/30'
                 }`}
               >
                 <span className="font-medium text-xs md:text-sm">{faq.question}</span>
@@ -95,7 +95,7 @@ const FAQ = () => {
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white/50 p-4 md:p-5 rounded-b-xl text-foreground/70 text-xs md:text-sm leading-relaxed font-light border-x border-b border-purple-200"
+                  className="bg-gray-800/40 p-4 md:p-5 rounded-b-xl text-foreground/80 text-xs md:text-sm leading-relaxed font-light border-x border-b border-purple-500/30"
                 >
                   {faq.answer}
                 </motion.div>
@@ -111,7 +111,7 @@ const FAQ = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-12 text-center"
         >
-          <div className="bg-gradient-to-r from-purple-100/80 to-pink-100/80 border border-purple-300 rounded-xl p-4 md:p-8 relative overflow-hidden shadow-sm">
+          <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-500/50 rounded-xl p-4 md:p-8 relative overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 bg-purple-600 text-white text-xs font-medium px-3 md:px-4 py-1.5 md:py-2 rounded-bl-lg shadow-sm">
               23 VAGAS
             </div>
@@ -134,8 +134,6 @@ const FAQ = () => {
             </a>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-foreground/50 font-light">
               <span>Pagamento seguro</span>
-              <span>•</span>
-              <span>Garantia 7 dias</span>
               <span>•</span>
               <span>Acesso em 5 minutos</span>
             </div>

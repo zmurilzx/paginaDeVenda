@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-white/80 backdrop-blur-sm'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-md' : 'bg-gray-900/80 backdrop-blur-sm'}`}>
       <div className="container mx-auto px-4 py-3 md:py-4">
         <div className="flex items-center justify-between">
           <motion.div 
@@ -31,10 +31,7 @@ const Navbar = () => {
             transition={{ duration: 0.5 }}
             className="flex items-center"
           >
-            <div>
-              <span className="text-xl md:text-2xl font-bold tracking-tight bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">CineStream2K</span>
-              <span className="block text-xs text-foreground/50 -mt-1 font-light hidden sm:block">15.000+ clientes</span>
-            </div>
+            <span className="text-xl md:text-2xl font-bold tracking-tight bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">CineStream</span>
           </motion.div>
           <div className="md:hidden">
             <Button variant="ghost" size="icon" onClick={toggleMobileMenu} aria-label="Menu" className="h-10 w-10">
@@ -51,7 +48,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/95 backdrop-blur-md border-t border-purple-200"
+            className="md:hidden bg-gray-900/95 backdrop-blur-md border-t border-purple-500/30"
           >
             <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
               <a href="https://wa.me/5543999748808" target="_blank" rel="noopener noreferrer" className="w-full">
