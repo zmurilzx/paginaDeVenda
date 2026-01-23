@@ -10,10 +10,10 @@ const PricingPlans = () => {
       period: "/mês",
       oldPrice: "R$49,90",
       description: "Ideal para testar o serviço",
-      link: "",
+      link: "https://pay.cakto.com.br/33pbxy7_610779",
       features: [
         "Streaming SD, HD, FHD, 4K",
-        "+100.000 títulos disponíveis",
+        "Acesso ilimitado",
         "Zero anúncios e interrupções",
         "Cancele quando quiser"
       ],
@@ -21,35 +21,19 @@ const PricingPlans = () => {
       savings: "Economia de R$20/mês"
     },
     {
-      name: "Trimestral",
-      price: "R$65,90",
-      period: "ou 12x de R$5,50",
-      oldPrice: "R$95,70",
-      description: "Ideal para toda família",
-      link: "",
-      features: [
-        "Streaming SD, HD, FHD, 4K",
-        "Conteúdo +18 liberado",
-        "Zero anúncios",
-        "Economia de 56% vs mensal"
-      ],
-      popular: false,
-      savings: "Economia de R$83,80 (56%)"
-    },
-    {
       name: "Semestral",
       price: "R$89,90",
       period: "ou 12x de R$7,50",
       oldPrice: "R$129,40",
       description: "Mais escolhido pelos clientes",
-      link: "",
+      link: "https://pay.cakto.com.br/xkehep2_608252",
       features: [
         "Streaming SD, HD, FHD, 4K",
         "Acesso ilimitado",
         "Todo conteúdo +18 incluído",
         "Suporte VIP prioritário",
-        "Bônus: Guia de configuração",
-        "Economia de 70% vs mensal"
+        "Ganha um mês em Disney+",
+        "Economia de 70% vs mensal",
       ],
       popular: true,
       savings: "Economia de R$209,50 (70%)"
@@ -57,8 +41,8 @@ const PricingPlans = () => {
     {
       name: "Anual",
       price: "R$189,90",
-      period: "ou 12x de R$15,80",
-      oldPrice: "R$598,80",
+      period: "ou 12x de R$15,82",
+      oldPrice: "R$299,90",
       description: "Melhor custo-benefício",
       link: "https://pay.cakto.com.br/3b87s8g_608254",
       features: [
@@ -66,8 +50,8 @@ const PricingPlans = () => {
         "Dispositivos ilimitados",
         "Conteúdo adulto +18 completo",
         "Suporte VIP 24/7",
-        "Lançamentos exclusivos",
-        "3 bônus inclusos",
+        "Atualização toda semana",
+        "Ganha um mês na plataforma Disney+ ou Netflix ou Amazon Prime",
         "Economia de 68% vs mensal"
       ],
       popular: false,
@@ -75,11 +59,11 @@ const PricingPlans = () => {
     },
     {
       name: "Vitalício",
-      price: "R$319,99",
+      price: "R$223,90",
       period: "Pagamento único",
       oldPrice: "R$3.588,00",
       description: "Acesso vitalício garantido",
-      link: "https://pay.cakto.com.br/39ink3t_605690",
+      link: "https://pay.cakto.com.br/hgxozmo_738525",
       features: [
         "Acesso vitalício (nunca mais pague)",
         "Streaming SD, HD, FHD, 4K",
@@ -88,8 +72,9 @@ const PricingPlans = () => {
         "Zero mensalidades futuras",
         "Suporte vitalício prioritário",
         "Todos os lançamentos incluídos",
-        "5 bônus exclusivos",
-        "Economia de +R$3.000 em 10 anos"
+        "Bonûs exclusivo",
+        "Economia de +R$3.000 em 10 anos",
+        "Plano de até 3 telas"
       ],
       popular: true,
       savings: "Economia de R$3.352,10 (93%)"
