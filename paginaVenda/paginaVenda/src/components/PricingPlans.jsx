@@ -59,9 +59,9 @@ const PricingPlans = () => {
     },
     {
       name: "Vitalício",
-      price: "R$223,90",
+      price: "R$149,90",
       period: "Pagamento único",
-      oldPrice: "R$3.588,00",
+      oldPrice: "R$299,90",
       description: "Acesso vitalício garantido",
       link: "https://pay.cakto.com.br/hgxozmo_738525",
       features: [
