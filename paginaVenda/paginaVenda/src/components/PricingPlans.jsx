@@ -10,7 +10,7 @@ const PricingPlans = () => {
       period: "/mês",
       oldPrice: "R$49,90",
       description: "Ideal para testar o serviço",
-      link: "https://pay.cakto.com.br/33pbxy7_610779",
+      link: "https://pay.cakto.com.br/32sawv8",
       features: [
         "Streaming SD, HD, FHD, 4K",
         "Acesso ilimitado",
@@ -26,7 +26,7 @@ const PricingPlans = () => {
       period: "ou 12x de R$7,50",
       oldPrice: "R$129,40",
       description: "Mais escolhido pelos clientes",
-      link: "https://pay.cakto.com.br/xkehep2_608252",
+      link: "https://pay.cakto.com.br/r8ao9dd",
       features: [
         "Streaming SD, HD, FHD, 4K",
         "Acesso ilimitado",
@@ -44,7 +44,7 @@ const PricingPlans = () => {
       period: "ou 12x de R$15,82",
       oldPrice: "R$299,90",
       description: "Melhor custo-benefício",
-      link: "https://pay.cakto.com.br/3b87s8g_608254",
+      link: "https://pay.cakto.com.br/3dhz8j2_745136",
       features: [
         "Streaming SD, HD, FHD, 4K",
         "Dispositivos ilimitados",
@@ -63,7 +63,7 @@ const PricingPlans = () => {
       period: "Pagamento único",
       oldPrice: "R$299,90",
       description: "Acesso vitalício garantido",
-      link: "https://pay.cakto.com.br/hgxozmo_738525",
+      link: "https://pay.cakto.com.br/3dhz8j2_745136",
       features: [
         "Acesso vitalício (nunca mais pague)",
         "Streaming SD, HD, FHD, 4K",
