@@ -7,9 +7,9 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import VSL from '@/components/VSL';
 import PricingPlans from '@/components/PricingPlans';
 import Devices from '@/components/Devices';
-import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 
 function App() {
@@ -91,8 +91,8 @@ function App() {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <Hero />
+      <VSL />
       <PricingPlans />
-      <FAQ />
       <Footer />
 
       {showScrollToTop && (

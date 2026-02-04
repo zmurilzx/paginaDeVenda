@@ -6,7 +6,7 @@ const PricingPlans = () => {
   const plans = [
     {
       name: "Mensal",
-      price: "R$29,90",
+      price: "R$24,90",
       period: "/mês",
       oldPrice: "R$49,90",
       description: "Ideal para testar o serviço",
@@ -15,28 +15,12 @@ const PricingPlans = () => {
         "Streaming SD, HD, FHD, 4K",
         "Acesso ilimitado",
         "Zero anúncios e interrupções",
-        "Cancele quando quiser"
+        "Cancele quando quiser",
+        "Ganha um mês em uma das plataformas Disney+, Netflix ou Amazon Prime etc ",
+        "Sem contratos"
       ],
       popular: false,
       savings: "Economia de R$20/mês"
-    },
-    {
-      name: "Semestral",
-      price: "R$89,90",
-      period: "ou 12x de R$7,50",
-      oldPrice: "R$129,40",
-      description: "Mais escolhido pelos clientes",
-      link: "https://pay.cakto.com.br/r8ao9dd",
-      features: [
-        "Streaming SD, HD, FHD, 4K",
-        "Acesso ilimitado",
-        "Todo conteúdo +18 incluído",
-        "Suporte VIP prioritário",
-        "Ganha um mês em Disney+",
-        "Economia de 70% vs mensal",
-      ],
-      popular: true,
-      savings: "Economia de R$209,50 (70%)"
     },
     {
       name: "Anual",
@@ -52,29 +36,28 @@ const PricingPlans = () => {
         "Suporte VIP 24/7",
         "Atualização toda semana",
         "Ganha um mês na plataforma Disney+ ou Netflix ou Amazon Prime",
-        "Economia de 68% vs mensal"
+        "Economia de 68% vs mensal",
+        "Sem contratos"
       ],
       popular: false,
       savings: "Economia de R$408,90 (68%)"
     },
     {
       name: "Vitalício",
-      price: "R$149,90",
+      price: "R$114,90",
       period: "Pagamento único",
       oldPrice: "R$299,90",
       description: "Acesso vitalício garantido",
       link: "https://pay.cakto.com.br/3dhz8j2_745136",
       features: [
-        "Acesso vitalício (nunca mais pague)",
+        "Acesso vitalício para sempre",
         "Streaming SD, HD, FHD, 4K",
-        "Dispositivos ilimitados",
         "Todo conteúdo +18 incluído",
         "Zero mensalidades futuras",
         "Suporte vitalício prioritário",
         "Todos os lançamentos incluídos",
         "Bonûs exclusivo",
-        "Economia de +R$3.000 em 10 anos",
-        "Plano de até 3 telas"
+        "Sem contratos"
       ],
       popular: true,
       savings: "Economia de R$3.352,10 (93%)"
