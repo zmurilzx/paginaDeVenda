@@ -6,7 +6,7 @@ const PricingPlans = () => {
   const plans = [
     {
       name: "Mensal",
-      price: "R$24,90",
+      price: "R$28,90",
       period: "/mês",
       oldPrice: "R$49,90",
       description: "Ideal para testar o serviço",
@@ -24,8 +24,8 @@ const PricingPlans = () => {
     },
     {
       name: "Anual",
-      price: "R$189,90",
-      period: "ou 12x de R$15,82",
+      price: "R$159,90",
+      period: "ou 12x de R$13,32",
       oldPrice: "R$299,90",
       description: "Melhor custo-benefício",
       link: "https://pay.cakto.com.br/3dhz8j2_745136",
@@ -44,7 +44,7 @@ const PricingPlans = () => {
     },
     {
       name: "Vitalício",
-      price: "R$114,90",
+      price: "R$189,90",
       period: "Pagamento único",
       oldPrice: "R$299,90",
       description: "Acesso vitalício garantido",

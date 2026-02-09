@@ -1,7 +1,20 @@
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const VSL = () => {
+  const [showButtons, setShowButtons] = useState(false);
+
+  useEffect(() => {
+    // Libera os botões após 1 minuto (60 segundos)
+    const timer = setTimeout(() => {
+      setShowButtons(true);
+    }, 60000); // 60000ms = 1 minuto
+
+    // Cleanup
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="py-16 md:py-24 relative overflow-hidden" id="vsl">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-purple-950/10 to-background z-0"></div>
@@ -37,13 +50,13 @@ const VSL = () => {
             <wistia-player media-id="5gt55026re" aspect="1.7679558011049723"></wistia-player>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
+          {showButtons && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
             <motion.button
               onClick={() => {
                 const pricingSection = document.getElementById('pricing');
@@ -72,6 +85,7 @@ const VSL = () => {
               WhatsApp
             </motion.a>
           </motion.div>
+          )}
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
