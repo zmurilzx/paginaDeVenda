@@ -67,9 +67,10 @@ const PricingPlans = () => {
       price: "R$189,90",
       period: "Pagamento único",
       oldPrice: "R$299,90",
-      description: "Acesso vitalício garantido",
+      description: "🏆 Único no mercado",
       link: "https://pay.cakto.com.br/tsfayhk_744174",
       features: [
+        "✨ EXCLUSIVO: Único plano vitalício do Brasil",
         "Acesso vitalício para sempre",
         "Streaming SD, HD, FHD, 4K",
         "Todo conteúdo +18 incluído",
@@ -85,7 +86,7 @@ const PricingPlans = () => {
   ];
 
   return (
-    <section className="pt-16 pb-16 md:pt-24 md:pb-24 relative overflow-hidden" id="pricing">
+    <section className="py-16 md:py-24 relative overflow-hidden" id="pricing">
       <div className="absolute inset-0 bg-gradient-to-b from-purple-950/15 via-pink-950/10 to-background z-0"></div>
       
       <motion.div 
@@ -94,31 +95,23 @@ const PricingPlans = () => {
         transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
       />
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
+          className="mb-10 text-center"
         >
-          <div className="inline-block bg-purple-500/10 border border-purple-500/30 rounded-lg px-6 py-2 mb-4">
-            <p className="text-sm font-semibold text-purple-400 tracking-wide">PROMOÇÃO LIMITADA</p>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 tracking-tight">
-            Escolha Seu <span className="gradient-text">Plano</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight leading-tight">
+            Pare de Desperdiçar Dinheiro!
           </h2>
-          <p className="text-sm md:text-base text-foreground/60 max-w-2xl mx-auto mb-2 md:mb-3 font-light">
-            <strong className="text-purple-400 font-medium">15.847 clientes</strong> já economizaram milhares de reais
+          <p className="text-base md:text-lg text-foreground/60 max-w-2xl mx-auto px-4">
+            15.847 pessoas já cancelaram Netflix, Prime e Disney+ e economizaram milhares
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-foreground/50 max-w-2xl mx-auto font-light">
-            <span>Acesso completo</span>
-            <span>•</span>
-            <span>Pagamento seguro</span>
-          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
@@ -126,37 +119,38 @@ const PricingPlans = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`pricing-card rounded-xl p-4 md:p-6 backdrop-blur-sm shadow-sm ${
-                plan.popular ? 'pricing-popular' : ''
+              className={`relative pricing-card rounded-xl p-5 md:p-7 backdrop-blur-sm transition-all ${
+                plan.popular ? 'pricing-popular border border-white/20' : 'border border-white/10'
               }`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                  <motion.div
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-lg text-xs font-semibold shadow-lg uppercase tracking-wide"
-                  >
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                  <div className="bg-foreground text-background px-4 py-1 rounded-full text-xs font-semibold">
                     Mais Vendido
-                  </motion.div>
+                  </div>
                 </div>
               )}
-              <h3 className="text-xl md:text-2xl font-bold mb-2 md:mb-3">{plan.name}</h3>
-              <div className="mb-2">
-                {plan.oldPrice && (
-                  <div className="text-xs md:text-sm text-foreground/50 line-through">{plan.oldPrice}</div>
-                )}
-                <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-3xl md:text-4xl font-bold gradient-text">{plan.price}</span>
-                </div>
-                <span className="text-foreground/60 text-xs md:text-sm">{plan.period}</span>
+              
+              <div className="text-center mb-5">
+                <h3 className="text-xl md:text-2xl font-bold mb-2">{plan.name}</h3>
+                <p className="text-foreground/50 text-xs">{plan.description}</p>
               </div>
+
+              <div className="mb-5 text-center">
+                {plan.oldPrice && (
+                  <div className="text-xs text-foreground/40 line-through mb-1">{plan.oldPrice}</div>
+                )}
+                <div className="mb-1">
+                  <span className="text-4xl md:text-5xl font-bold">{plan.price}</span>
+                </div>
+                <span className="text-foreground/60 text-sm">{plan.period}</span>
+              </div>
+
               {plan.savings && (
-                <div className="bg-purple-500/10 text-purple-400/80 px-3 py-1 rounded-full text-xs font-medium mb-4">
+                <div className="bg-white/5 border border-white/10 text-foreground/70 px-3 py-1.5 rounded-lg text-xs font-medium mb-5 text-center">
                   {plan.savings}
                 </div>
               )}
-              <p className="text-foreground/70 font-medium mb-4 md:mb-6 text-xs md:text-sm">{plan.description}</p>
 
               <a href={plan.link} target="_blank" rel="noopener noreferrer">
                 <motion.div

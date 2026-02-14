@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
-import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Analytics } from '@vercel/analytics/react';
 
 import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
 import VSL from '@/components/VSL';
+import UniqueValue from '@/components/UniqueValue';
+import Features from '@/components/Features';
 import PricingPlans from '@/components/PricingPlans';
-import Devices from '@/components/Devices';
+import TrustSection from '@/components/TrustSection';
+import VerifiedBadge from '@/components/VerifiedBadge';
+import FinalCTA from '@/components/FinalCTA';
 import Footer from '@/components/Footer';
 
 function App() {
-  const { toast } = useToast();
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [allowed, setAllowed] = useState(false);
 
@@ -90,9 +91,13 @@ function App() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <Hero />
       <VSL />
+      <UniqueValue />
+      <Features />
       <PricingPlans />
+      <TrustSection />
+      <VerifiedBadge />
+      <FinalCTA />
       <Footer />
 
       {showScrollToTop && (
