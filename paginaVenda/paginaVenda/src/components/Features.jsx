@@ -1,37 +1,27 @@
 import { motion } from 'framer-motion';
-import { Tv, Smartphone, Download, Clock, Zap } from 'lucide-react';
+import { Zap, Tv, Film, Users } from 'lucide-react';
 
 const Features = () => {
   const features = [
     {
+      icon: Zap,
+      title: "Área de esportes",
+      description: "Futebol, SporTV, ESPN, Combate, Premiere etc"
+    },
+    {
       icon: Tv,
-      title: "Qualidade 4K",
-      description: "Assista em resolução SD, HD, FHD e 4K"
+      title: "Área de streamings",
+      description: "Netflix, Prime, Disney+, Max, HBO, Star+"
     },
     {
-      icon: Zap,
-      title: "Sem Travamentos",
-      description: "Streaming fluido e sem interrupções"
+      icon: Film,
+      title: "Filmes por gênero",
+      description: "Ação, Comédia, Terror, Drama, Romance, Suspense etc"
     },
     {
-      icon: Download,
-      title: "Catálogo Completo",
-      description: "Milhares de filmes e séries disponíveis"
-    },
-    {
-      icon: Clock,
-      title: "Atualizações Semanais",
-      description: "Novos conteúdos toda semana"
-    },
-    {
-      icon: Smartphone,
-      title: "Disponível em Todos Dispositivos",
-      description: "Assista em celular, tablet, TV e computador"
-    },
-    {
-      icon: Zap,
-      title: "Acesso Instantâneo",
-      description: "Comece a assistir imediatamente"
+      icon: Users,
+      title: "Conteúdo para todas as idades",
+      description: "Conteúdo seguro para crianças"
     }
   ];
 
@@ -53,7 +43,7 @@ const Features = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -61,13 +51,17 @@ const Features = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-card/40 backdrop-blur-sm border border-white/10 rounded-xl p-5 md:p-6 hover:bg-card/60 transition-all"
+              className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-5 hover:border-purple-500/40 transition-all group"
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-white/5 mb-4">
-                <feature.icon className="w-6 h-6 text-foreground/80" strokeWidth={1.5} />
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-all">
+                  <feature.icon className="w-5 h-5 text-purple-400" strokeWidth={2} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-base mb-1.5 text-white">{feature.title}</h3>
+                  <p className="text-xs text-gray-400 leading-relaxed">{feature.description}</p>
+                </div>
               </div>
-              <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
-              <p className="text-sm text-foreground/60">{feature.description}</p>
             </motion.div>
           ))}
         </div>
