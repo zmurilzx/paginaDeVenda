@@ -61,7 +61,7 @@ const VSL = () => {
             </motion.button>
             
             <motion.a
-              href="https://wa.me/5543999748808?text=Quero%20garantir%20meu%20acesso%20vitalício%20ao%20CineStream!"
+              href="https://wa.me/5543999748808?text=Quero%20saber%20como%20funciona%20o%20app!"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
