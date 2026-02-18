@@ -6,7 +6,6 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Navbar from '@/components/Navbar';
 import VSL from '@/components/VSL';
-import UniqueValue from '@/components/UniqueValue';
 import Features from '@/components/Features';
 import PricingPlans from '@/components/PricingPlans';
 import TrustSection from '@/components/TrustSection';
@@ -92,7 +91,6 @@ function App() {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <VSL />
-      <UniqueValue />
       <Features />
       <PricingPlans />
       <TrustSection />
