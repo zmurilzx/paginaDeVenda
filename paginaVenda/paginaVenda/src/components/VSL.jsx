@@ -20,11 +20,8 @@ const VSL = () => {
           className="text-center mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight leading-tight">
-            Veja o Aplicativo mais estável do mercado na Prática
+            Tenha acesso a tudo isso por apenas R$24 agora mesmo!
           </h2>
-          <p className="text-base md:text-lg text-foreground/60 max-w-2xl mx-auto px-4">
-            Assista ao vídeo e descubra como ter TUDO por apenas R$189,90 - para sempre
-          </p>
         </motion.div>
 
         <motion.div
@@ -57,7 +54,7 @@ const VSL = () => {
               whileTap={{ scale: 0.98 }}
               className="bg-foreground text-background hover:bg-foreground/90 px-8 py-4 text-base md:text-lg font-bold rounded-xl w-full sm:w-auto transition-all shadow-lg"
             >
-              Quero Economizar Agora
+              Ver planos
             </motion.button>
             
             <motion.a
