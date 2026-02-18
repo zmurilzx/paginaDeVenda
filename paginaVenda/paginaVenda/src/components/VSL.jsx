@@ -20,7 +20,7 @@ const VSL = () => {
           className="text-center mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight leading-tight">
-            Veja o Aplicativo na Prática
+            Veja o Aplicativo mais estável do mercado na Prática
           </h2>
           <p className="text-base md:text-lg text-foreground/60 max-w-2xl mx-auto px-4">
             Assista ao vídeo e descubra como ter TUDO por apenas R$189,90 - para sempre
