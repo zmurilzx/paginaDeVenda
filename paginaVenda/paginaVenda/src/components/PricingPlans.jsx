@@ -44,8 +44,8 @@ const PricingPlans = () => {
     },
     {
       name: "Anual",
-      price: "R$159,90",
-      period: "ou 12x de R$13,32",
+      price: "R$149,90",
+      period: "ou 12x de R$12,49",
       oldPrice: "R$299,90",
       description: "Melhor custo-benefício",
       link: "https://pay.cakto.com.br/3dhz8j2_745136",
