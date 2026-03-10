@@ -6,7 +6,7 @@ const PricingPlans = () => {
   const plans = [
     {
       name: "Mensal",
-      price: "R$29,70",
+      price: "R$28,40",
       period: "/mês",
       oldPrice: "R$49,90",
       description: "Ideal para testar o serviço",
