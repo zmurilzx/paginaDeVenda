@@ -20,7 +20,7 @@ const VSL = () => {
           className="text-center mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight leading-tight">
-            Tenha acesso a tudo isso por apenas R$24 agora mesmo!
+            Tenha acesso a tudo isso por apenas R$28 agora mesmo!
           </h2>
         </motion.div>
 
