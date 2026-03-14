@@ -6,7 +6,10 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Navbar from '@/components/Navbar';
 import VSL from '@/components/VSL';
+import SocialProof from '@/components/SocialProof';
+import Authority from '@/components/Authority';
 import PricingPlans from '@/components/PricingPlans';
+import Commitment from '@/components/Commitment';
 import TrustSection from '@/components/TrustSection';
 import VerifiedBadge from '@/components/VerifiedBadge';
 import FinalCTA from '@/components/FinalCTA';
@@ -90,7 +93,10 @@ function App() {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <VSL />
+      <SocialProof />
+      <Authority />
       <PricingPlans />
+      <Commitment />
       <TrustSection />
       <VerifiedBadge />
       <FinalCTA />
