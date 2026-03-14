@@ -44,8 +44,8 @@ const PricingPlans = () => {
     },
     {
       name: "Anual",
-      price: "R$149,90",
-      period: "ou 12x de R$12,49",
+      price: "R$189,90",
+      period: "ou 12x de R$15,82",
       oldPrice: "R$299,90",
       description: "Melhor custo-benefício",
       link: "https://pay.cakto.com.br/3dhz8j2_745136",
@@ -64,7 +64,7 @@ const PricingPlans = () => {
     },
     {
       name: "Vitalício",
-      price: "R$189,90",
+      price: "R$129,90",
       period: "Pagamento único",
       oldPrice: "R$299,90",
       description: "🏆 Único no mercado",
