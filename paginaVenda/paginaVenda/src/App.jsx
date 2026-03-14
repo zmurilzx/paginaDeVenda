@@ -6,7 +6,6 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Navbar from '@/components/Navbar';
 import VSL from '@/components/VSL';
-import SocialProof from '@/components/SocialProof';
 import Authority from '@/components/Authority';
 import PricingPlans from '@/components/PricingPlans';
 import Commitment from '@/components/Commitment';
@@ -93,7 +92,6 @@ function App() {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <VSL />
-      <SocialProof />
       <Authority />
       <PricingPlans />
       <Commitment />
