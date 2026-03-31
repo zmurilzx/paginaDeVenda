@@ -24,16 +24,8 @@ const Navbar = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-md' : 'bg-gray-900/80 backdrop-blur-sm'}`}>
       <div className="container mx-auto px-4 py-3 md:py-4">
-        <div className="flex items-center justify-between">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center"
-          >
-            <span className="text-xl md:text-2xl font-bold tracking-tight bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">CineStream</span>
-          </motion.div>
-          <div className="md:hidden">
+        <div className="flex items-center justify-center">
+          <div className="md:hidden absolute right-4">
             <Button variant="ghost" size="icon" onClick={toggleMobileMenu} aria-label="Menu" className="h-10 w-10">
               {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </Button>

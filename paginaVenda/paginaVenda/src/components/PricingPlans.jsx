@@ -23,26 +23,6 @@ const PricingPlans = () => {
       savings: "Economia de R$20/mês"
     },
     {
-      name: "Semestral",
-      price: "R$89,90",
-      period: "ou 6x de R$14,98", 
-      oldPrice: "R$149,90",
-      description: "Boa opção para quem quer economizar",
-      link: "https://pay.cakto.com.br/3dhz8j2_745136",
-      features: [
-        "Streaming SD, HD, FHD, 4K",
-        "Dispositivos ilimitados",
-        "Conteúdo adulto +18 completo",
-        "Suporte VIP 24/7",
-        "Atualização toda semana",
-        "Ganha um mês na plataforma Disney+ ou Netflix ou Amazon Prime",
-        "Economia de 50% vs mensal",
-        "Sem contratos"
-      ],
-      popular: false,
-      savings: "Economia de R$70,00 (50%)"
-    },
-    {
       name: "Anual",
       price: "R$189,90",
       period: "ou 12x de R$15,82",
@@ -104,10 +84,10 @@ const PricingPlans = () => {
           className="mb-10 text-center"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight leading-tight">
-            Pare de Desperdiçar Dinheiro!
+            Escolha seu plano!
           </h2>
           <p className="text-base md:text-lg text-foreground/60 max-w-2xl mx-auto px-4">
-            15.847 pessoas já cancelaram Netflix, Prime e Disney+ e economizaram milhares
+            São mais de 15 mil clientes satisfeitos no mundo inteiro!
           </p>
         </motion.div>
 

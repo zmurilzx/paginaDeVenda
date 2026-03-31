@@ -71,25 +71,6 @@ const VSL = () => {
               Falar no WhatsApp
             </motion.a>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-8 text-center"
-          >
-            <p className="text-sm md:text-base text-foreground/50 mb-4">
-              ⚡ Oferta por tempo limitado - Não perca essa oportunidade
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 text-xs md:text-sm text-foreground/40">
-              <span>✓ Sem compromisso</span>
-              <span>•</span>
-              <span>✓ Cancele quando quiser</span>
-              <span>•</span>
-              <span>✓ Acesso imediato</span>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>
