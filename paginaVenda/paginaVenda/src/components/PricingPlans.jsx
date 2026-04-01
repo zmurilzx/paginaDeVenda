@@ -20,7 +20,6 @@ const PricingPlans = () => {
         "Sem contratos"
       ],
       popular: false,
-      savings: "Economia de R$20/mês"
     },
     {
       name: "Anual",
@@ -40,7 +39,6 @@ const PricingPlans = () => {
         "Sem contratos"
       ],
       popular: false,
-      savings: "Economia de R$408,90 (68%)"
     },
     {
       name: "Vitalício",
@@ -61,7 +59,6 @@ const PricingPlans = () => {
         "Sem contratos"
       ],
       popular: true,
-      savings: "Economia de R$3.352,10 (93%)"
     }
   ];
 
