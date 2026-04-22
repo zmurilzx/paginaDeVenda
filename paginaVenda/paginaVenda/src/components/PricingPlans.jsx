@@ -22,6 +22,25 @@ const PricingPlans = () => {
       popular: false,
     },
     {
+      name: "Semestral",
+      price: "R$89,90",
+      period: "ou 6x de R$14,98", 
+      oldPrice: "R$149,90",
+      description: "Boa opção para quem quer economizar",
+      link: "https://pay.cakto.com.br/r8ao9dd",
+      features: [
+        "Streaming SD, HD, FHD, 4K",
+        "Dispositivos ilimitados",
+        "Conteúdo adulto +18 completo",
+        "Suporte VIP 24/7",
+        "Atualização toda semana",
+        "Ganha um mês na plataforma Disney+ ou Netflix ou Amazon Prime",
+        "Economia de 50% vs mensal",
+        "Sem contratos"
+      ],
+      popular: false,
+    },
+    {
       name: "Anual",
       price: "R$189,90",
       period: "ou 12x de R$15,82",
@@ -42,8 +61,8 @@ const PricingPlans = () => {
     },
     {
       name: "Vitalício",
-      price: "R$129,90",
-      period: "Pagamento único",
+      price: "R$154,90",
+      period: "Ou 12x de R$12,90",
       oldPrice: "R$299,90",
       description: "🏆 Único no mercado",
       link: "https://pay.cakto.com.br/tsfayhk_744174",
@@ -88,7 +107,7 @@ const PricingPlans = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
