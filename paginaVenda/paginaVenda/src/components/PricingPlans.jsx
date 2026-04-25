@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
+import { trackButtonClick, trackPlanSelect } from '@/utils/analytics';
 
 const PricingPlans = () => {
   const plans = [
@@ -148,22 +149,23 @@ const PricingPlans = () => {
                 </div>
               )}
 
-              <a href={plan.link} target="_blank" rel="noopener noreferrer">
+              <a 
+                href={plan.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => {
+                  trackButtonClick('Garantir Plano', 'pricing');
+                  trackPlanSelect(plan.name, plan.price);
+                }}
+              >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Button
-                    className={`w-full mb-4 md:mb-6 font-medium text-xs md:text-sm py-4 md:py-6 relative overflow-hidden group tracking-tight ${
-                      plan.popular
-                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg'
-                        : 'bg-gradient-to-r from-purple-500/80 to-pink-500/80 hover:from-purple-600 hover:to-pink-600'
-                    }`}
+                    className="w-full mb-4 md:mb-6 font-medium text-xs md:text-sm py-4 md:py-6 bg-white text-black hover:bg-white/90 shadow-lg tracking-tight"
                   >
-                    <span className="relative z-10">Garantir Plano {plan.name}</span>
-                    {plan.popular && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    )}
+                    Garantir Plano {plan.name}
                   </Button>
                 </motion.div>
               </a>

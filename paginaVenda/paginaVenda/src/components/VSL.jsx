@@ -1,8 +1,24 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { VideoLoader } from './LoadingSpinner';
+import { trackButtonClick, trackVideoPlay } from '@/utils/analytics';
 
 const VSL = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    // Simple timeout to hide loading state after 3 seconds
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden" id="vsl">
+    <section className="pt-24 pb-16 md:pt-32 md:pb-24 relative overflow-hidden" id="vsl">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-pink-950/5 to-background z-0"></div>
       
       <motion.div 
@@ -20,7 +36,7 @@ const VSL = () => {
           className="text-center mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight leading-tight">
-            Veja um vídeo do app em ação logo abaixo!
+            Veja o app em prática abaixo!
           </h2>
         </motion.div>
 
@@ -32,8 +48,14 @@ const VSL = () => {
           className="max-w-5xl mx-auto"
         >
           <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10">
-            <style>{`wistia-player[media-id='5gt55026re']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5gt55026re/swatch'); display: block; filter: blur(5px); padding-top:56.56%; }`}</style>
-            <wistia-player media-id="5gt55026re" aspect="1.7679558011049723"></wistia-player>
+            {isLoading ? (
+              <VideoLoader />
+            ) : (
+              <>
+                <style>{`wistia-player[media-id='5gt55026re']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5gt55026re/swatch'); display: block; filter: blur(5px); padding-top:56.56%; }`}</style>
+                <wistia-player media-id="5gt55026re" aspect="1.7679558011049723"></wistia-player>
+              </>
+            )}
           </div>
 
           <motion.div
@@ -45,6 +67,7 @@ const VSL = () => {
           >
             <motion.button
               onClick={() => {
+                trackButtonClick('Veja nossos planos', 'vsl');
                 const pricingSection = document.getElementById('pricing');
                 if (pricingSection) {
                   pricingSection.scrollIntoView({ behavior: 'smooth' });
@@ -61,6 +84,7 @@ const VSL = () => {
               href="https://wa.me/5543999748808?text=Tenho%20d%C3%BAvidas%20sobre%20o%20app!%20Pode%20me%20ajudar?"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackButtonClick('Entrar em contato', 'vsl')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-base md:text-lg font-bold rounded-xl flex items-center gap-2 w-full sm:w-auto justify-center transition-all shadow-lg"

@@ -6,6 +6,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Navbar from '@/components/Navbar';
 import VSL from '@/components/VSL';
+import BenefitsSection from '@/components/BenefitsSection';
 import PricingPlans from '@/components/PricingPlans';
 import PaymentSecurity from '@/components/PaymentSecurity';
 import Footer from '@/components/Footer';
@@ -88,6 +89,7 @@ function App() {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <VSL />
+      <BenefitsSection />
       <PricingPlans />
       <PaymentSecurity />
       <Footer />
