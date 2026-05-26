@@ -36,7 +36,10 @@ const VSL = () => {
           className="text-center mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight leading-tight">
-            Veja o app em prática abaixo!
+            Tenha acesso a tudo isso{' '}
+            <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+              SEM PAGAR MENSALIDADE!
+            </span>
           </h2>
         </motion.div>
 
@@ -65,20 +68,15 @@ const VSL = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-8 flex flex-col sm:flex-row gap-3 justify-center items-center"
           >
-            <motion.button
-              onClick={() => {
-                trackButtonClick('Veja nossos planos', 'vsl');
-                const pricingSection = document.getElementById('pricing');
-                if (pricingSection) {
-                  pricingSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+            <motion.a
+              href="#pricing"
+              onClick={() => trackButtonClick('Veja nossos planos', 'vsl')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-foreground text-background hover:bg-foreground/90 px-8 py-4 text-base md:text-lg font-bold rounded-xl w-full sm:w-auto transition-all shadow-lg"
+              className="bg-foreground text-background hover:bg-foreground/90 px-8 py-4 text-base md:text-lg font-bold rounded-xl w-full sm:w-auto transition-all shadow-lg text-center"
             >
               Veja nossos planos
-            </motion.button>
+            </motion.a>
             
             <motion.a
               href="https://wa.me/5543999748808?text=Tenho%20d%C3%BAvidas%20sobre%20o%20app!%20Pode%20me%20ajudar?"
