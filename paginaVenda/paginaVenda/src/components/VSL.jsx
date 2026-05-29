@@ -63,20 +63,17 @@ const VSL = () => {
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex flex-col sm:flex-row gap-3 justify-center items-center"
+            className="mt-8 flex flex-col sm:flex-row gap-3 justify-center items-center pointer-events-auto"
           >
-            <motion.a
+            <a
               href="#pricing"
               onClick={() => trackButtonClick('Veja nossos planos', 'vsl')}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
               className="bg-foreground text-background hover:bg-foreground/90 px-8 py-4 text-base md:text-lg font-bold rounded-xl w-full sm:w-auto transition-all shadow-lg text-center"
             >
               Veja nossos planos
-            </motion.a>
+            </a>
             
             <motion.a
               href="https://wa.me/5543999748808?text=Tenho%20d%C3%BAvidas%20sobre%20o%20app!%20Pode%20me%20ajudar?"
