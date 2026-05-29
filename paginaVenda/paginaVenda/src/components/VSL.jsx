@@ -62,20 +62,13 @@ const VSL = () => {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <button
-              onClick={() => {
-                trackButtonClick('Veja nossos planos', 'vsl');
-                setTimeout(() => {
-                  const pricingSection = document.getElementById('pricing');
-                  if (pricingSection) {
-                    pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }, 100);
-              }}
-              className="bg-foreground text-background hover:bg-foreground/90 px-8 py-4 text-base md:text-lg font-bold rounded-xl w-full sm:w-auto transition-all shadow-lg text-center"
+            <a
+              href="#pricing"
+              onClick={() => trackButtonClick('Veja nossos planos', 'vsl')}
+              className="bg-foreground text-background hover:bg-foreground/90 px-8 py-4 text-base md:text-lg font-bold rounded-xl w-full sm:w-auto transition-all shadow-lg text-center inline-block"
             >
               Veja nossos planos
-            </button>
+            </a>
             
             <a
               href="https://wa.me/5543999748808?text=Tenho%20d%C3%BAvidas%20sobre%20o%20app!%20Pode%20me%20ajudar?"
