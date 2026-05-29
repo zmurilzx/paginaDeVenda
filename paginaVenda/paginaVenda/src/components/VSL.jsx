@@ -65,7 +65,12 @@ const VSL = () => {
             <button
               onClick={() => {
                 trackButtonClick('Veja nossos planos', 'vsl');
-                window.location.hash = 'pricing';
+                setTimeout(() => {
+                  const pricingSection = document.getElementById('pricing');
+                  if (pricingSection) {
+                    pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }, 100);
               }}
               className="bg-foreground text-background hover:bg-foreground/90 px-8 py-4 text-base md:text-lg font-bold rounded-xl w-full sm:w-auto transition-all shadow-lg text-center"
             >
