@@ -54,10 +54,10 @@ const VSL = () => {
             {isLoading ? (
               <VideoLoader />
             ) : (
-              <>
-                <style>{`wistia-player[media-id='5gt55026re']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5gt55026re/swatch'); display: block; filter: blur(5px); padding-top:56.56%; }`}</style>
-                <wistia-player media-id="5gt55026re" aspect="1.7679558011049723"></wistia-player>
-              </>
+              <div style={{ padding: '179.31% 0 0 0', position: 'relative' }}>
+                <style>{`wistia-player[media-id='5gt55026re']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5gt55026re/swatch'); display: block; filter: blur(5px); padding-top:0; }`}</style>
+                <wistia-player media-id="5gt55026re" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}></wistia-player>
+              </div>
             )}
           </div>
 
