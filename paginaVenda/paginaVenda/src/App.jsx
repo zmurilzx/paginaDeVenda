@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     // 🔒 Domínio permitido (exceto localhost)
-    const allowedDomain = "cinestream2k.site";
+    const allowedDomain = "cinestreamoficial.site";
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
     
     if (!isLocalhost && window.location.hostname !== allowedDomain) {

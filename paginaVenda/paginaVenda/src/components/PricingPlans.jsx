@@ -62,8 +62,8 @@ const PricingPlans = () => {
     },
     {
       name: "Vitalício",
-      price: "R$154,90",
-      period: "Ou 12x de R$12,90",
+      price: "R$209,90",
+      period: "Ou 12x de R$17,49",
       oldPrice: "R$299,90",
       description: "🏆 Único no mercado",
       link: "https://pay.cakto.com.br/tsfayhk_744174",

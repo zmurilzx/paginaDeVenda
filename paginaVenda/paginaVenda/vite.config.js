@@ -184,6 +184,7 @@ logger.error = (msg, options) => {
 export default defineConfig({
 	customLogger: logger,
 	plugins: [react(), addTransformIndexHtml],
+	root: './',
 	server: {
 		cors: true,
 		headers: {
