@@ -1,70 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Toaster } from '@/components/ui/toaster';
+import { ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Analytics } from '@vercel/analytics/react';
+import { Routes, Route } from 'react-router-dom';
 
-import Navbar from '@/components/Navbar';
-import VSL from '@/components/VSL';
-import PricingPlans from '@/components/PricingPlans';
-import PaymentSecurity from '@/components/PaymentSecurity';
-import Footer from '@/components/Footer';
+import Home from '@/pages/Home';
+import RouteEffects from '@/components/RouteEffects';
+
+const Loja = lazy(() => import('@/pages/Loja'));
+const ProdutoDetail = lazy(() => import('@/pages/ProdutoDetail'));
+const Privacy = lazy(() => import('@/pages/Privacy'));
+const Terms = lazy(() => import('@/pages/Terms'));
+const RefundPolicy = lazy(() => import('@/pages/RefundPolicy'));
+const NotFound = lazy(() => import('@/pages/NotFound'));
+const Checkout = lazy(() => import('@/pages/Checkout'));
 
 function App() {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
-  const [allowed, setAllowed] = useState(false);
-
-  useEffect(() => {
-    // 🔒 Domínio permitido (exceto localhost)
-    const allowedDomain = "cinestreamoficial.site";
-    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    
-    if (!isLocalhost && window.location.hostname !== allowedDomain) {
-      window.location.href = `https://${allowedDomain}`;
-      return;
-    }
-
-    // 📱 Detecta dispositivo móvel (desabilitado em localhost)
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (!isLocalhost && !isMobile) {
-      document.body.innerHTML = `
-        <div style="text-align:center;margin-top:25vh;padding:20px;font-family:sans-serif">
-          <h2>📱 Este site está disponível apenas para dispositivos móveis.</h2>
-          <p style="margin-top:20px;font-size:18px;color:#555">
-            Acesse pelo seu celular para continuar navegando no <strong>CineStream2K</strong>.
-          </p>
-        </div>
-      `;
-      return;
-    }
-
-    // 🚫 Bloqueia ações de cópia e inspeção
-    const preventAction = (e) => e.preventDefault();
-    document.addEventListener("contextmenu", preventAction);
-    document.addEventListener("copy", preventAction);
-    document.addEventListener("cut", preventAction);
-    document.addEventListener("selectstart", preventAction);
-
-    // 🔐 Bloqueia teclas comuns de inspeção
-    document.addEventListener("keydown", (e) => {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && ["u", "s", "c", "x", "p"].includes(e.key.toLowerCase()))
-      ) {
-        e.preventDefault();
-      }
-    });
-
-    setAllowed(true);
-
-    // 🧹 Limpa eventos ao desmontar
-    return () => {
-      document.removeEventListener("contextmenu", preventAction);
-      document.removeEventListener("copy", preventAction);
-      document.removeEventListener("cut", preventAction);
-      document.removeEventListener("selectstart", preventAction);
-    };
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,15 +35,21 @@ function App() {
     });
   };
 
-  if (!allowed) return null;
-
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <VSL />
-      <PricingPlans />
-      <PaymentSecurity />
-      <Footer />
+      <RouteEffects />
+      <Suspense fallback={<div className="flex min-h-screen items-center justify-center" role="status">Carregando…</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/loja" element={<Loja />} />
+          <Route path="/produto/:id" element={<ProdutoDetail />} />
+          <Route path="/privacidade" element={<Privacy />} />
+          <Route path="/termos" element={<Terms />} />
+          <Route path="/reembolso" element={<RefundPolicy />} />
+          <Route path="/checkout/:plan" element={<Checkout />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
 
       {showScrollToTop && (
         <motion.div
@@ -103,25 +62,11 @@ function App() {
             className="rounded-full w-12 h-12 bg-primary hover:bg-primary/90 shadow-lg"
             aria-label="Voltar ao topo"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-chevron-up"
-            >
-              <path d="m18 15-6-6-6 6" />
-            </svg>
+            <ChevronUp aria-hidden="true" />
           </Button>
         </motion.div>
       )}
 
-      <Toaster />
       <Analytics />
     </div>
   );

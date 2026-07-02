@@ -1,6 +1,5 @@
 # Dependências
 node_modules/
-package-lock.json
 
 # Build
 dist/
@@ -21,4 +20,5 @@ yarn-error.log*
 
 # Arquivos de ambiente
 .env
+.env.local
 .env.*.local

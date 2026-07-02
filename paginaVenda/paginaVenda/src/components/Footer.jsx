@@ -1,90 +1,37 @@
-import { motion } from 'framer-motion';
-import {Globe, Instagram} from 'lucide-react';
+import { Instagram, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import Logo from '@/components/Logo';
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  
-  const footerLinks = [
-    {
-      title: "",
-      links: [""]
-    }
-  ];
-
-  const socialLinks = [    
-    { icon: <Instagram size={20} />, name: "Instagram" },
-  ];
-
-  return (
-    <footer className="pt-16 pb-8 border-t border-border/20">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-          <div className="lg:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            > 
-              <div className="">
-                {socialLinks.map((social, index) => (
-                  <a 
-                    key={index}
-                    href="https://www.instagram.com/cine.stream2k?igsh=aGJybjJlc2hqdDFv&utm_source=qr " 
-                    className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-foreground/70 hover:bg-purple-500/20 hover:text-purple-400 transition-colors"
-                    aria-label={social.name}
-                  >
-                    {social.icon}
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-          
-          {footerLinks.map((section, sectionIndex) => (
-            <motion.div
-              key={sectionIndex}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: sectionIndex * 0.1 }}
-            >
-              <h4 className="font-bold mb-4">{section.title}</h4>
-              <ul className="space-y-2">
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <a 
-                      href="https://wa.me/5543999748808" 
-                      className="text-foreground/70 hover:text-purple-400 transition-colors text-sm"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+const Footer = () => (
+  <footer className="border-t border-border/30 pb-8 pt-14">
+    <div className="container mx-auto px-4 md:px-6">
+      <div className="mb-10 grid gap-10 md:grid-cols-3">
+        <div>
+          <Logo />
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-foreground/60">Entretenimento e dispositivos para aproveitar sua TV com praticidade.</p>
         </div>
-        
-        <div className="pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center mb-4 md:mb-0">
-            <Globe size={16} className="text-foreground/60 mr-2" />
-            <select className="bg-transparent text-foreground/60 text-sm border-none focus:outline-none">
-              <option value="pt">Português</option>
-              <option value="en">English</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-              <option value="de">Deutsch</option>
-            </select>
+        <nav aria-label="Links institucionais">
+          <h2 className="mb-4 font-semibold">Informações</h2>
+          <ul className="space-y-3 text-sm text-foreground/65">
+            <li><Link className="hover:text-white" to="/loja">Loja de aparelhos</Link></li>
+            <li><Link className="hover:text-white" to="/termos">Termos de uso</Link></li>
+            <li><Link className="hover:text-white" to="/privacidade">Política de privacidade</Link></li>
+            <li><Link className="hover:text-white" to="/reembolso">Política de reembolso</Link></li>
+          </ul>
+        </nav>
+        <div>
+          <h2 className="mb-4 font-semibold">Atendimento</h2>
+          <div className="flex gap-3">
+            <a href="https://wa.me/5543999748808" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-green-600/15 text-green-400 hover:bg-green-600/25" aria-label="Atendimento pelo WhatsApp"><MessageCircle aria-hidden="true" /></a>
+            <a href="https://www.instagram.com/cine.stream2k" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-purple-500/15 text-purple-300 hover:bg-purple-500/25" aria-label="CineStream no Instagram"><Instagram aria-hidden="true" /></a>
           </div>
-          
-          <p className="text-foreground/60 text-sm">
-            © {currentYear} CineStream. Todos os direitos reservados.
-          </p>
         </div>
       </div>
-    </footer>
-  );
-};
+      <div className="border-t border-border/30 pt-6 text-center text-sm text-foreground/50 md:text-left">
+        © {new Date().getFullYear()} CineStream. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+);
 
 export default Footer;

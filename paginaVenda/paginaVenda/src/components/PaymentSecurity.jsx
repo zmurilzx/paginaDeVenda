@@ -16,12 +16,12 @@ const PaymentSecurity = () => {
     {
       icon: Zap,
       title: "Acesso Imediato",
-      description: "Liberação instantânea após pagamento"
+      description: "Liberação após a confirmação do pagamento"
     },
     {
       icon: CheckCircle,
       title: "Plataforma Verificada",
-      description: "100% segura e confiável"
+      description: "Checkout processado por parceiro externo"
     }
   ];
 
@@ -35,7 +35,7 @@ const PaymentSecurity = () => {
               Pagamento Seguro
             </h2>
             <p className="text-base md:text-lg text-foreground/70 max-w-2xl mx-auto">
-              Seus dados estão protegidos com a mais alta tecnologia de segurança do mercado. Acesso imediato após confirmação do pagamento.
+              O pagamento é processado em ambiente externo protegido. <span className="text-purple-400 font-semibold">A liberação ocorre após a confirmação do pagamento.</span>
             </p>
           </div>
 

@@ -1,0 +1,10 @@
+{
+  "name": "CineStream",
+  "short_name": "CineStream",
+  "description": "Entretenimento e dispositivos para sua TV.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#141419",
+  "theme_color": "#141419",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

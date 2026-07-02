@@ -41,10 +41,41 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-purple-400 ring-offset-2 ring-offset-background;
+  }
+}
+
+.legal-content h2 {
+  @apply mb-3 text-xl font-semibold text-foreground md:text-2xl;
+}
+
+.legal-content p {
+  @apply leading-7;
+}
+
+.legal-content a {
+  @apply text-purple-300 underline underline-offset-4 hover:text-purple-200;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .hero-gradient {
-  background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(217, 70, 239, 0.1), rgba(236, 72, 153, 0.1));
+  background: linear-gradient(180deg, rgba(102, 23, 179, 0.1), rgba(0, 0, 0, 0.1));
 }
 
 .card-hover {
@@ -76,14 +107,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(139, 92, 246, 0.95), transparent);
+  background: linear-gradient(180deg, rgba(102, 23, 179, 0.95), transparent);
   padding: 1rem;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #ec4899 100%);
+  background: linear-gradient(180deg, #6617b3 0%, #000000 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -105,9 +136,9 @@
 }
 
 .pricing-popular {
-  border: 1px solid rgba(139, 92, 246, 0.5);
+  border: 1px solid rgba(102, 23, 179, 0.5);
   position: relative;
-  background: linear-gradient(180deg, rgba(139, 92, 246, 0.15) 0%, rgba(217, 70, 239, 0.1) 100%);
+  background: linear-gradient(180deg, rgba(102, 23, 179, 0.15) 0%, rgba(0, 0, 0, 0.1) 100%);
 }
 
 .device-icon {
@@ -130,7 +161,7 @@
   height: 1px;
   bottom: -4px;
   left: 0;
-  background: linear-gradient(90deg, #8b5cf6 0%, #d946ef 50%, #ec4899 100%);
+  background: linear-gradient(180deg, #6617b3 0%, #000000 100%);
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -163,7 +194,7 @@
 }
 
 .bg-gradient-animated {
-  background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #ec4899 100%);
+  background: linear-gradient(180deg, #6617b3 0%, #000000 100%);
 }
 
 @keyframes shimmer {
