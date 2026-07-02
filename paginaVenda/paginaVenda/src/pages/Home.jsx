@@ -4,6 +4,7 @@ import SubscriptionBenefits from '@/components/SubscriptionBenefits';
 import VSL from '@/components/VSL';
 import PricingPlans from '@/components/PricingPlans';
 import HowItWorks from '@/components/HowItWorks';
+import StoreCta from '@/components/StoreCta';
 import Faq from '@/components/Faq';
 import PaymentSecurity from '@/components/PaymentSecurity';
 import FinalSubscriptionCta from '@/components/FinalSubscriptionCta';
@@ -20,6 +21,7 @@ const Home = () => {
       <VSL />
       <PricingPlans />
       <HowItWorks />
+      <StoreCta />
       <Faq />
       <PaymentSecurity />
       <FinalSubscriptionCta />
