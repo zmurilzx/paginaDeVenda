@@ -1,5 +1,12 @@
 {
-  "dependencies": {
-    "@vercel/analytics": "^1.5.0"
+  "name": "cinestream-project",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix paginaVenda/paginaVenda run dev",
+    "build": "npm --prefix paginaVenda/paginaVenda run build",
+    "lint": "npm --prefix paginaVenda/paginaVenda run lint",
+    "test": "npm --prefix paginaVenda/paginaVenda test",
+    "check": "npm --prefix paginaVenda/paginaVenda run check"
   }
 }
