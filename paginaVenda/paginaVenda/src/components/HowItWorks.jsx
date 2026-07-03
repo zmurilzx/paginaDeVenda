@@ -1,22 +1,24 @@
+import { CheckCircle2, CreditCard, MousePointerClick } from 'lucide-react';
+
 const steps = [
-  { number: '01', title: 'Escolha o plano', description: 'Compare duração, condições e valor equivalente por mês.' },
-  { number: '02', title: 'Finalize o pagamento', description: 'Use Pix ou cartão no checkout protegido dentro do site.' },
-  { number: '03', title: 'Receba o acesso', description: 'Após a confirmação, siga as orientações de ativação.' },
+  { icon: MousePointerClick, title: '1. Escolha o plano', description: 'Compare duração, condições e recursos de cada opção.' },
+  { icon: CreditCard, title: '2. Finalize o pagamento', description: 'Conclua a compra pelo checkout seguro dentro do próprio site.' },
+  { icon: CheckCircle2, title: '3. Receba o acesso', description: 'Após a confirmação, siga as orientações de ativação e instalação.' },
 ];
 
 const HowItWorks = () => (
-  <section className="border-y border-white/[0.06] py-16 md:py-24" aria-labelledby="how-title">
+  <section className="py-16 md:py-24" aria-labelledby="how-title">
     <div className="container mx-auto px-4 md:px-6 lg:px-8">
-      <header className="mb-12 max-w-2xl">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">Processo</p>
-        <h2 id="how-title" className="text-3xl font-semibold tracking-[-0.03em] md:text-5xl">Do plano ao acesso em três etapas</h2>
+      <header className="mb-12 text-center">
+        <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-purple-300">Sem complicação</p>
+        <h2 id="how-title" className="text-3xl font-bold md:text-5xl">Como funciona</h2>
       </header>
-      <ol className="mx-auto grid max-w-7xl border-t border-white/[0.08] md:grid-cols-3">
+      <ol className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
         {steps.map((step) => (
-          <li key={step.number} className="border-b border-white/[0.08] py-7 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-r-0">
-            <span className="text-xs font-semibold tracking-[0.18em] text-purple-300">{step.number}</span>
-            <h3 className="mt-8 text-xl font-semibold">{step.title}</h3>
-            <p className="mt-3 max-w-sm text-sm leading-6 text-foreground/50">{step.description}</p>
+          <li key={step.title} className="rounded-2xl border border-white/10 bg-card/35 p-7 text-center">
+            <span className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-500/15 text-purple-300"><step.icon aria-hidden="true" /></span>
+            <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
+            <p className="text-sm leading-relaxed text-foreground/60">{step.description}</p>
           </li>
         ))}
       </ol>

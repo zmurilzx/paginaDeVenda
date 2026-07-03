@@ -25,6 +25,11 @@ const ThankYou = () => {
   return (
     <div className="min-h-screen overflow-hidden bg-[#0b0b10] text-white">
       <Seo title="Obrigado pela compra" description="Compra confirmada com sucesso na CineStream." path="/obrigado" noIndex />
+      <div className="pointer-events-none fixed inset-0">
+        <div className="absolute left-1/2 top-0 h-[520px] w-[720px] -translate-x-1/2 rounded-full bg-green-500/10 blur-3xl" />
+        <div className="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-purple-600/15 blur-3xl" />
+      </div>
+
       <header className="relative z-10 border-b border-white/[0.07] bg-[#0b0b10]/80 backdrop-blur-xl">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link to="/" aria-label="CineStream — página inicial"><Logo /></Link>
@@ -33,10 +38,11 @@ const ThankYou = () => {
       </header>
 
       <main className="relative z-10 mx-auto max-w-5xl px-4 py-12 md:px-6 md:py-20">
-        <section className="overflow-hidden rounded-xl border border-white/[0.09] bg-[#111118]">
+        <section className="overflow-hidden rounded-[2rem] border border-green-400/15 bg-[#111118]/90 shadow-2xl shadow-black/30 backdrop-blur">
           <div className="border-b border-white/[0.07] px-6 py-10 text-center sm:px-10 md:py-14">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-green-400/20 bg-green-400/[0.06] text-green-400">
-              <CheckCircle2 className="h-9 w-9" strokeWidth={1.6} aria-hidden="true" />
+            <div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-400/10 text-green-400">
+              <span className="absolute inset-0 animate-ping rounded-full bg-green-400/10" />
+              <CheckCircle2 className="relative h-11 w-11" aria-hidden="true" />
             </div>
             <p className="mt-7 text-sm font-semibold uppercase tracking-[0.2em] text-green-300">Compra aprovada</p>
             <h1 className="mx-auto mt-3 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Obrigado pela sua compra!</h1>

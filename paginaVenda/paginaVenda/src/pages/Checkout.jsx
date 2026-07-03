@@ -11,6 +11,7 @@ import {
   LockKeyhole,
   QrCode,
   ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import Seo from '@/components/Seo';
@@ -245,6 +246,11 @@ const Checkout = () => {
   return (
     <div className="min-h-screen overflow-hidden bg-[#0b0b10] pb-24 text-white sm:pb-0">
       <Seo title={`Checkout — Plano ${plan.name}`} description={`Finalize com segurança a assinatura do plano ${plan.name} CineStream.`} path={`/checkout/${plan.slug}`} noIndex />
+      <div className="pointer-events-none fixed inset-0 -z-0">
+        <div className="absolute -left-32 top-24 h-96 w-96 rounded-full bg-purple-700/15 blur-3xl" />
+        <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-fuchsia-700/10 blur-3xl" />
+      </div>
+
       <header className="relative z-10 border-b border-white/[0.07] bg-[#0b0b10]/90 backdrop-blur-xl">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link to="/" aria-label="Voltar à página inicial"><Logo /></Link>
@@ -262,21 +268,21 @@ const Checkout = () => {
           <span className="hidden items-center gap-2 text-xs text-white/35 sm:inline-flex"><Headphones className="h-4 w-4" /> Suporte disponível após a compra</span>
         </div>
 
-        <div className="mb-8 rounded-xl border border-white/[0.07] bg-white/[0.02] px-5 py-5 sm:px-8">
+        <div className="mb-8 rounded-2xl border border-white/[0.07] bg-white/[0.025] px-5 py-5 sm:px-8">
           <Progress pixPending={Boolean(result?.pix)} />
         </div>
 
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_390px]">
-          <section className="rounded-xl border border-white/[0.08] bg-[#111118] p-5 sm:p-8">
+          <section className="rounded-3xl border border-white/[0.08] bg-[#111118]/90 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:p-8">
             {result?.pix ? (
               <div className="mx-auto max-w-xl py-3 text-center sm:py-6">
-                <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg border border-purple-400/15 bg-purple-500/[0.06] text-purple-300">
+                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-500/15 text-purple-300">
                   <QrCode className="h-7 w-7" aria-hidden="true" />
                 </span>
                 <h1 className="mt-5 text-2xl font-bold sm:text-3xl">Seu Pix está pronto</h1>
                 <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/55">Escaneie o QR Code pelo aplicativo do seu banco ou copie o código abaixo. A confirmação acontece automaticamente.</p>
 
-                <div className="mx-auto my-6 w-fit rounded-xl border border-white/10 bg-white p-3">
+                <div className="mx-auto my-6 w-fit rounded-3xl border border-white/10 bg-white p-3 shadow-xl shadow-purple-950/20">
                   <img src={result.pix.qrCodeBase64} alt="QR Code Pix" className="h-56 w-56 sm:h-64 sm:w-64" />
                 </div>
 
@@ -291,7 +297,8 @@ const Checkout = () => {
               </div>
             ) : (
               <form id="checkout-payment-form" onSubmit={submitPayment}>
-                <div>
+                <div className="flex items-start gap-4">
+                  <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-purple-300 sm:flex"><Sparkles className="h-5 w-5" /></span>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">Finalização segura</p>
                     <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Complete sua assinatura</h1>
@@ -302,13 +309,13 @@ const Checkout = () => {
                 <fieldset className="mt-8">
                   <legend className="mb-3 text-sm font-semibold text-white/80">Como deseja pagar?</legend>
                   <div className="grid grid-cols-2 gap-3">
-                    <button type="button" onClick={() => selectMethod('pix')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-lg border px-4 text-left transition ${method === 'pix' ? 'border-purple-400 bg-purple-500/[0.07]' : 'border-white/10 bg-white/[0.02] hover:border-white/20'}`}>
+                    <button type="button" onClick={() => selectMethod('pix')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-2xl border px-4 text-left transition ${method === 'pix' ? 'border-purple-400 bg-purple-500/10 shadow-lg shadow-purple-950/20' : 'border-white/10 bg-white/[0.025] hover:border-white/20'}`}>
                       {method === 'pix' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-300" />}
                       <QrCode className={`mb-2 h-5 w-5 ${method === 'pix' ? 'text-purple-300' : 'text-white/40'}`} />
                       <strong className="text-sm">Pix</strong>
                       <span className="mt-1 text-[11px] text-white/40">Confirmação rápida</span>
                     </button>
-                    <button type="button" onClick={() => selectMethod('threeDs')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-lg border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-400 bg-purple-500/[0.07]' : 'border-white/10 bg-white/[0.02] hover:border-white/20'}`}>
+                    <button type="button" onClick={() => selectMethod('threeDs')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-2xl border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-400 bg-purple-500/10 shadow-lg shadow-purple-950/20' : 'border-white/10 bg-white/[0.025] hover:border-white/20'}`}>
                       {method === 'threeDs' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-300" />}
                       <CreditCard className={`mb-2 h-5 w-5 ${method === 'threeDs' ? 'text-purple-300' : 'text-white/40'}`} />
                       <strong className="text-sm">Cartão</strong>
@@ -358,7 +365,7 @@ const Checkout = () => {
                 </label>
 
                 {error && <div role="alert" className="mt-5 rounded-xl border border-red-400/25 bg-red-500/10 p-4 text-sm text-red-200">{error}</div>}
-                <Button type="submit" disabled={loading || !sdkReady} className="mt-6 hidden min-h-14 w-full rounded-lg bg-purple-500 text-base font-semibold text-white transition hover:bg-purple-400 disabled:opacity-50 sm:inline-flex">
+                <Button type="submit" disabled={loading || !sdkReady} className="mt-6 hidden min-h-14 w-full rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 text-base font-bold text-white shadow-lg shadow-purple-950/30 transition hover:from-purple-500 hover:to-fuchsia-400 disabled:opacity-50 sm:inline-flex">
                   {loading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processando com segurança…</> : method === 'pix' ? <><QrCode className="mr-2 h-5 w-5" /> Gerar Pix de {plan.price}</> : <><LockKeyhole className="mr-2 h-5 w-5" /> Pagar {plan.price}</>}
                 </Button>
                 <p className="mt-3 hidden text-center text-[11px] text-white/30 sm:block">Seus dados de pagamento são protegidos e processados pela Cakto.</p>
@@ -367,7 +374,7 @@ const Checkout = () => {
           </section>
 
           <aside className="h-fit lg:sticky lg:top-6">
-            <div className="overflow-hidden rounded-xl border border-white/[0.09] bg-[#111118]">
+            <div className="overflow-hidden rounded-3xl border border-purple-400/20 bg-gradient-to-b from-purple-950/45 to-[#111118] shadow-2xl shadow-black/30">
               <div className="border-b border-white/[0.08] p-6">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-300">Seu pedido</p>
@@ -378,7 +385,7 @@ const Checkout = () => {
               </div>
 
               <div className="p-6">
-                <div className="mb-6 rounded-lg border border-green-400/15 bg-green-400/[0.04] p-5 text-center">
+                <div className="mb-6 rounded-2xl border border-green-400/15 bg-green-400/[0.06] p-5 text-center">
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-300">{plan.valuePresentation.eyebrow}</p>
                   {plan.valuePresentation.monthlyEquivalent ? (
                     <>
@@ -412,7 +419,7 @@ const Checkout = () => {
                   <p className="mt-2 text-right text-xs text-white/35">{plan.valuePresentation.detail}</p>
                 </div>
 
-                <div className="space-y-3 rounded-lg border border-white/[0.06] p-4 text-xs leading-relaxed text-white/45">
+                <div className="space-y-3 rounded-2xl bg-black/20 p-4 text-xs leading-relaxed text-white/45">
                   <p className="flex gap-2.5"><ShieldCheck className="h-4 w-4 shrink-0 text-green-400" /> Pagamento processado pela Cakto</p>
                   <p className="flex gap-2.5"><LockKeyhole className="h-4 w-4 shrink-0 text-green-400" /> Cartão tokenizado e autenticação 3D Secure</p>
                 </div>
@@ -440,7 +447,7 @@ const Checkout = () => {
 
       {!result?.pix && (
         <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#0b0b10]/95 p-3 shadow-[0_-12px_35px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:hidden">
-          <Button form="checkout-payment-form" type="submit" disabled={loading || !sdkReady} className="min-h-14 w-full rounded-lg bg-purple-500 text-sm font-semibold text-white hover:bg-purple-400 disabled:opacity-50">
+          <Button form="checkout-payment-form" type="submit" disabled={loading || !sdkReady} className="min-h-14 w-full rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 text-sm font-bold text-white disabled:opacity-50">
             {loading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processando…</> : method === 'pix' ? <><QrCode className="mr-2 h-5 w-5" /> Gerar Pix de {plan.price}</> : <><LockKeyhole className="mr-2 h-5 w-5" /> Pagar {plan.price}</>}
           </Button>
           <p className="mt-1.5 text-center text-[10px] text-white/35"><LockKeyhole className="mr-1 inline h-3 w-3 text-green-400" /> Pagamento protegido pela Cakto</p>
