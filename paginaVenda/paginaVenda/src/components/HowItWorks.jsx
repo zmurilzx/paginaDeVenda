@@ -1,9 +1,9 @@
-import { CheckCircle2, CreditCard, MousePointerClick } from 'lucide-react';
+import { ListChecks, PackageCheck, WalletCards } from 'lucide-react';
 
 const steps = [
-  { icon: MousePointerClick, title: '1. Escolha o plano', description: 'Compare duração, condições e recursos de cada opção.' },
-  { icon: CreditCard, title: '2. Finalize o pagamento', description: 'Conclua a compra pelo checkout seguro dentro do próprio site.' },
-  { icon: CheckCircle2, title: '3. Receba o acesso', description: 'Após a confirmação, siga as orientações de ativação e instalação.' },
+  { icon: ListChecks, title: '1. Escolha o plano', description: 'Compare duração, condições e recursos de cada opção.' },
+  { icon: WalletCards, title: '2. Finalize o pagamento', description: 'Conclua a compra pelo checkout seguro dentro do próprio site.' },
+  { icon: PackageCheck, title: '3. Receba o acesso', description: 'Após a confirmação, siga as orientações de ativação e instalação.' },
 ];
 
 const HowItWorks = () => (
@@ -16,7 +16,7 @@ const HowItWorks = () => (
       <ol className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
         {steps.map((step) => (
           <li key={step.title} className="rounded-2xl border border-white/10 bg-card/35 p-7 text-center">
-            <span className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-500/15 text-purple-300"><step.icon aria-hidden="true" /></span>
+            <span className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-500/15 text-purple-300"><step.icon strokeWidth={1.7} aria-hidden="true" /></span>
             <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
             <p className="text-sm leading-relaxed text-foreground/60">{step.description}</p>
           </li>

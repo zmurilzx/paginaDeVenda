@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import { CalendarRange, Headphones, MonitorPlay, Zap } from 'lucide-react';
+import { CalendarDays, Gauge, LifeBuoy, Rocket } from 'lucide-react';
 
 const benefits = [
-  { icon: MonitorPlay, title: 'Qualidade ajustável', description: 'Opções de reprodução de SD a 4K, conforme o conteúdo, o dispositivo e sua conexão.' },
-  { icon: CalendarRange, title: 'Você escolhe o período', description: 'Compare planos mensal, semestral e de pagamento único.' },
-  { icon: Zap, title: 'Ativação simplificada', description: 'Após a confirmação do pagamento, você recebe as orientações para começar.' },
-  { icon: Headphones, title: 'Suporte pelo WhatsApp', description: 'Canal direto para tirar dúvidas sobre acesso, instalação e compatibilidade.' },
+  { icon: Gauge, title: 'Qualidade ajustável', description: 'Opções de reprodução de SD a 4K, conforme o conteúdo, o dispositivo e sua conexão.' },
+  { icon: CalendarDays, title: 'Você escolhe o período', description: 'Compare planos mensal, semestral e de pagamento único.' },
+  { icon: Rocket, title: 'Ativação simplificada', description: 'Após a confirmação do pagamento, você recebe as orientações para começar.' },
+  { icon: LifeBuoy, title: 'Suporte pelo WhatsApp', description: 'Canal direto para tirar dúvidas sobre acesso, instalação e compatibilidade.' },
 ];
 
 const SubscriptionBenefits = () => (
@@ -18,7 +18,7 @@ const SubscriptionBenefits = () => (
       <div className="mx-auto grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {benefits.map((benefit, index) => (
           <motion.article key={benefit.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }} className="rounded-2xl border border-white/10 bg-card/50 p-6">
-            <benefit.icon className="mb-4 h-8 w-8 text-purple-400" aria-hidden="true" />
+            <benefit.icon className="mb-4 h-8 w-8 text-purple-400" strokeWidth={1.7} aria-hidden="true" />
             <h3 className="mb-2 font-semibold">{benefit.title}</h3>
             <p className="text-sm leading-relaxed text-foreground/60">{benefit.description}</p>
           </motion.article>

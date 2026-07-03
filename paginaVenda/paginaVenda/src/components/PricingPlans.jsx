@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Check, LockKeyhole } from 'lucide-react';
+import { BadgeCheck, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { subscriptionPlans } from '@/data/subscriptionPlans';
@@ -43,7 +43,7 @@ const PricingPlans = () => (
             <ul className="flex-1 space-y-3">
               {plan.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-2 text-sm text-foreground/70">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-400" aria-hidden="true" />
+                  <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-green-400" strokeWidth={1.7} aria-hidden="true" />
                   {feature}
                 </li>
               ))}
@@ -53,7 +53,7 @@ const PricingPlans = () => (
       </div>
 
       <div className="mx-auto mt-8 max-w-3xl text-center text-xs leading-relaxed text-foreground/50">
-        <p className="inline-flex items-center gap-2"><LockKeyhole className="h-4 w-4" aria-hidden="true" /> Pagamento processado com segurança pela Cakto.</p>
+        <p className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" /> Pagamento processado com segurança pela Cakto.</p>
         <p className="mt-2">*A qualidade depende do conteúdo, dispositivo, televisão e conexão. Catálogo e disponibilidade podem variar. Ao contratar, você concorda com os <Link to="/termos" className="text-purple-300 underline underline-offset-4">Termos de Uso</Link>.</p>
       </div>
     </div>

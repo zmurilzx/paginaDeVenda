@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Check, MessageCircle } from 'lucide-react';
+import { ArrowLeft, BadgeCheck, MessagesSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
@@ -35,7 +35,7 @@ const ProdutoDetail = () => {
       <main className="relative overflow-hidden pb-16 pt-24 md:pb-24 md:pt-32">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <Link to="/loja" className="mb-8 inline-flex items-center gap-2 text-sm text-foreground/70 hover:text-white">
-            <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Voltar para a loja
+            <ArrowLeft className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" /> Voltar para a loja
           </Link>
 
           <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 lg:gap-12">
@@ -49,7 +49,7 @@ const ProdutoDetail = () => {
               <strong className="mb-8 text-4xl md:text-5xl">{product.price}</strong>
               <a href={product.purchaseLink} target="_blank" rel="noopener noreferrer" onClick={() => trackButtonClick(product.name, 'produto-consultar')}>
                 <Button className="w-full bg-green-600 py-6 text-base text-white hover:bg-green-700">
-                  <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" /> Consultar e comprar pelo WhatsApp
+                  <MessagesSquare className="mr-2 h-5 w-5" strokeWidth={1.7} aria-hidden="true" /> Consultar e comprar pelo WhatsApp
                 </Button>
               </a>
               <p className="mt-3 text-center text-xs text-foreground/50">Confirme disponibilidade, versão e prazo antes de finalizar a compra.</p>
@@ -61,7 +61,7 @@ const ProdutoDetail = () => {
             <div className="grid gap-4 md:grid-cols-2">
               {product.features.map((feature) => (
                 <div key={feature} className="flex items-center gap-3 rounded-xl border border-white/10 bg-card/40 p-4">
-                  <Check className="h-5 w-5 shrink-0 text-purple-400" aria-hidden="true" />
+                  <BadgeCheck className="h-5 w-5 shrink-0 text-purple-400" strokeWidth={1.7} aria-hidden="true" />
                   <span className="text-foreground/70">{feature}</span>
                 </div>
               ))}

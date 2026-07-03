@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Check, MessageCircle } from 'lucide-react';
+import { BadgeCheck, MessagesSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProductImage from '@/components/ProductImage';
 import { products } from '@/data/products';
@@ -49,7 +49,7 @@ const LojaCinestream = () => (
               <ul className="mb-5 space-y-2">
                 {product.features.slice(0, 6).map((feature) => (
                   <li key={feature} className="flex items-start text-xs text-foreground/70">
-                    <Check className="mr-2 mt-0.5 h-3 w-3 shrink-0 text-purple-400" aria-hidden="true" />
+                    <BadgeCheck className="mr-2 mt-0.5 h-3 w-3 shrink-0 text-purple-400" strokeWidth={1.7} aria-hidden="true" />
                     {feature}
                   </li>
                 ))}
@@ -61,7 +61,7 @@ const LojaCinestream = () => (
                 onClick={() => trackButtonClick(product.name, 'loja-consultar')}
               >
                 <Button className="w-full bg-green-600 text-white hover:bg-green-700">
-                  <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
+                  <MessagesSquare className="mr-2 h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
                   Consultar e comprar
                 </Button>
               </a>

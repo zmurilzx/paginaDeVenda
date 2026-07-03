@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { ArrowRight, Check, CheckCircle2, Headphones, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
+import { ArrowUpRight, BadgeCheck, Check, LifeBuoy, MailCheck, MessagesSquare, ShieldCheck } from 'lucide-react';
 import Logo from '@/components/Logo';
 import Seo from '@/components/Seo';
 import { Button } from '@/components/ui/button';
@@ -42,7 +42,7 @@ const ThankYou = () => {
           <div className="border-b border-white/[0.07] px-6 py-10 text-center sm:px-10 md:py-14">
             <div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-400/10 text-green-400">
               <span className="absolute inset-0 animate-ping rounded-full bg-green-400/10" />
-              <CheckCircle2 className="relative h-11 w-11" aria-hidden="true" />
+              <BadgeCheck className="relative h-11 w-11" strokeWidth={1.7} aria-hidden="true" />
             </div>
             <p className="mt-7 text-sm font-semibold uppercase tracking-[0.2em] text-green-300">Compra aprovada</p>
             <h1 className="mx-auto mt-3 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Obrigado pela sua compra!</h1>
@@ -61,18 +61,18 @@ const ThankYou = () => {
                   <div><h3 className="font-semibold">Pagamento confirmado</h3><p className="mt-1 text-sm leading-relaxed text-white/45">Seu pedido já foi registrado com segurança.</p></div>
                 </li>
                 <li className="flex gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-purple-500/10 text-purple-300"><Mail className="h-4 w-4" /></span>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-purple-500/10 text-purple-300"><MailCheck className="h-4 w-4" strokeWidth={1.7} /></span>
                   <div><h3 className="font-semibold">Confira seus canais de contato</h3><p className="mt-1 text-sm leading-relaxed text-white/45">As orientações serão enviadas pelos dados informados durante a compra.</p></div>
                 </li>
                 <li className="flex gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-purple-500/10 text-purple-300"><Headphones className="h-4 w-4" /></span>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-purple-500/10 text-purple-300"><LifeBuoy className="h-4 w-4" strokeWidth={1.7} /></span>
                   <div><h3 className="font-semibold">Conte com nosso suporte</h3><p className="mt-1 text-sm leading-relaxed text-white/45">Se precisar, fale com a equipe pelo WhatsApp para receber ajuda.</p></div>
                 </li>
               </ol>
             </div>
 
             <aside className="border-t border-white/[0.07] bg-purple-950/15 p-6 sm:p-10 md:border-l md:border-t-0">
-              <MessageCircle className="h-8 w-8 text-green-400" aria-hidden="true" />
+              <MessagesSquare className="h-8 w-8 text-green-400" strokeWidth={1.7} aria-hidden="true" />
               <h2 className="mt-5 text-xl font-bold">Precisa de ajuda?</h2>
               <p className="mt-3 text-sm leading-relaxed text-white/50">Nossa equipe pode auxiliar com ativação, instalação e compatibilidade.</p>
               <a
@@ -82,7 +82,7 @@ const ThankYou = () => {
                 onClick={() => trackButtonClick('Suporte pós-compra', 'thank-you')}
               >
                 <Button className="mt-6 min-h-12 w-full bg-green-600 font-bold text-white hover:bg-green-500">
-                  Falar no WhatsApp <ArrowRight className="ml-2 h-4 w-4" />
+                  Falar no WhatsApp <ArrowUpRight className="ml-2 h-4 w-4" strokeWidth={1.7} />
                 </Button>
               </a>
               <Link to="/" className="mt-3 block text-center text-sm text-white/45 transition hover:text-white">Voltar para o site</Link>

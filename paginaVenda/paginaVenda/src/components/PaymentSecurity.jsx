@@ -1,25 +1,25 @@
 import { motion } from 'framer-motion';
-import { Shield, Lock, Zap, CheckCircle } from 'lucide-react';
+import { BadgeCheck, Fingerprint, Rocket, ShieldCheck } from 'lucide-react';
 
 const PaymentSecurity = () => {
   const securityFeatures = [
     {
-      icon: Shield,
+      icon: ShieldCheck,
       title: "Criptografia SSL",
       description: "Proteção de dados de ponta a ponta"
     },
     {
-      icon: Lock,
+      icon: Fingerprint,
       title: "Dados Privados",
       description: "Nunca armazenamos informações de pagamento"
     },
     {
-      icon: Zap,
+      icon: Rocket,
       title: "Acesso Imediato",
       description: "Liberação após a confirmação do pagamento"
     },
     {
-      icon: CheckCircle,
+      icon: BadgeCheck,
       title: "Plataforma Verificada",
       description: "Pagamento processado com segurança pela Cakto"
     }
@@ -51,7 +51,7 @@ const PaymentSecurity = () => {
                 className="border border-white/10 rounded-lg p-6 hover:border-white/20 transition-colors"
               >
                 <div className="flex items-start gap-4">
-                  <feature.icon className="w-6 h-6 text-white/80 flex-shrink-0 mt-1" strokeWidth={1.5} />
+                  <feature.icon className="w-6 h-6 text-white/80 flex-shrink-0 mt-1" strokeWidth={1.7} />
                   <div>
                     <h3 className="font-semibold text-sm mb-1">{feature.title}</h3>
                     <p className="text-xs text-foreground/60">{feature.description}</p>

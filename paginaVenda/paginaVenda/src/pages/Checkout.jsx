@@ -5,13 +5,13 @@ import {
   BadgeCheck,
   Check,
   Copy,
-  CreditCard,
-  Headphones,
+  LifeBuoy,
   Loader2,
   LockKeyhole,
   QrCode,
   ShieldCheck,
-  Sparkles,
+  ScanLine,
+  WalletCards,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import Seo from '@/components/Seo';
@@ -265,7 +265,7 @@ const Checkout = () => {
           <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm text-white/45 transition hover:text-white">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Alterar plano
           </Link>
-          <span className="hidden items-center gap-2 text-xs text-white/35 sm:inline-flex"><Headphones className="h-4 w-4" /> Suporte disponível após a compra</span>
+          <span className="hidden items-center gap-2 text-xs text-white/35 sm:inline-flex"><LifeBuoy className="h-4 w-4" strokeWidth={1.7} /> Suporte disponível após a compra</span>
         </div>
 
         <div className="mb-8 rounded-2xl border border-white/[0.07] bg-white/[0.025] px-5 py-5 sm:px-8">
@@ -298,7 +298,7 @@ const Checkout = () => {
             ) : (
               <form id="checkout-payment-form" onSubmit={submitPayment}>
                 <div className="flex items-start gap-4">
-                  <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-purple-300 sm:flex"><Sparkles className="h-5 w-5" /></span>
+                  <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-purple-300 sm:flex"><ScanLine className="h-5 w-5" strokeWidth={1.7} /></span>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">Finalização segura</p>
                     <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Complete sua assinatura</h1>
@@ -317,7 +317,7 @@ const Checkout = () => {
                     </button>
                     <button type="button" onClick={() => selectMethod('threeDs')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-2xl border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-400 bg-purple-500/10 shadow-lg shadow-purple-950/20' : 'border-white/10 bg-white/[0.025] hover:border-white/20'}`}>
                       {method === 'threeDs' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-300" />}
-                      <CreditCard className={`mb-2 h-5 w-5 ${method === 'threeDs' ? 'text-purple-300' : 'text-white/40'}`} />
+                      <WalletCards className={`mb-2 h-5 w-5 ${method === 'threeDs' ? 'text-purple-300' : 'text-white/40'}`} strokeWidth={1.7} />
                       <strong className="text-sm">Cartão</strong>
                       <span className="mt-1 text-[11px] text-white/40">Compra autenticada</span>
                     </button>
@@ -428,7 +428,7 @@ const Checkout = () => {
                   <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-white/35">Meios de pagamento</p>
                   <div className="grid grid-cols-2 gap-2">
                     <span className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.025] text-xs font-bold text-white/70"><QrCode className="h-4 w-4 text-green-400" /> Pix</span>
-                    <span className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.025] text-xs font-bold text-white/70"><CreditCard className="h-4 w-4 text-purple-300" /> Cartão</span>
+                    <span className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.025] text-xs font-bold text-white/70"><WalletCards className="h-4 w-4 text-purple-300" strokeWidth={1.7} /> Cartão</span>
                   </div>
                 </div>
 

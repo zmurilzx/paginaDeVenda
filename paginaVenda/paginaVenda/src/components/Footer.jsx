@@ -1,4 +1,4 @@
-import { Instagram, MessageCircle } from 'lucide-react';
+import { Instagram, MessagesSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from '@/components/Logo';
 
@@ -22,7 +22,7 @@ const Footer = () => (
         <div>
           <h2 className="mb-4 font-semibold">Atendimento</h2>
           <div className="flex gap-3">
-            <a href="https://wa.me/5543999748808" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-green-600/15 text-green-400 hover:bg-green-600/25" aria-label="Atendimento pelo WhatsApp"><MessageCircle aria-hidden="true" /></a>
+            <a href="https://wa.me/5543999748808" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-green-600/15 text-green-400 hover:bg-green-600/25" aria-label="Atendimento pelo WhatsApp"><MessagesSquare strokeWidth={1.7} aria-hidden="true" /></a>
             <a href="https://www.instagram.com/cine.stream2k" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-purple-500/15 text-purple-300 hover:bg-purple-500/25" aria-label="CineStream no Instagram"><Instagram aria-hidden="true" /></a>
           </div>
         </div>
