@@ -15,6 +15,7 @@ const Terms = lazy(() => import('@/pages/Terms'));
 const RefundPolicy = lazy(() => import('@/pages/RefundPolicy'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 const Checkout = lazy(() => import('@/pages/Checkout'));
+const ThankYou = lazy(() => import('@/pages/ThankYou'));
 
 function App() {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -47,6 +48,7 @@ function App() {
           <Route path="/termos" element={<Terms />} />
           <Route path="/reembolso" element={<RefundPolicy />} />
           <Route path="/checkout/:plan" element={<Checkout />} />
+          <Route path="/obrigado" element={<ThankYou />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

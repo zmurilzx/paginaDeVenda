@@ -1,13 +1,11 @@
 const Logo = () => (
-  <span className="relative block h-11 w-40 overflow-hidden" aria-label="CineStream">
-    <img
-      src="/logo.png"
-      alt="CineStream"
-      className="absolute inset-0 h-full w-full scale-[2.5] object-cover object-[center_53%]"
-      width="160"
-      height="44"
-    />
-  </span>
+  <img
+    src="/logo-header.png"
+    alt="CineStream"
+    className="h-9 w-auto sm:h-10"
+    width="211"
+    height="40"
+  />
 );
 
 export default Logo;

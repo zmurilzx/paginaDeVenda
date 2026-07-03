@@ -1,26 +1,26 @@
 import { motion } from 'framer-motion';
-import { CalendarRange, Headphones, MonitorPlay, Zap } from 'lucide-react';
+import { CalendarDays, Gauge, LifeBuoy, Rocket } from 'lucide-react';
 
 const benefits = [
-  { icon: MonitorPlay, title: 'Qualidade ajustável', description: 'Opções de reprodução de SD a 4K, conforme o conteúdo, o dispositivo e sua conexão.' },
-  { icon: CalendarRange, title: 'Você escolhe o período', description: 'Compare planos mensal, semestral e de pagamento único.' },
-  { icon: Zap, title: 'Ativação simplificada', description: 'Após a confirmação do pagamento, você recebe as orientações para começar.' },
-  { icon: Headphones, title: 'Suporte pelo WhatsApp', description: 'Canal direto para tirar dúvidas sobre acesso, instalação e compatibilidade.' },
+  { icon: Gauge, title: 'Qualidade ajustável', description: 'Reprodução de SD a 4K conforme conteúdo, aparelho e conexão.' },
+  { icon: CalendarDays, title: 'Período flexível', description: 'Opções para diferentes necessidades e tempos de acesso.' },
+  { icon: Rocket, title: 'Ativação orientada', description: 'Instruções claras após a confirmação do pagamento.' },
+  { icon: LifeBuoy, title: 'Suporte humano', description: 'Atendimento direto para instalação e compatibilidade.' },
 ];
 
 const SubscriptionBenefits = () => (
-  <section className="border-y border-white/5 bg-white/[0.015] py-16" aria-labelledby="benefits-title">
+  <section className="border-b border-white/[0.06] py-16 md:py-20" aria-labelledby="benefits-title">
     <div className="container mx-auto px-4 md:px-6 lg:px-8">
-      <div className="mb-10 text-center">
-        <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-purple-300">O que você recebe</p>
-        <h2 id="benefits-title" className="text-3xl font-bold md:text-4xl">Mais simples para escolher e começar</h2>
+      <div className="mb-10 max-w-2xl">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">O serviço</p>
+        <h2 id="benefits-title" className="text-3xl font-semibold tracking-[-0.03em] md:text-4xl">Tudo o que você precisa, sem complicação</h2>
       </div>
-      <div className="mx-auto grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl border-y border-white/[0.08] sm:grid-cols-2 lg:grid-cols-4">
         {benefits.map((benefit, index) => (
-          <motion.article key={benefit.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }} className="rounded-2xl border border-white/10 bg-card/50 p-6">
-            <benefit.icon className="mb-4 h-8 w-8 text-purple-400" aria-hidden="true" />
-            <h3 className="mb-2 font-semibold">{benefit.title}</h3>
-            <p className="text-sm leading-relaxed text-foreground/60">{benefit.description}</p>
+          <motion.article key={benefit.title} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.04 }} className="border-b border-white/[0.08] px-1 py-7 sm:px-6 lg:border-b-0 lg:border-r lg:last:border-r-0">
+            <benefit.icon className="mb-5 h-5 w-5 text-purple-300" strokeWidth={1.6} aria-hidden="true" />
+            <h3 className="mb-2 text-sm font-semibold">{benefit.title}</h3>
+            <p className="text-sm leading-6 text-foreground/50">{benefit.description}</p>
           </motion.article>
         ))}
       </div>

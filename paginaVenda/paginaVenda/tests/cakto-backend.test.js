@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import paymentHandler from '../api/cakto/payment.js';
+import webhookHandler from '../api/cakto/webhook.js';
 import { isAllowedRequestOrigin } from '../api/_lib/cakto.js';
 import { getPlanConfig, PLAN_SLUGS } from '../api/_lib/plans.js';
 
@@ -92,5 +93,37 @@ test('o backend cria o payload Pix com IDs definidos no servidor, sem cobrança 
       if (value === undefined) delete process.env[key];
       else process.env[key] = value;
     }
+  }
+});
+
+test('o webhook rejeita segredo incorreto e aceita o segredo configurado', async () => {
+  const previousSecret = process.env.CAKTO_WEBHOOK_SECRET;
+  process.env.CAKTO_WEBHOOK_SECRET = 'webhook-secret-test';
+
+  const invoke = async (secret) => {
+    const state = { status: 200, body: null, ended: false };
+    const request = {
+      method: 'POST',
+      headers: {},
+      query: {},
+      body: { event: 'purchase_approved', secret, data: { id: 'order-test' } },
+    };
+    const response = {
+      status(code) { state.status = code; return this; },
+      json(body) { state.body = body; return this; },
+      end() { state.ended = true; return this; },
+    };
+    await webhookHandler(request, response);
+    return state;
+  };
+
+  try {
+    assert.equal((await invoke('segredo-incorreto')).status, 401);
+    const accepted = await invoke('webhook-secret-test');
+    assert.equal(accepted.status, 204);
+    assert.equal(accepted.ended, true);
+  } finally {
+    if (previousSecret === undefined) delete process.env.CAKTO_WEBHOOK_SECRET;
+    else process.env.CAKTO_WEBHOOK_SECRET = previousSecret;
   }
 });

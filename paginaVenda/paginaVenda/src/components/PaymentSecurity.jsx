@@ -1,69 +1,32 @@
-import { motion } from 'framer-motion';
-import { Shield, Lock, Zap, CheckCircle } from 'lucide-react';
+import { CreditCard, Headphones, LockKeyhole, ShieldCheck } from 'lucide-react';
 
-const PaymentSecurity = () => {
-  const securityFeatures = [
-    {
-      icon: Shield,
-      title: "Criptografia SSL",
-      description: "Proteção de dados de ponta a ponta"
-    },
-    {
-      icon: Lock,
-      title: "Dados Privados",
-      description: "Nunca armazenamos informações de pagamento"
-    },
-    {
-      icon: Zap,
-      title: "Acesso Imediato",
-      description: "Liberação após a confirmação do pagamento"
-    },
-    {
-      icon: CheckCircle,
-      title: "Plataforma Verificada",
-      description: "Checkout processado por parceiro externo"
-    }
-  ];
+const securityFeatures = [
+  { icon: LockKeyhole, title: 'Conexão protegida', description: 'Criptografia SSL' },
+  { icon: CreditCard, title: 'Dados tokenizados', description: 'Cartão não armazenado' },
+  { icon: ShieldCheck, title: 'Processado pela Cakto', description: 'Checkout autenticado' },
+  { icon: Headphones, title: 'Suporte disponível', description: 'Atendimento pelo WhatsApp' },
+];
 
-  return (
-    <section className="py-16 md:py-24 relative overflow-hidden bg-white/2">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tight">
-              Pagamento Seguro
-            </h2>
-            <p className="text-base md:text-lg text-foreground/70 max-w-2xl mx-auto">
-              O pagamento é processado em ambiente externo protegido. <span className="text-purple-400 font-semibold">A liberação ocorre após a confirmação do pagamento.</span>
-            </p>
-          </div>
-
-          {/* Security Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {securityFeatures.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="border border-white/10 rounded-lg p-6 hover:border-white/20 transition-colors"
-              >
-                <div className="flex items-start gap-4">
-                  <feature.icon className="w-6 h-6 text-white/80 flex-shrink-0 mt-1" strokeWidth={1.5} />
-                  <div>
-                    <h3 className="font-semibold text-sm mb-1">{feature.title}</h3>
-                    <p className="text-xs text-foreground/60">{feature.description}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+const PaymentSecurity = () => (
+  <section className="border-y border-white/[0.06] py-14 md:py-18" aria-labelledby="security-title">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8">
+      <div className="mb-9 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">Segurança</p>
+          <h2 id="security-title" className="text-3xl font-semibold tracking-[-0.03em] md:text-4xl">Pagamento protegido do início ao fim</h2>
         </div>
+        <p className="max-w-md text-sm leading-6 text-foreground/50">A Cakto processa a transação. A liberação ocorre após a confirmação.</p>
       </div>
-    </section>
-  );
-};
+      <div className="grid border-y border-white/[0.08] sm:grid-cols-2 lg:grid-cols-4">
+        {securityFeatures.map((feature) => (
+          <div key={feature.title} className="flex items-center gap-4 border-b border-white/[0.08] py-5 sm:px-5 lg:border-b-0 lg:border-r lg:last:border-r-0">
+            <feature.icon className="h-5 w-5 shrink-0 text-purple-300" strokeWidth={1.6} aria-hidden="true" />
+            <div><h3 className="text-sm font-semibold">{feature.title}</h3><p className="mt-1 text-xs text-foreground/45">{feature.description}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default PaymentSecurity;

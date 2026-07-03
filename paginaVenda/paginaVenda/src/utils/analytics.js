@@ -24,6 +24,12 @@ export const trackButtonClick = (buttonName, location) =>
 export const trackPlanSelect = (planName, price) =>
   sendEvent('plan_select', { plan_name: planName, price });
 
+export const trackCheckoutStart = (planName, price) =>
+  sendEvent('checkout_start', { plan_name: planName, price });
+
+export const trackPaymentAttempt = (planName, paymentMethod) =>
+  sendEvent('payment_attempt', { plan_name: planName, payment_method: paymentMethod });
+
 export const trackVideoPlay = () => sendEvent('video_play');
 
 export const trackPurchase = (planName, price, reference) =>
