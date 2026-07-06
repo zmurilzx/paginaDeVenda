@@ -5,7 +5,6 @@ import {
   BadgeCheck,
   Check,
   Copy,
-  LifeBuoy,
   Loader2,
   LockKeyhole,
   QrCode,
@@ -71,36 +70,12 @@ const Field = ({ label, className = '', ...inputProps }) => (
   </label>
 );
 
-const Progress = ({ pixPending = false }) => {
-  const items = [
-    { number: 1, label: 'Seus dados', active: !pixPending, complete: pixPending },
-    { number: 2, label: 'Pagamento', active: pixPending, complete: false },
-    { number: 3, label: 'Confirmação', active: false, complete: false },
-  ];
-
-  return (
-    <ol className="mx-auto flex max-w-xl items-center justify-between" aria-label="Etapas da compra">
-      {items.map((item, index) => (
-        <li key={item.label} className="flex flex-1 items-center last:flex-none">
-          <div className="flex flex-col items-center gap-2">
-            <span className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-bold ${item.active ? 'border-purple-600 bg-purple-600 text-white' : item.complete ? 'border-purple-600 bg-purple-600 text-white' : 'border-zinc-300 bg-white text-zinc-400'}`}>
-              {item.complete ? <Check className="h-4 w-4" aria-hidden="true" /> : item.number}
-            </span>
-            <span className={`hidden whitespace-nowrap text-xs sm:block ${item.active || item.complete ? 'text-zinc-800' : 'text-zinc-400'}`}>{item.label}</span>
-          </div>
-          {index < items.length - 1 && <span className={`mx-3 h-px flex-1 sm:mx-5 ${item.complete ? 'bg-purple-600' : 'bg-zinc-300'}`} />}
-        </li>
-      ))}
-    </ol>
-  );
-};
-
 const OrderSummary = ({ plan, mobile = false }) => {
   const monthly = plan.valuePresentation.monthlyEquivalent;
 
   if (mobile) {
     return (
-      <details className="group mb-6 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+      <details className="group mb-5 overflow-hidden rounded-lg border border-zinc-200 bg-white">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-4 marker:content-none">
           <div className="min-w-0">
             <p className="text-xs font-medium text-zinc-500">Resumo do pedido</p>
@@ -129,53 +104,53 @@ const OrderSummary = ({ plan, mobile = false }) => {
   }
 
   return (
-    <aside className="hidden bg-[#15151b] text-white lg:block">
+    <aside className="hidden bg-zinc-50 text-zinc-900 lg:block">
       <div className="sticky top-0 p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/50">Resumo do pedido</p>
-        <div className="mt-5 border-b border-white/10 pb-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">Resumo do pedido</p>
+        <div className="mt-5 border-b border-zinc-200 pb-6">
           <div className="flex items-start justify-between gap-4">
             <div>
               <h2 className="text-xl font-semibold">Plano {plan.name}</h2>
-              <p className="mt-1 text-sm text-white/55">Assinatura CineStream</p>
+              <p className="mt-1 text-sm text-zinc-500">Assinatura CineStream</p>
             </div>
-            {plan.badge && <span className="rounded-md bg-purple-500/15 px-2.5 py-1 text-[10px] font-semibold text-purple-200">{plan.badge}</span>}
+            {plan.badge && <span className="rounded border border-purple-200 bg-purple-50 px-2.5 py-1 text-[10px] font-semibold text-purple-700">{plan.badge}</span>}
           </div>
         </div>
 
-        <div className="border-b border-white/10 py-6">
+        <div className="border-b border-zinc-200 py-6">
           {monthly ? (
             <>
-              <p className="text-sm text-white/55">Valor equivalente</p>
+              <p className="text-sm text-zinc-500">Valor equivalente</p>
               <div className="mt-1 flex items-baseline gap-2">
                 <strong className="text-3xl tracking-tight">{monthly}</strong>
-                <span className="text-sm text-white/50">por mês</span>
+                <span className="text-sm text-zinc-500">por mês</span>
               </div>
             </>
           ) : (
             <strong className="text-2xl">{plan.valuePresentation.installmentEquivalent}</strong>
           )}
-          {plan.valuePresentation.savings && <p className="mt-3 text-xs font-medium text-green-400">{plan.valuePresentation.savings}</p>}
+          {plan.valuePresentation.savings && <p className="mt-3 text-xs font-medium text-green-700">{plan.valuePresentation.savings}</p>}
         </div>
 
-        <ul className="space-y-3 border-b border-white/10 py-6 text-sm leading-relaxed text-white/65">
+        <ul className="space-y-3 border-b border-zinc-200 py-6 text-sm leading-relaxed text-zinc-600">
           {plan.features.slice(0, 4).map((feature) => (
-            <li key={feature} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-green-400" /> {feature}</li>
+            <li key={feature} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700" /> {feature}</li>
           ))}
         </ul>
 
         <div className="py-6">
-          {plan.valuePresentation.comparison && <p className="mb-2 text-right text-xs text-white/35 line-through">{plan.valuePresentation.comparison}</p>}
+          {plan.valuePresentation.comparison && <p className="mb-2 text-right text-xs text-zinc-400 line-through">{plan.valuePresentation.comparison}</p>}
           <div className="flex items-end justify-between gap-4">
-            <span className="text-sm text-white/55">Total</span>
+            <span className="text-sm text-zinc-600">Total</span>
             <strong className="text-3xl tracking-tight">{plan.price}</strong>
           </div>
-          <p className="mt-2 text-right text-xs text-white/40">{plan.valuePresentation.detail}</p>
+          <p className="mt-2 text-right text-xs text-zinc-500">{plan.valuePresentation.detail}</p>
         </div>
 
-        <div className="mt-2 space-y-3 border-t border-white/10 pt-6 text-xs text-white/55">
-          <p className="flex items-center gap-2.5"><ShieldCheck className="h-4 w-4 text-green-400" /> Pagamento processado pela Cakto</p>
-          <p className="flex items-center gap-2.5"><LockKeyhole className="h-4 w-4 text-green-400" /> Conexão segura e dados criptografados</p>
-          <p className="flex items-center gap-2.5"><WalletCards className="h-4 w-4 text-purple-300" /> Pix e cartão de crédito</p>
+        <div className="mt-2 space-y-3 border-t border-zinc-200 pt-6 text-xs text-zinc-500">
+          <p className="flex items-center gap-2.5"><ShieldCheck className="h-4 w-4 text-zinc-500" /> Pagamento processado pela Cakto</p>
+          <p className="flex items-center gap-2.5"><LockKeyhole className="h-4 w-4 text-zinc-500" /> Conexão segura e dados criptografados</p>
+          <p className="flex items-center gap-2.5"><WalletCards className="h-4 w-4 text-zinc-500" /> Pix e cartão de crédito</p>
         </div>
       </div>
     </aside>
@@ -386,27 +361,23 @@ const Checkout = () => {
       <header className="relative z-10 border-b border-white/[0.07] bg-[#111116]">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link to="/" aria-label="Voltar à página inicial"><Logo /></Link>
-          <span className="inline-flex items-center gap-2 rounded-full border border-green-400/15 bg-green-400/[0.07] px-3 py-2 text-xs font-medium text-green-300">
-            <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" /> Ambiente protegido
+          <span className="inline-flex items-center gap-2 text-xs font-medium text-white/65">
+            <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" /> Checkout seguro
           </span>
         </div>
       </header>
 
       <main className="relative z-10 mx-auto max-w-[1120px] px-4 py-6 md:px-6 md:py-9">
-        <div className="mb-7 flex items-center justify-between gap-4">
+        <div className="mb-5 flex items-center justify-between gap-4">
           <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-zinc-900">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Alterar plano
           </Link>
-          <span className="hidden items-center gap-2 text-xs text-zinc-500 sm:inline-flex"><LifeBuoy className="h-4 w-4" strokeWidth={1.7} /> Suporte disponível após a compra</span>
-        </div>
-
-        <div className="mb-6 px-2 sm:mb-8 sm:px-8">
-          <Progress pixPending={Boolean(result?.pix)} />
+          <span className="hidden text-xs text-zinc-500 sm:block">Ambiente de pagamento CineStream</span>
         </div>
 
         {!result?.pix && <div className="lg:hidden"><OrderSummary plan={plan} mobile /></div>}
 
-        <div className="grid overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-[0_12px_35px_rgba(24,24,27,0.08)] lg:grid-cols-[350px_minmax(0,1fr)]">
+        <div className="grid overflow-hidden rounded-lg border border-zinc-200 bg-white lg:grid-cols-[350px_minmax(0,1fr)]">
           <OrderSummary plan={plan} />
           <section className="bg-white p-5 sm:p-8 lg:border-l lg:border-zinc-200 lg:p-10 xl:p-12">
             {result?.pix ? (
@@ -441,12 +412,12 @@ const Checkout = () => {
                 <fieldset className="mt-8">
                   <legend className="mb-3 text-sm font-semibold text-zinc-900">Forma de pagamento</legend>
                   <div className="grid grid-cols-2 gap-3">
-                    <button type="button" onClick={() => selectMethod('pix')} className={`relative flex min-h-[76px] items-center gap-3 rounded-lg border px-4 text-left transition ${method === 'pix' ? 'border-purple-600 bg-purple-50 ring-1 ring-purple-600' : 'border-zinc-200 bg-white hover:border-zinc-400'}`}>
+                    <button type="button" aria-pressed={method === 'pix'} onClick={() => selectMethod('pix')} className={`relative flex min-h-[76px] items-center gap-3 rounded-lg border px-4 text-left transition ${method === 'pix' ? 'border-purple-600 bg-purple-50 ring-1 ring-purple-600' : 'border-zinc-200 bg-white hover:border-zinc-400'}`}>
                       {method === 'pix' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-700" />}
                       <QrCode className={`h-5 w-5 shrink-0 ${method === 'pix' ? 'text-purple-700' : 'text-zinc-400'}`} />
                       <span><strong className="block text-sm">Pix</strong><span className="mt-1 block text-[11px] text-zinc-500">Confirmação rápida</span></span>
                     </button>
-                    <button type="button" onClick={() => selectMethod('threeDs')} className={`relative flex min-h-[76px] items-center gap-3 rounded-lg border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-600 bg-purple-50 ring-1 ring-purple-600' : 'border-zinc-200 bg-white hover:border-zinc-400'}`}>
+                    <button type="button" aria-pressed={method === 'threeDs'} onClick={() => selectMethod('threeDs')} className={`relative flex min-h-[76px] items-center gap-3 rounded-lg border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-600 bg-purple-50 ring-1 ring-purple-600' : 'border-zinc-200 bg-white hover:border-zinc-400'}`}>
                       {method === 'threeDs' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-700" />}
                       <WalletCards className={`h-5 w-5 shrink-0 ${method === 'threeDs' ? 'text-purple-700' : 'text-zinc-400'}`} strokeWidth={1.7} />
                       <span><strong className="block text-sm">Cartão</strong><span className="mt-1 block text-[11px] text-zinc-500">Compra autenticada</span></span>
@@ -455,10 +426,7 @@ const Checkout = () => {
                 </fieldset>
 
                 <div className="mt-8 border-t border-zinc-200 pt-7">
-                  <div className="mb-5 flex items-center gap-3">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-purple-700">1</span>
-                    <h2 className="font-semibold">Dados do comprador</h2>
-                  </div>
+                  <h2 className="mb-5 font-semibold text-zinc-900">Dados do comprador</h2>
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field className="sm:col-span-2" label="Nome completo" name="name" value={form.name} onChange={updateField} autoComplete="name" placeholder="Digite seu nome" minLength="3" required />
                     <Field label="E-mail" type="email" name="email" value={form.email} onChange={updateField} autoComplete="email" placeholder="voce@email.com" required />
@@ -469,10 +437,7 @@ const Checkout = () => {
 
                 {method === 'threeDs' && (
                   <div className="mt-8 border-t border-zinc-200 pt-7">
-                    <div className="mb-5 flex items-center gap-3">
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-purple-700">2</span>
-                      <h2 className="font-semibold">Cartão e endereço de cobrança</h2>
-                    </div>
+                    <h2 className="mb-5 font-semibold text-zinc-900">Cartão e endereço de cobrança</h2>
                     <div className="grid gap-5 sm:grid-cols-6">
                       <Field className="sm:col-span-3" label="Nome no cartão" name="holderName" value={form.holderName} onChange={updateField} autoComplete="cc-name" placeholder="Como está no cartão" required />
                       <Field className="sm:col-span-3" label="Número do cartão" name="cardNumber" value={form.cardNumber} onChange={updateField} inputMode="numeric" autoComplete="cc-number" placeholder="0000 0000 0000 0000" maxLength="23" required />
@@ -510,7 +475,7 @@ const Checkout = () => {
 
       {!result?.pix && (
         <div className="fixed inset-x-0 bottom-0 z-50 border-t border-zinc-200 bg-white/95 p-3 shadow-[0_-12px_35px_rgba(24,24,27,0.12)] backdrop-blur-xl sm:hidden">
-          <Button form="checkout-payment-form" type="submit" disabled={loading || !sdkReady} className="min-h-14 w-full rounded-lg bg-purple-500 text-sm font-bold text-white hover:bg-purple-400 disabled:opacity-50">
+          <Button form="checkout-payment-form" type="submit" disabled={loading || !sdkReady} className="min-h-14 w-full rounded-lg bg-purple-600 text-sm font-semibold text-white hover:bg-purple-700 disabled:opacity-50">
             {loading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processando…</> : method === 'pix' ? <><QrCode className="mr-2 h-5 w-5" /> Gerar Pix de {plan.price}</> : <><LockKeyhole className="mr-2 h-5 w-5" /> Pagar {plan.price}</>}
           </Button>
           <p className="mt-1.5 text-center text-[10px] text-zinc-500"><LockKeyhole className="mr-1 inline h-3 w-3 text-green-600" /> Pagamento protegido pela Cakto</p>
