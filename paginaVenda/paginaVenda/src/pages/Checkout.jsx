@@ -24,6 +24,41 @@ const inputClass = 'mt-2 h-12 w-full rounded-lg border border-white/10 bg-[#1515
 const paidStatuses = ['paid', 'approved', 'purchase_approved'];
 const failedStatuses = ['declined', 'refused', 'canceled', 'cancelled'];
 
+const digitsOnly = (value, limit) => String(value || '').replace(/\D/g, '').slice(0, limit);
+const formatPhone = (value) => {
+  const digits = digitsOnly(value, 11);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+};
+const formatDocument = (value) => {
+  const digits = digitsOnly(value, 14);
+  if (digits.length <= 11) {
+    return digits
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  }
+  return digits
+    .replace(/(\d{2})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1/$2')
+    .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+};
+const formatCardNumber = (value) => digitsOnly(value, 19).replace(/(.{4})/g, '$1 ').trim();
+const formatZipcode = (value) => digitsOnly(value, 8).replace(/(\d{5})(\d)/, '$1-$2');
+const fieldFormatters = {
+  phone: formatPhone,
+  docNumber: formatDocument,
+  cardNumber: formatCardNumber,
+  zipcode: formatZipcode,
+  expMonth: (value) => digitsOnly(value, 2),
+  expYear: (value) => digitsOnly(value, 4),
+  cvv: (value) => digitsOnly(value, 4),
+  state: (value) => String(value || '').replace(/[^a-z]/gi, '').slice(0, 2).toUpperCase(),
+};
+
 const initialForm = {
   name: '', email: '', phone: '', docNumber: '',
   holderName: '', cardNumber: '', expMonth: '', expYear: '', cvv: '',
@@ -96,6 +131,12 @@ const Checkout = () => {
   const [copied, setCopied] = useState(false);
 
   const paid = useMemo(() => paidStatuses.includes(result?.status), [result?.status]);
+  const pixExpiration = (() => {
+    if (!result?.pix?.expiresAt) return '';
+    const expiresAt = new Date(result.pix.expiresAt);
+    if (Number.isNaN(expiresAt.getTime())) return '';
+    return expiresAt.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  })();
 
   useEffect(() => {
     if (!plan || checkoutTracked.current) return;
@@ -155,7 +196,8 @@ const Checkout = () => {
 
   const updateField = (event) => {
     const { name, value } = event.target;
-    setForm((current) => ({ ...current, [name]: value }));
+    const formattedValue = fieldFormatters[name] ? fieldFormatters[name](value) : value;
+    setForm((current) => ({ ...current, [name]: formattedValue }));
   };
 
   const selectMethod = (nextMethod) => {
@@ -167,6 +209,15 @@ const Checkout = () => {
     event.preventDefault();
     setError('');
     if (!accepted) return setError('Aceite os Termos de Uso e a Política de Privacidade para continuar.');
+
+    if (method === 'threeDs') {
+      const cardDigits = digitsOnly(form.cardNumber, 19);
+      const month = Number(form.expMonth);
+      if (cardDigits.length < 13) return setError('Confira o número do cartão informado.');
+      if (month < 1 || month > 12) return setError('Informe um mês de validade entre 01 e 12.');
+      if (!/^\d{4}$/.test(form.expYear)) return setError('Informe o ano de validade com quatro dígitos.');
+      if (!/^\d{3,4}$/.test(form.cvv)) return setError('Confira o código de segurança do cartão.');
+    }
 
     trackPaymentAttempt(plan.name, method);
     setLoading(true);
@@ -288,6 +339,7 @@ const Checkout = () => {
                 <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-amber-400/[0.08] px-4 py-2 text-xs text-amber-200/80">
                   <Loader2 className="h-3.5 w-3.5 animate-spin" /> Aguardando confirmação do pagamento
                 </div>
+                {pixExpiration && <p className="mt-3 text-xs text-white/45">Pix válido até {pixExpiration}</p>}
                 <p className="mt-4 text-xs text-white/30">Pedido {result.refId}</p>
               </div>
             ) : (
@@ -325,10 +377,10 @@ const Checkout = () => {
                     <h2 className="font-semibold">Dados do comprador</h2>
                   </div>
                   <div className="grid gap-5 sm:grid-cols-2">
-                    <Field className="sm:col-span-2" label="Nome completo" name="name" value={form.name} onChange={updateField} autoComplete="name" placeholder="Digite seu nome" required />
+                    <Field className="sm:col-span-2" label="Nome completo" name="name" value={form.name} onChange={updateField} autoComplete="name" placeholder="Digite seu nome" minLength="3" required />
                     <Field label="E-mail" type="email" name="email" value={form.email} onChange={updateField} autoComplete="email" placeholder="voce@email.com" required />
-                    <Field label="Telefone com DDD" name="phone" value={form.phone} onChange={updateField} inputMode="tel" autoComplete="tel" placeholder="(11) 99999-9999" required />
-                    <Field className="sm:col-span-2" label="CPF ou CNPJ" name="docNumber" value={form.docNumber} onChange={updateField} inputMode="numeric" placeholder="Somente números" required />
+                    <Field label="Telefone com DDD" name="phone" value={form.phone} onChange={updateField} inputMode="tel" autoComplete="tel" placeholder="(11) 99999-9999" maxLength="15" required />
+                    <Field className="sm:col-span-2" label="CPF ou CNPJ" name="docNumber" value={form.docNumber} onChange={updateField} inputMode="numeric" placeholder="000.000.000-00" maxLength="18" required />
                   </div>
                 </div>
 
@@ -340,11 +392,11 @@ const Checkout = () => {
                     </div>
                     <div className="grid gap-5 sm:grid-cols-6">
                       <Field className="sm:col-span-3" label="Nome no cartão" name="holderName" value={form.holderName} onChange={updateField} autoComplete="cc-name" placeholder="Como está no cartão" required />
-                      <Field className="sm:col-span-3" label="Número do cartão" name="cardNumber" value={form.cardNumber} onChange={updateField} inputMode="numeric" autoComplete="cc-number" placeholder="0000 0000 0000 0000" required />
+                      <Field className="sm:col-span-3" label="Número do cartão" name="cardNumber" value={form.cardNumber} onChange={updateField} inputMode="numeric" autoComplete="cc-number" placeholder="0000 0000 0000 0000" maxLength="23" required />
                       <Field className="sm:col-span-2" label="Mês" name="expMonth" value={form.expMonth} onChange={updateField} inputMode="numeric" autoComplete="cc-exp-month" placeholder="MM" maxLength="2" required />
                       <Field className="sm:col-span-2" label="Ano" name="expYear" value={form.expYear} onChange={updateField} inputMode="numeric" autoComplete="cc-exp-year" placeholder="AAAA" maxLength="4" required />
                       <Field className="sm:col-span-2" label="CVV" name="cvv" value={form.cvv} onChange={updateField} inputMode="numeric" autoComplete="cc-csc" placeholder="123" maxLength="4" required />
-                      <Field className="sm:col-span-2" label="CEP" name="zipcode" value={form.zipcode} onChange={updateField} inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" required />
+                      <Field className="sm:col-span-2" label="CEP" name="zipcode" value={form.zipcode} onChange={updateField} inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" maxLength="9" required />
                       <Field className="sm:col-span-4" label="Rua" name="street" value={form.street} onChange={updateField} autoComplete="address-line1" placeholder="Nome da rua" required />
                       <Field className="sm:col-span-2" label="Número" name="number" value={form.number} onChange={updateField} placeholder="123" required />
                       <Field className="sm:col-span-4" label="Complemento" name="complement" value={form.complement} onChange={updateField} autoComplete="address-line2" placeholder="Opcional" />
@@ -359,7 +411,7 @@ const Checkout = () => {
                   <span>Li e concordo com os <Link to="/termos" target="_blank" className="text-purple-300 underline underline-offset-2">Termos de Uso</Link>, a <Link to="/privacidade" target="_blank" className="text-purple-300 underline underline-offset-2">Política de Privacidade</Link> e as condições do plano.</span>
                 </label>
 
-                {error && <div role="alert" className="mt-5 rounded-xl border border-red-400/25 bg-red-500/10 p-4 text-sm text-red-200">{error}</div>}
+                {error && <div role="alert" aria-live="polite" className="mt-5 rounded-xl border border-red-400/25 bg-red-500/10 p-4 text-sm text-red-200">{error}</div>}
                 <Button type="submit" disabled={loading || !sdkReady} className="mt-6 hidden min-h-14 w-full rounded-lg bg-purple-500 text-base font-bold text-white shadow-lg shadow-purple-950/20 transition hover:bg-purple-400 disabled:opacity-50 sm:inline-flex">
                   {loading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processando com segurança…</> : method === 'pix' ? <><QrCode className="mr-2 h-5 w-5" /> Gerar Pix de {plan.price}</> : <><LockKeyhole className="mr-2 h-5 w-5" /> Pagar {plan.price}</>}
                 </Button>
