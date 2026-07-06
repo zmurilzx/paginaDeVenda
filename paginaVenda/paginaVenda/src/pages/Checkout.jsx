@@ -75,7 +75,7 @@ const Field = ({ label, className = '', ...inputProps }) => (
 const Progress = ({ pixPending = false }) => {
   const items = [
     { number: 1, label: 'Seus dados', active: !pixPending, complete: pixPending },
-    { number: 2, label: 'Pagamento', active: true, complete: false },
+    { number: 2, label: 'Pagamento', active: pixPending, complete: false },
     { number: 3, label: 'Confirmação', active: false, complete: false },
   ];
 
@@ -306,7 +306,7 @@ const Checkout = () => {
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto max-w-7xl px-4 py-7 md:px-6 md:py-10">
+      <main className="relative z-10 mx-auto max-w-6xl px-4 py-7 md:px-6 md:py-10">
         <div className="mb-7 flex items-center justify-between gap-4">
           <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm text-white/45 transition hover:text-white">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Alterar plano
@@ -314,12 +314,12 @@ const Checkout = () => {
           <span className="hidden items-center gap-2 text-xs text-white/35 sm:inline-flex"><LifeBuoy className="h-4 w-4" strokeWidth={1.7} /> Suporte disponível após a compra</span>
         </div>
 
-        <div className="mb-8 rounded-xl border border-white/[0.07] bg-white/[0.02] px-5 py-5 sm:px-8">
+        <div className="mb-8 px-2 sm:px-8">
           <Progress pixPending={Boolean(result?.pix)} />
         </div>
 
-        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_390px]">
-          <section className="rounded-2xl border border-white/[0.08] bg-[#111118] p-5 shadow-xl shadow-black/20 sm:p-8">
+        <div className="grid overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111118] shadow-[0_24px_80px_rgba(0,0,0,0.28)] lg:grid-cols-[360px_minmax(0,1fr)]">
+          <section className="order-2 border-t border-white/[0.08] bg-[#15151c] p-5 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
             {result?.pix ? (
               <div className="mx-auto max-w-xl py-3 text-center sm:py-6">
                 <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl border border-purple-400/15 bg-purple-500/[0.08] text-purple-300">
@@ -344,13 +344,10 @@ const Checkout = () => {
               </div>
             ) : (
               <form id="checkout-payment-form" onSubmit={submitPayment}>
-                <div className="flex items-start gap-4">
-                  <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-purple-300 sm:flex"><ScanLine className="h-5 w-5" strokeWidth={1.7} /></span>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">Finalização segura</p>
-                    <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Complete sua assinatura</h1>
-                    <p className="mt-2 text-sm leading-relaxed text-white/50">Preencha os dados abaixo para processar a compra e receber as orientações de acesso.</p>
-                  </div>
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-purple-300"><ScanLine className="h-4 w-4" strokeWidth={1.7} /> Finalização segura</div>
+                  <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Complete sua assinatura</h1>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/50">Preencha seus dados e escolha a forma de pagamento.</p>
                 </div>
 
                 <fieldset className="mt-8">
@@ -420,8 +417,8 @@ const Checkout = () => {
             )}
           </section>
 
-          <aside className="h-fit lg:sticky lg:top-6">
-            <div className="overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111118] shadow-xl shadow-black/20">
+          <aside className="order-1 bg-[#101016]">
+            <div>
               <div className="border-b border-white/[0.08] p-6">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-300">Seu pedido</p>
@@ -432,8 +429,8 @@ const Checkout = () => {
               </div>
 
               <div className="p-6">
-                <div className="mb-6 rounded-xl border border-green-400/15 bg-green-400/[0.05] p-5 text-center">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-300">{plan.valuePresentation.eyebrow}</p>
+                <div className="mb-6 rounded-xl border border-purple-400/15 bg-purple-400/[0.05] p-5 text-center">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-purple-200">{plan.valuePresentation.eyebrow}</p>
                   {plan.valuePresentation.monthlyEquivalent ? (
                     <>
                       <div className="mt-2 flex items-end justify-center gap-2">
@@ -451,7 +448,7 @@ const Checkout = () => {
                   {plan.valuePresentation.savings && <span className="mt-4 inline-flex rounded-full bg-green-400/10 px-3 py-1.5 text-xs font-bold text-green-300">{plan.valuePresentation.savings}</span>}
                 </div>
 
-                <ul className="space-y-3 text-sm text-white/60">
+                <ul className="hidden space-y-3 text-sm text-white/60 lg:block">
                   {plan.features.slice(0, 4).map((feature) => (
                     <li key={feature} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-green-400" /> {feature}</li>
                   ))}
@@ -466,12 +463,12 @@ const Checkout = () => {
                   <p className="mt-2 text-right text-xs text-white/35">{plan.valuePresentation.detail}</p>
                 </div>
 
-                <div className="space-y-3 rounded-xl border border-white/[0.06] bg-black/10 p-4 text-xs leading-relaxed text-white/45">
+                <div className="hidden space-y-3 rounded-xl border border-white/[0.06] bg-black/10 p-4 text-xs leading-relaxed text-white/45 lg:block">
                   <p className="flex gap-2.5"><ShieldCheck className="h-4 w-4 shrink-0 text-green-400" /> Pagamento processado pela Cakto</p>
                   <p className="flex gap-2.5"><LockKeyhole className="h-4 w-4 shrink-0 text-green-400" /> Cartão tokenizado e autenticação 3D Secure</p>
                 </div>
 
-                <div className="mt-6">
+                <div className="mt-6 hidden lg:block">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-white/35">Meios de pagamento</p>
                   <div className="grid grid-cols-2 gap-2">
                     <span className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.025] text-xs font-bold text-white/70"><QrCode className="h-4 w-4 text-green-400" /> Pix</span>
@@ -479,7 +476,7 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                <div className="mt-5 grid grid-cols-3 gap-2" aria-label="Selos de segurança">
+                <div className="mt-5 hidden grid-cols-3 gap-2 lg:grid" aria-label="Selos de segurança">
                   <span className="flex min-h-12 flex-col items-center justify-center rounded-xl border border-green-400/10 bg-green-400/[0.04] text-[9px] font-bold uppercase tracking-wide text-green-300"><ShieldCheck className="mb-1 h-4 w-4" /> Cakto</span>
                   <span className="flex min-h-12 flex-col items-center justify-center rounded-xl border border-green-400/10 bg-green-400/[0.04] text-[9px] font-bold uppercase tracking-wide text-green-300"><LockKeyhole className="mb-1 h-4 w-4" /> SSL seguro</span>
                   <span className="flex min-h-12 flex-col items-center justify-center rounded-xl border border-green-400/10 bg-green-400/[0.04] text-[9px] font-bold uppercase tracking-wide text-green-300"><BadgeCheck className="mb-1 h-4 w-4" /> 3D Secure</span>
@@ -487,9 +484,10 @@ const Checkout = () => {
               </div>
             </div>
 
-            <p className="mt-5 text-center text-xs leading-relaxed text-white/30">Ao continuar, você confirma que revisou o plano e os dados informados.</p>
           </aside>
         </div>
+
+        <p className="mt-5 text-center text-xs leading-relaxed text-white/30">Pagamento processado pela Cakto em ambiente protegido.</p>
       </main>
 
       {!result?.pix && (
