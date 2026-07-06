@@ -10,7 +10,6 @@ import {
   LockKeyhole,
   QrCode,
   ShieldCheck,
-  ScanLine,
   WalletCards,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
@@ -20,7 +19,7 @@ import { getSubscriptionPlan } from '@/data/subscriptionPlans';
 import { cleanupCaktoAntifraud, completeCaktoAntifraud, initCaktoAntifraud } from '@/lib/caktoSdk';
 import { trackCheckoutStart, trackPaymentAttempt, trackPurchase } from '@/utils/analytics';
 
-const inputClass = 'mt-2 h-12 w-full rounded-lg border border-white/10 bg-[#15151d] px-4 text-sm text-white outline-none transition placeholder:text-white/25 hover:border-white/20 focus:border-purple-400 focus:ring-4 focus:ring-purple-500/10';
+const inputClass = 'mt-2 h-12 w-full rounded-lg border border-zinc-300 bg-white px-4 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 hover:border-zinc-400 focus:border-purple-600 focus:ring-4 focus:ring-purple-100';
 const paidStatuses = ['paid', 'approved', 'purchase_approved'];
 const failedStatuses = ['declined', 'refused', 'canceled', 'cancelled'];
 
@@ -66,7 +65,7 @@ const initialForm = {
 };
 
 const Field = ({ label, className = '', ...inputProps }) => (
-  <label className={`block text-sm font-medium text-white/75 ${className}`}>
+  <label className={`block text-sm font-medium text-zinc-700 ${className}`}>
     {label}
     <input className={inputClass} {...inputProps} />
   </label>
@@ -84,12 +83,12 @@ const Progress = ({ pixPending = false }) => {
       {items.map((item, index) => (
         <li key={item.label} className="flex flex-1 items-center last:flex-none">
           <div className="flex flex-col items-center gap-2">
-            <span className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-bold ${item.active ? 'border-purple-400 bg-purple-500 text-white shadow-lg shadow-purple-950/50' : 'border-white/10 bg-white/5 text-white/35'}`}>
+            <span className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-bold ${item.active ? 'border-purple-600 bg-purple-600 text-white' : item.complete ? 'border-purple-600 bg-purple-600 text-white' : 'border-zinc-300 bg-white text-zinc-400'}`}>
               {item.complete ? <Check className="h-4 w-4" aria-hidden="true" /> : item.number}
             </span>
-            <span className={`hidden whitespace-nowrap text-xs sm:block ${item.active ? 'text-white/80' : 'text-white/35'}`}>{item.label}</span>
+            <span className={`hidden whitespace-nowrap text-xs sm:block ${item.active || item.complete ? 'text-zinc-800' : 'text-zinc-400'}`}>{item.label}</span>
           </div>
-          {index < items.length - 1 && <span className={`mx-3 h-px flex-1 sm:mx-5 ${item.complete ? 'bg-purple-400' : 'bg-white/10'}`} />}
+          {index < items.length - 1 && <span className={`mx-3 h-px flex-1 sm:mx-5 ${item.complete ? 'bg-purple-600' : 'bg-zinc-300'}`} />}
         </li>
       ))}
     </ol>
@@ -295,9 +294,9 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[#0b0b10] pb-24 text-white sm:pb-0">
+    <div className="min-h-screen overflow-hidden bg-zinc-100 pb-24 text-zinc-900 sm:pb-0">
       <Seo title={`Checkout — Plano ${plan.name}`} description={`Finalize com segurança a assinatura do plano ${plan.name} CineStream.`} path={`/checkout/${plan.slug}`} noIndex />
-      <header className="relative z-10 border-b border-white/[0.07] bg-[#0b0b10]/90 backdrop-blur-xl">
+      <header className="relative z-10 border-b border-white/[0.07] bg-[#111116]">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link to="/" aria-label="Voltar à página inicial"><Logo /></Link>
           <span className="inline-flex items-center gap-2 rounded-full border border-green-400/15 bg-green-400/[0.07] px-3 py-2 text-xs font-medium text-green-300">
@@ -308,25 +307,25 @@ const Checkout = () => {
 
       <main className="relative z-10 mx-auto max-w-6xl px-4 py-7 md:px-6 md:py-10">
         <div className="mb-7 flex items-center justify-between gap-4">
-          <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm text-white/45 transition hover:text-white">
+          <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-zinc-900">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Alterar plano
           </Link>
-          <span className="hidden items-center gap-2 text-xs text-white/35 sm:inline-flex"><LifeBuoy className="h-4 w-4" strokeWidth={1.7} /> Suporte disponível após a compra</span>
+          <span className="hidden items-center gap-2 text-xs text-zinc-500 sm:inline-flex"><LifeBuoy className="h-4 w-4" strokeWidth={1.7} /> Suporte disponível após a compra</span>
         </div>
 
         <div className="mb-8 px-2 sm:px-8">
           <Progress pixPending={Boolean(result?.pix)} />
         </div>
 
-        <div className="grid overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111118] shadow-[0_24px_80px_rgba(0,0,0,0.28)] lg:grid-cols-[360px_minmax(0,1fr)]">
-          <section className="order-2 border-t border-white/[0.08] bg-[#15151c] p-5 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+        <div className="grid overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-[0_20px_55px_rgba(24,24,27,0.10)] lg:grid-cols-[360px_minmax(0,1fr)]">
+          <section className="order-2 border-t border-zinc-200 bg-white p-5 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
             {result?.pix ? (
               <div className="mx-auto max-w-xl py-3 text-center sm:py-6">
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl border border-purple-400/15 bg-purple-500/[0.08] text-purple-300">
+                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl border border-purple-200 bg-purple-50 text-purple-700">
                   <QrCode className="h-7 w-7" aria-hidden="true" />
                 </span>
                 <h1 className="mt-5 text-2xl font-bold sm:text-3xl">Seu Pix está pronto</h1>
-                <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/55">Escaneie o QR Code pelo aplicativo do seu banco ou copie o código abaixo. A confirmação acontece automaticamente.</p>
+                <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-zinc-500">Escaneie o QR Code pelo aplicativo do seu banco ou copie o código abaixo. A confirmação acontece automaticamente.</p>
 
                 <div className="mx-auto my-6 w-fit rounded-xl border border-white/10 bg-white p-3 shadow-lg shadow-black/20">
                   <img src={result.pix.qrCodeBase64} alt="QR Code Pix" className="h-56 w-56 sm:h-64 sm:w-64" />
@@ -336,39 +335,39 @@ const Checkout = () => {
                   {copied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
                   {copied ? 'Código copiado' : 'Copiar código Pix'}
                 </Button>
-                <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-amber-400/[0.08] px-4 py-2 text-xs text-amber-200/80">
+                <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-amber-50 px-4 py-2 text-xs text-amber-700">
                   <Loader2 className="h-3.5 w-3.5 animate-spin" /> Aguardando confirmação do pagamento
                 </div>
-                {pixExpiration && <p className="mt-3 text-xs text-white/45">Pix válido até {pixExpiration}</p>}
-                <p className="mt-4 text-xs text-white/30">Pedido {result.refId}</p>
+                {pixExpiration && <p className="mt-3 text-xs text-zinc-500">Pix válido até {pixExpiration}</p>}
+                <p className="mt-4 text-xs text-zinc-400">Pedido {result.refId}</p>
               </div>
             ) : (
               <form id="checkout-payment-form" onSubmit={submitPayment}>
                 <div>
-                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-purple-300"><ScanLine className="h-4 w-4" strokeWidth={1.7} /> Finalização segura</div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-700">Finalização segura</div>
                   <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Complete sua assinatura</h1>
-                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/50">Preencha seus dados e escolha a forma de pagamento.</p>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-500">Preencha seus dados e escolha a forma de pagamento.</p>
                 </div>
 
                 <fieldset className="mt-8">
-                  <legend className="mb-3 text-sm font-semibold text-white/80">Como deseja pagar?</legend>
+                  <legend className="mb-3 text-sm font-semibold text-zinc-800">Como deseja pagar?</legend>
                   <div className="grid grid-cols-2 gap-3">
-                    <button type="button" onClick={() => selectMethod('pix')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-xl border px-4 text-left transition ${method === 'pix' ? 'border-purple-400 bg-purple-500/[0.08]' : 'border-white/10 bg-white/[0.02] hover:border-white/20'}`}>
-                      {method === 'pix' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-300" />}
-                      <QrCode className={`mb-2 h-5 w-5 ${method === 'pix' ? 'text-purple-300' : 'text-white/40'}`} />
+                    <button type="button" onClick={() => selectMethod('pix')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-xl border px-4 text-left transition ${method === 'pix' ? 'border-purple-600 bg-purple-50' : 'border-zinc-200 bg-white hover:border-zinc-300'}`}>
+                      {method === 'pix' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-700" />}
+                      <QrCode className={`mb-2 h-5 w-5 ${method === 'pix' ? 'text-purple-700' : 'text-zinc-400'}`} />
                       <strong className="text-sm">Pix</strong>
-                      <span className="mt-1 text-[11px] text-white/40">Confirmação rápida</span>
+                      <span className="mt-1 text-[11px] text-zinc-500">Confirmação rápida</span>
                     </button>
-                    <button type="button" onClick={() => selectMethod('threeDs')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-xl border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-400 bg-purple-500/[0.08]' : 'border-white/10 bg-white/[0.02] hover:border-white/20'}`}>
-                      {method === 'threeDs' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-300" />}
-                      <WalletCards className={`mb-2 h-5 w-5 ${method === 'threeDs' ? 'text-purple-300' : 'text-white/40'}`} strokeWidth={1.7} />
+                    <button type="button" onClick={() => selectMethod('threeDs')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-xl border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-600 bg-purple-50' : 'border-zinc-200 bg-white hover:border-zinc-300'}`}>
+                      {method === 'threeDs' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-700" />}
+                      <WalletCards className={`mb-2 h-5 w-5 ${method === 'threeDs' ? 'text-purple-700' : 'text-zinc-400'}`} strokeWidth={1.7} />
                       <strong className="text-sm">Cartão</strong>
-                      <span className="mt-1 text-[11px] text-white/40">Compra autenticada</span>
+                      <span className="mt-1 text-[11px] text-zinc-500">Compra autenticada</span>
                     </button>
                   </div>
                 </fieldset>
 
-                <div className="mt-8 border-t border-white/[0.07] pt-7">
+                <div className="mt-8 border-t border-zinc-200 pt-7">
                   <div className="mb-5 flex items-center gap-3">
                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-500 text-xs font-bold">1</span>
                     <h2 className="font-semibold">Dados do comprador</h2>
@@ -382,7 +381,7 @@ const Checkout = () => {
                 </div>
 
                 {method === 'threeDs' && (
-                  <div className="mt-8 border-t border-white/[0.07] pt-7">
+                  <div className="mt-8 border-t border-zinc-200 pt-7">
                     <div className="mb-5 flex items-center gap-3">
                       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-500 text-xs font-bold">2</span>
                       <h2 className="font-semibold">Cartão e endereço de cobrança</h2>
@@ -403,21 +402,21 @@ const Checkout = () => {
                   </div>
                 )}
 
-                <label className="mt-7 flex cursor-pointer items-start gap-3 rounded-xl border border-white/[0.07] bg-white/[0.02] p-4 text-xs leading-relaxed text-white/50">
+                <label className="mt-7 flex cursor-pointer items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-xs leading-relaxed text-zinc-600">
                   <input type="checkbox" checked={accepted} onChange={(event) => setAccepted(event.target.checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-purple-500" />
-                  <span>Li e concordo com os <Link to="/termos" target="_blank" className="text-purple-300 underline underline-offset-2">Termos de Uso</Link>, a <Link to="/privacidade" target="_blank" className="text-purple-300 underline underline-offset-2">Política de Privacidade</Link> e as condições do plano.</span>
+                  <span>Li e concordo com os <Link to="/termos" target="_blank" className="text-purple-700 underline underline-offset-2">Termos de Uso</Link>, a <Link to="/privacidade" target="_blank" className="text-purple-700 underline underline-offset-2">Política de Privacidade</Link> e as condições do plano.</span>
                 </label>
 
-                {error && <div role="alert" aria-live="polite" className="mt-5 rounded-xl border border-red-400/25 bg-red-500/10 p-4 text-sm text-red-200">{error}</div>}
+                {error && <div role="alert" aria-live="polite" className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</div>}
                 <Button type="submit" disabled={loading || !sdkReady} className="mt-6 hidden min-h-14 w-full rounded-lg bg-purple-500 text-base font-bold text-white shadow-lg shadow-purple-950/20 transition hover:bg-purple-400 disabled:opacity-50 sm:inline-flex">
                   {loading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processando com segurança…</> : method === 'pix' ? <><QrCode className="mr-2 h-5 w-5" /> Gerar Pix de {plan.price}</> : <><LockKeyhole className="mr-2 h-5 w-5" /> Pagar {plan.price}</>}
                 </Button>
-                <p className="mt-3 hidden text-center text-[11px] text-white/30 sm:block">Seus dados de pagamento são protegidos e processados pela Cakto.</p>
+                <p className="mt-3 hidden text-center text-[11px] text-zinc-400 sm:block">Seus dados de pagamento são protegidos e processados pela Cakto.</p>
               </form>
             )}
           </section>
 
-          <aside className="order-1 bg-[#101016]">
+          <aside className="order-1 bg-[#101016] text-white">
             <div>
               <div className="border-b border-white/[0.08] p-6">
                 <div className="flex items-center justify-between gap-3">
@@ -487,19 +486,19 @@ const Checkout = () => {
           </aside>
         </div>
 
-        <p className="mt-5 text-center text-xs leading-relaxed text-white/30">Pagamento processado pela Cakto em ambiente protegido.</p>
+        <p className="mt-5 text-center text-xs leading-relaxed text-zinc-500">Pagamento processado pela Cakto em ambiente protegido.</p>
       </main>
 
       {!result?.pix && (
-        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#0b0b10]/95 p-3 shadow-[0_-12px_35px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-zinc-200 bg-white/95 p-3 shadow-[0_-12px_35px_rgba(24,24,27,0.12)] backdrop-blur-xl sm:hidden">
           <Button form="checkout-payment-form" type="submit" disabled={loading || !sdkReady} className="min-h-14 w-full rounded-lg bg-purple-500 text-sm font-bold text-white hover:bg-purple-400 disabled:opacity-50">
             {loading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processando…</> : method === 'pix' ? <><QrCode className="mr-2 h-5 w-5" /> Gerar Pix de {plan.price}</> : <><LockKeyhole className="mr-2 h-5 w-5" /> Pagar {plan.price}</>}
           </Button>
-          <p className="mt-1.5 text-center text-[10px] text-white/35"><LockKeyhole className="mr-1 inline h-3 w-3 text-green-400" /> Pagamento protegido pela Cakto</p>
+          <p className="mt-1.5 text-center text-[10px] text-zinc-500"><LockKeyhole className="mr-1 inline h-3 w-3 text-green-600" /> Pagamento protegido pela Cakto</p>
         </div>
       )}
 
-      <footer className="relative z-10 border-t border-white/[0.06] py-6 text-center text-xs text-white/30">
+      <footer className="relative z-10 border-t border-zinc-200 py-6 text-center text-xs text-zinc-500">
         © {new Date().getFullYear()} CineStream · Compra protegida
       </footer>
     </div>
