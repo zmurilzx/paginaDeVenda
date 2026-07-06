@@ -95,6 +95,93 @@ const Progress = ({ pixPending = false }) => {
   );
 };
 
+const OrderSummary = ({ plan, mobile = false }) => {
+  const monthly = plan.valuePresentation.monthlyEquivalent;
+
+  if (mobile) {
+    return (
+      <details className="group mb-6 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-4 marker:content-none">
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-zinc-500">Resumo do pedido</p>
+            <p className="mt-0.5 truncate text-sm font-semibold text-zinc-900">Plano {plan.name}</p>
+          </div>
+          <div className="shrink-0 text-right">
+            <strong className="block text-base text-zinc-900">{plan.price}</strong>
+            <span className="text-[11px] font-medium text-purple-700 group-open:hidden">Ver detalhes</span>
+            <span className="hidden text-[11px] font-medium text-purple-700 group-open:inline">Ocultar</span>
+          </div>
+        </summary>
+        <div className="border-t border-zinc-200 px-4 py-4">
+          {monthly && <p className="text-sm text-zinc-600">Equivale a <strong className="text-zinc-900">{monthly} por mês</strong></p>}
+          <ul className="mt-3 space-y-2 text-xs text-zinc-600">
+            {plan.features.slice(0, 3).map((feature) => (
+              <li key={feature} className="flex gap-2"><Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-green-600" /> {feature}</li>
+            ))}
+          </ul>
+          <div className="mt-4 flex items-center justify-between border-t border-zinc-200 pt-3 text-sm">
+            <span className="text-zinc-600">Total</span>
+            <strong className="text-lg text-zinc-900">{plan.price}</strong>
+          </div>
+        </div>
+      </details>
+    );
+  }
+
+  return (
+    <aside className="hidden bg-[#15151b] text-white lg:block">
+      <div className="sticky top-0 p-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/50">Resumo do pedido</p>
+        <div className="mt-5 border-b border-white/10 pb-6">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-semibold">Plano {plan.name}</h2>
+              <p className="mt-1 text-sm text-white/55">Assinatura CineStream</p>
+            </div>
+            {plan.badge && <span className="rounded-md bg-purple-500/15 px-2.5 py-1 text-[10px] font-semibold text-purple-200">{plan.badge}</span>}
+          </div>
+        </div>
+
+        <div className="border-b border-white/10 py-6">
+          {monthly ? (
+            <>
+              <p className="text-sm text-white/55">Valor equivalente</p>
+              <div className="mt-1 flex items-baseline gap-2">
+                <strong className="text-3xl tracking-tight">{monthly}</strong>
+                <span className="text-sm text-white/50">por mês</span>
+              </div>
+            </>
+          ) : (
+            <strong className="text-2xl">{plan.valuePresentation.installmentEquivalent}</strong>
+          )}
+          {plan.valuePresentation.savings && <p className="mt-3 text-xs font-medium text-green-400">{plan.valuePresentation.savings}</p>}
+        </div>
+
+        <ul className="space-y-3 border-b border-white/10 py-6 text-sm leading-relaxed text-white/65">
+          {plan.features.slice(0, 4).map((feature) => (
+            <li key={feature} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-green-400" /> {feature}</li>
+          ))}
+        </ul>
+
+        <div className="py-6">
+          {plan.valuePresentation.comparison && <p className="mb-2 text-right text-xs text-white/35 line-through">{plan.valuePresentation.comparison}</p>}
+          <div className="flex items-end justify-between gap-4">
+            <span className="text-sm text-white/55">Total</span>
+            <strong className="text-3xl tracking-tight">{plan.price}</strong>
+          </div>
+          <p className="mt-2 text-right text-xs text-white/40">{plan.valuePresentation.detail}</p>
+        </div>
+
+        <div className="mt-2 space-y-3 border-t border-white/10 pt-6 text-xs text-white/55">
+          <p className="flex items-center gap-2.5"><ShieldCheck className="h-4 w-4 text-green-400" /> Pagamento processado pela Cakto</p>
+          <p className="flex items-center gap-2.5"><LockKeyhole className="h-4 w-4 text-green-400" /> Conexão segura e dados criptografados</p>
+          <p className="flex items-center gap-2.5"><WalletCards className="h-4 w-4 text-purple-300" /> Pix e cartão de crédito</p>
+        </div>
+      </div>
+    </aside>
+  );
+};
+
 const getDeviceId = () => {
   const storageKey = 'cinestream_checkout_device';
   let value = window.localStorage.getItem(storageKey);
@@ -305,7 +392,7 @@ const Checkout = () => {
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto max-w-6xl px-4 py-7 md:px-6 md:py-10">
+      <main className="relative z-10 mx-auto max-w-[1120px] px-4 py-6 md:px-6 md:py-9">
         <div className="mb-7 flex items-center justify-between gap-4">
           <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-zinc-900">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Alterar plano
@@ -313,12 +400,15 @@ const Checkout = () => {
           <span className="hidden items-center gap-2 text-xs text-zinc-500 sm:inline-flex"><LifeBuoy className="h-4 w-4" strokeWidth={1.7} /> Suporte disponível após a compra</span>
         </div>
 
-        <div className="mb-8 px-2 sm:px-8">
+        <div className="mb-6 px-2 sm:mb-8 sm:px-8">
           <Progress pixPending={Boolean(result?.pix)} />
         </div>
 
-        <div className="grid overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-[0_20px_55px_rgba(24,24,27,0.10)] lg:grid-cols-[360px_minmax(0,1fr)]">
-          <section className="order-2 border-t border-zinc-200 bg-white p-5 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+        {!result?.pix && <div className="lg:hidden"><OrderSummary plan={plan} mobile /></div>}
+
+        <div className="grid overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-[0_12px_35px_rgba(24,24,27,0.08)] lg:grid-cols-[350px_minmax(0,1fr)]">
+          <OrderSummary plan={plan} />
+          <section className="bg-white p-5 sm:p-8 lg:border-l lg:border-zinc-200 lg:p-10 xl:p-12">
             {result?.pix ? (
               <div className="mx-auto max-w-xl py-3 text-center sm:py-6">
                 <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl border border-purple-200 bg-purple-50 text-purple-700">
@@ -344,32 +434,29 @@ const Checkout = () => {
             ) : (
               <form id="checkout-payment-form" onSubmit={submitPayment}>
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-700">Finalização segura</div>
-                  <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Complete sua assinatura</h1>
-                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-500">Preencha seus dados e escolha a forma de pagamento.</p>
+                  <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Finalize sua assinatura</h1>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-500">Informe seus dados para concluir o pedido com segurança.</p>
                 </div>
 
                 <fieldset className="mt-8">
-                  <legend className="mb-3 text-sm font-semibold text-zinc-800">Como deseja pagar?</legend>
+                  <legend className="mb-3 text-sm font-semibold text-zinc-900">Forma de pagamento</legend>
                   <div className="grid grid-cols-2 gap-3">
-                    <button type="button" onClick={() => selectMethod('pix')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-xl border px-4 text-left transition ${method === 'pix' ? 'border-purple-600 bg-purple-50' : 'border-zinc-200 bg-white hover:border-zinc-300'}`}>
+                    <button type="button" onClick={() => selectMethod('pix')} className={`relative flex min-h-[76px] items-center gap-3 rounded-lg border px-4 text-left transition ${method === 'pix' ? 'border-purple-600 bg-purple-50 ring-1 ring-purple-600' : 'border-zinc-200 bg-white hover:border-zinc-400'}`}>
                       {method === 'pix' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-700" />}
-                      <QrCode className={`mb-2 h-5 w-5 ${method === 'pix' ? 'text-purple-700' : 'text-zinc-400'}`} />
-                      <strong className="text-sm">Pix</strong>
-                      <span className="mt-1 text-[11px] text-zinc-500">Confirmação rápida</span>
+                      <QrCode className={`h-5 w-5 shrink-0 ${method === 'pix' ? 'text-purple-700' : 'text-zinc-400'}`} />
+                      <span><strong className="block text-sm">Pix</strong><span className="mt-1 block text-[11px] text-zinc-500">Confirmação rápida</span></span>
                     </button>
-                    <button type="button" onClick={() => selectMethod('threeDs')} className={`relative flex min-h-20 flex-col items-start justify-center rounded-xl border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-600 bg-purple-50' : 'border-zinc-200 bg-white hover:border-zinc-300'}`}>
+                    <button type="button" onClick={() => selectMethod('threeDs')} className={`relative flex min-h-[76px] items-center gap-3 rounded-lg border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-600 bg-purple-50 ring-1 ring-purple-600' : 'border-zinc-200 bg-white hover:border-zinc-400'}`}>
                       {method === 'threeDs' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-700" />}
-                      <WalletCards className={`mb-2 h-5 w-5 ${method === 'threeDs' ? 'text-purple-700' : 'text-zinc-400'}`} strokeWidth={1.7} />
-                      <strong className="text-sm">Cartão</strong>
-                      <span className="mt-1 text-[11px] text-zinc-500">Compra autenticada</span>
+                      <WalletCards className={`h-5 w-5 shrink-0 ${method === 'threeDs' ? 'text-purple-700' : 'text-zinc-400'}`} strokeWidth={1.7} />
+                      <span><strong className="block text-sm">Cartão</strong><span className="mt-1 block text-[11px] text-zinc-500">Compra autenticada</span></span>
                     </button>
                   </div>
                 </fieldset>
 
                 <div className="mt-8 border-t border-zinc-200 pt-7">
                   <div className="mb-5 flex items-center gap-3">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-500 text-xs font-bold">1</span>
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-purple-700">1</span>
                     <h2 className="font-semibold">Dados do comprador</h2>
                   </div>
                   <div className="grid gap-5 sm:grid-cols-2">
@@ -383,7 +470,7 @@ const Checkout = () => {
                 {method === 'threeDs' && (
                   <div className="mt-8 border-t border-zinc-200 pt-7">
                     <div className="mb-5 flex items-center gap-3">
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-500 text-xs font-bold">2</span>
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-purple-700">2</span>
                       <h2 className="font-semibold">Cartão e endereço de cobrança</h2>
                     </div>
                     <div className="grid gap-5 sm:grid-cols-6">
@@ -402,13 +489,13 @@ const Checkout = () => {
                   </div>
                 )}
 
-                <label className="mt-7 flex cursor-pointer items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-xs leading-relaxed text-zinc-600">
+                <label className="mt-7 flex cursor-pointer items-start gap-3 border-t border-zinc-200 pt-5 text-xs leading-relaxed text-zinc-600">
                   <input type="checkbox" checked={accepted} onChange={(event) => setAccepted(event.target.checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-purple-500" />
                   <span>Li e concordo com os <Link to="/termos" target="_blank" className="text-purple-700 underline underline-offset-2">Termos de Uso</Link>, a <Link to="/privacidade" target="_blank" className="text-purple-700 underline underline-offset-2">Política de Privacidade</Link> e as condições do plano.</span>
                 </label>
 
                 {error && <div role="alert" aria-live="polite" className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</div>}
-                <Button type="submit" disabled={loading || !sdkReady} className="mt-6 hidden min-h-14 w-full rounded-lg bg-purple-500 text-base font-bold text-white shadow-lg shadow-purple-950/20 transition hover:bg-purple-400 disabled:opacity-50 sm:inline-flex">
+                <Button type="submit" disabled={loading || !sdkReady} className="mt-6 hidden min-h-14 w-full rounded-lg bg-purple-600 text-base font-semibold text-white shadow-sm transition hover:bg-purple-700 disabled:opacity-50 sm:inline-flex">
                   {loading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processando com segurança…</> : method === 'pix' ? <><QrCode className="mr-2 h-5 w-5" /> Gerar Pix de {plan.price}</> : <><LockKeyhole className="mr-2 h-5 w-5" /> Pagar {plan.price}</>}
                 </Button>
                 <p className="mt-3 hidden text-center text-[11px] text-zinc-400 sm:block">Seus dados de pagamento são protegidos e processados pela Cakto.</p>
@@ -416,74 +503,6 @@ const Checkout = () => {
             )}
           </section>
 
-          <aside className="order-1 bg-[#101016] text-white">
-            <div>
-              <div className="border-b border-white/[0.08] p-6">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-300">Seu pedido</p>
-                  {plan.badge && <span className="rounded-full bg-purple-500/15 px-3 py-1 text-[10px] font-bold text-purple-200">{plan.badge}</span>}
-                </div>
-                <h2 className="mt-3 text-2xl font-bold">Plano {plan.name}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-white/45">{plan.description}</p>
-              </div>
-
-              <div className="p-6">
-                <div className="mb-6 rounded-xl border border-purple-400/15 bg-purple-400/[0.05] p-5 text-center">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-purple-200">{plan.valuePresentation.eyebrow}</p>
-                  {plan.valuePresentation.monthlyEquivalent ? (
-                    <>
-                      <div className="mt-2 flex items-end justify-center gap-2">
-                        <strong className="text-4xl font-bold tracking-tight text-white">{plan.valuePresentation.monthlyEquivalent}</strong>
-                        <span className="pb-1 text-sm text-white/50">por mês</span>
-                      </div>
-                      <p className="mt-2 text-xs text-white/45">{plan.valuePresentation.equivalentCaption || 'valor equivalente no período contratado'}</p>
-                    </>
-                  ) : (
-                    <>
-                      <strong className="mt-2 block text-3xl font-bold tracking-tight text-white">{plan.valuePresentation.installmentEquivalent}</strong>
-                      <p className="mt-2 text-xs text-white/45">ou {plan.price} em pagamento único</p>
-                    </>
-                  )}
-                  {plan.valuePresentation.savings && <span className="mt-4 inline-flex rounded-full bg-green-400/10 px-3 py-1.5 text-xs font-bold text-green-300">{plan.valuePresentation.savings}</span>}
-                </div>
-
-                <ul className="hidden space-y-3 text-sm text-white/60 lg:block">
-                  {plan.features.slice(0, 4).map((feature) => (
-                    <li key={feature} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-green-400" /> {feature}</li>
-                  ))}
-                </ul>
-
-                <div className="my-6 border-y border-white/[0.08] py-5">
-                  {plan.valuePresentation.comparison && <p className="mb-3 text-right text-xs text-white/35 line-through">{plan.valuePresentation.comparison}</p>}
-                  <div className="flex items-end justify-between gap-4">
-                    <span className="text-sm text-white/45">Total cobrado</span>
-                    <strong className="text-3xl tracking-tight">{plan.price}</strong>
-                  </div>
-                  <p className="mt-2 text-right text-xs text-white/35">{plan.valuePresentation.detail}</p>
-                </div>
-
-                <div className="hidden space-y-3 rounded-xl border border-white/[0.06] bg-black/10 p-4 text-xs leading-relaxed text-white/45 lg:block">
-                  <p className="flex gap-2.5"><ShieldCheck className="h-4 w-4 shrink-0 text-green-400" /> Pagamento processado pela Cakto</p>
-                  <p className="flex gap-2.5"><LockKeyhole className="h-4 w-4 shrink-0 text-green-400" /> Cartão tokenizado e autenticação 3D Secure</p>
-                </div>
-
-                <div className="mt-6 hidden lg:block">
-                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-white/35">Meios de pagamento</p>
-                  <div className="grid grid-cols-2 gap-2">
-                    <span className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.025] text-xs font-bold text-white/70"><QrCode className="h-4 w-4 text-green-400" /> Pix</span>
-                    <span className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.025] text-xs font-bold text-white/70"><WalletCards className="h-4 w-4 text-purple-300" strokeWidth={1.7} /> Cartão</span>
-                  </div>
-                </div>
-
-                <div className="mt-5 hidden grid-cols-3 gap-2 lg:grid" aria-label="Selos de segurança">
-                  <span className="flex min-h-12 flex-col items-center justify-center rounded-xl border border-green-400/10 bg-green-400/[0.04] text-[9px] font-bold uppercase tracking-wide text-green-300"><ShieldCheck className="mb-1 h-4 w-4" /> Cakto</span>
-                  <span className="flex min-h-12 flex-col items-center justify-center rounded-xl border border-green-400/10 bg-green-400/[0.04] text-[9px] font-bold uppercase tracking-wide text-green-300"><LockKeyhole className="mb-1 h-4 w-4" /> SSL seguro</span>
-                  <span className="flex min-h-12 flex-col items-center justify-center rounded-xl border border-green-400/10 bg-green-400/[0.04] text-[9px] font-bold uppercase tracking-wide text-green-300"><BadgeCheck className="mb-1 h-4 w-4" /> 3D Secure</span>
-                </div>
-              </div>
-            </div>
-
-          </aside>
         </div>
 
         <p className="mt-5 text-center text-xs leading-relaxed text-zinc-500">Pagamento processado pela Cakto em ambiente protegido.</p>
