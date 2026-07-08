@@ -31,7 +31,7 @@ const VSL = () => {
           className="text-center mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight leading-tight">
-            Veja a experiência por dentro
+            Tenha acesso a tudo isso por 28$
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-foreground/60">Assista à demonstração antes de escolher seu plano.</p>
         </motion.div>

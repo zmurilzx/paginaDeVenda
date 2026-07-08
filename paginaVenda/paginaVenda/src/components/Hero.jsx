@@ -17,7 +17,7 @@ const Hero = () => (
           Planos a partir de R$28,40
         </span>
         <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-          Filmes, séries e canais em um só lugar
+          Filmes, séries e canais a partir de 28$
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-foreground/65 sm:text-lg md:text-xl">
           Escolha o plano ideal, conclua o pagamento em ambiente seguro e receba as orientações para começar.
@@ -41,8 +41,8 @@ const Hero = () => (
           ))}
         </ul>
 
-        <a href="https://wa.me/5543999748808?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20os%20planos%20CineStream." target="_blank" rel="noopener noreferrer" onClick={() => trackButtonClick('Tirar dúvida', 'hero')} className="mt-6 inline-flex items-center gap-2 text-sm text-foreground/60 underline-offset-4 hover:text-white hover:underline">
-          <MessagesSquare className="h-4 w-4 text-green-400" strokeWidth={1.7} aria-hidden="true" /> Tem alguma dúvida? Fale com a equipe
+        <a href="https://wa.me/5543999748808?text=Tenho%20d%C3%BAvidas%20sobre%20o%20app!" target="_blank" rel="noopener noreferrer" onClick={() => trackButtonClick('Tirar dúvida pelo WhatsApp', 'hero')} className="mt-6 inline-flex min-h-14 w-full max-w-sm items-center justify-center gap-3 rounded-xl bg-green-500 px-7 text-base font-bold text-white shadow-lg shadow-green-950/25 transition hover:-translate-y-0.5 hover:bg-green-400 sm:w-auto">
+          <MessagesSquare className="h-5 w-5" strokeWidth={1.8} aria-hidden="true" /> Tenho dúvidas sobre o app!
         </a>
       </motion.div>
     </div>
