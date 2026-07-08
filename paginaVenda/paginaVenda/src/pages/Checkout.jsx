@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import QRCode from 'qrcode';
 import {
   ArrowLeft,
   BadgeCheck,
@@ -189,9 +190,11 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [result, setResult] = useState(null);
+  const [generatedQrImage, setGeneratedQrImage] = useState('');
   const [copied, setCopied] = useState(false);
 
   const paid = useMemo(() => paidStatuses.includes(result?.status), [result?.status]);
+  const qrImage = result?.pix?.qrCodeBase64 || generatedQrImage;
   const pixExpiration = (() => {
     if (!result?.pix?.expiresAt) return '';
     const expiresAt = new Date(result.pix.expiresAt);
@@ -245,6 +248,19 @@ const Checkout = () => {
     trackPurchase(plan.name, plan.price, purchase.refId);
     navigate(`/obrigado?plano=${encodeURIComponent(plan.slug)}`, { replace: true, state: purchase });
   }, [method, navigate, paid, plan, result?.paymentMethod, result?.refId]);
+
+  useEffect(() => {
+    if (!result?.pix?.qrCode || result.pix.qrCodeBase64) {
+      return;
+    }
+
+    let active = true;
+    QRCode.toDataURL(result.pix.qrCode, { margin: 1, width: 256 })
+      .then((dataUrl) => active && setGeneratedQrImage(dataUrl))
+      .catch(() => active && setGeneratedQrImage(''));
+
+    return () => { active = false; };
+  }, [result?.pix?.qrCode, result?.pix?.qrCodeBase64]);
 
   if (!plan) {
     return (
@@ -389,7 +405,11 @@ const Checkout = () => {
                 <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/60">Escaneie o QR Code pelo aplicativo do seu banco ou copie o código abaixo. A confirmação acontece automaticamente.</p>
 
                 <div className="mx-auto my-6 w-fit rounded-xl border border-white/10 bg-white p-3 shadow-lg shadow-black/20">
-                  <img src={result.pix.qrCodeBase64} alt="QR Code Pix" className="h-56 w-56 sm:h-64 sm:w-64" />
+                  {qrImage ? (
+                    <img src={qrImage} alt="QR Code Pix" className="h-56 w-56 sm:h-64 sm:w-64" />
+                  ) : (
+                    <div className="flex h-56 w-56 items-center justify-center text-sm text-zinc-500 sm:h-64 sm:w-64">Gerando QR Code...</div>
+                  )}
                 </div>
 
                 <Button type="button" onClick={copyPix} className="min-h-12 w-full bg-purple-500 font-bold text-white hover:bg-purple-400 sm:w-auto sm:px-8">
