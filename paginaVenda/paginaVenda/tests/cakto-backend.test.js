@@ -92,7 +92,7 @@ test('o backend cria o payload Pix com IDs definidos no servidor, sem cobrança 
     assert.equal(state.status, 201);
     assert.equal(calls.length, 2);
     const paymentPayload = JSON.parse(calls[1].options.body);
-    assert.equal(paymentPayload.productId, 'product-monthly');
+    assert.equal(paymentPayload.productId, undefined);
     assert.equal(paymentPayload.items[0].offerId, 'offer-monthly');
     assert.equal(paymentPayload.customer.phone, '5511999999999');
   } finally {

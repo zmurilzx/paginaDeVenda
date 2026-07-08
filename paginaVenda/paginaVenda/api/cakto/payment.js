@@ -60,7 +60,6 @@ export default async function handler(request, response) {
       : randomUUID();
 
     const payload = {
-      productId: plan.productId,
       paymentMethod,
       customer: { ...customer, fingerprint: deviceId },
       items: [{ offerId: plan.offerId, quantity: 1, offerType: 'main' }],
