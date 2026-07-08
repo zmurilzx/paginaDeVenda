@@ -356,7 +356,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-hidden bg-zinc-100 pb-24 text-zinc-900 sm:pb-0">
+    <div className="min-h-screen overflow-hidden bg-background pb-24 text-foreground sm:pb-0">
       <Seo title={`Checkout — Plano ${plan.name}`} description={`Finalize com segurança a assinatura do plano ${plan.name} CineStream.`} path={`/checkout/${plan.slug}`} noIndex />
       <header className="relative z-10 border-b border-white/[0.07] bg-[#111116]">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
@@ -369,10 +369,10 @@ const Checkout = () => {
 
       <main className="relative z-10 mx-auto max-w-[1120px] px-4 py-6 md:px-6 md:py-9">
         <div className="mb-5 flex items-center justify-between gap-4">
-          <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-zinc-900">
+          <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm text-white/60 transition hover:text-white">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Alterar plano
           </Link>
-          <span className="hidden text-xs text-zinc-500 sm:block">Ambiente de pagamento CineStream</span>
+          <span className="hidden text-xs text-white/55 sm:block">Ambiente de pagamento CineStream</span>
         </div>
 
         {!result?.pix && <div className="lg:hidden"><OrderSummary plan={plan} mobile /></div>}
@@ -470,7 +470,7 @@ const Checkout = () => {
 
         </div>
 
-        <p className="mt-5 text-center text-xs leading-relaxed text-zinc-500">Pagamento processado pela Cakto em ambiente protegido.</p>
+        <p className="mt-5 text-center text-xs leading-relaxed text-white/55">Pagamento processado pela Cakto em ambiente protegido.</p>
       </main>
 
       {!result?.pix && (
@@ -482,7 +482,7 @@ const Checkout = () => {
         </div>
       )}
 
-      <footer className="relative z-10 border-t border-zinc-200 py-6 text-center text-xs text-zinc-500">
+      <footer className="relative z-10 border-t border-white/10 py-6 text-center text-xs text-white/55">
         © {new Date().getFullYear()} CineStream · Compra protegida
       </footer>
     </div>
