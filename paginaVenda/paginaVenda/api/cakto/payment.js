@@ -60,16 +60,17 @@ export default async function handler(request, response) {
       : randomUUID();
 
     const payload = {
+      productId: plan.productId,
       paymentMethod,
       customer: { ...customer, fingerprint: deviceId },
-      items: [{ offerId: plan.offerId, quantity: 1, offerType: 'main' }],
+      items: [{ offerId: plan.offerId }],
       antifraudProfilingAttemptReference: antifraudReference,
-      metadata: safeMetadata(body.metadata),
     };
 
-    if (paymentMethod === 'pix') {
-      payload.pixExpiresIn = 3600;
-    } else {
+    const metadata = safeMetadata(body.metadata);
+    if (Object.keys(metadata).length) payload.metadata = metadata;
+
+    if (paymentMethod !== 'pix') {
       if (!body.cardToken || typeof body.cardToken !== 'string') throw new Error('Token do cartão ausente.');
       payload.card = { token: body.cardToken };
       payload.threeDSecure = body.threeDSecure || {};
