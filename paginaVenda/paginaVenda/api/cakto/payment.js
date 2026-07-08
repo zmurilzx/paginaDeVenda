@@ -53,7 +53,7 @@ export default async function handler(request, response) {
     const deviceId = String(body.deviceId || '');
     const antifraudReference = String(body.antifraudReference || '').trim();
     if (deviceId.length < 8 || deviceId.length > 160) throw new Error('Sessão de pagamento inválida.');
-    if (antifraudReference.length < 8 || antifraudReference.length > 2048) throw new Error('Perfil antifraude inválido.');
+    if (!antifraudReference || antifraudReference.length > 2048) throw new Error('Perfil antifraude inválido.');
 
     const idempotencyKey = /^[0-9a-f-]{36}$/i.test(body.idempotencyKey)
       ? body.idempotencyKey

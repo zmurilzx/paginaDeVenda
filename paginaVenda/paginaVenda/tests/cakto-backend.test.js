@@ -80,7 +80,7 @@ test('o backend cria o payload Pix com IDs definidos no servidor, sem cobrança 
     body: {
       plan: 'mensal', paymentMethod: 'pix',
       customer: { name: 'Cliente Teste', email: 'cliente@example.com', phone: '11999999999', docNumber: '12345678901' },
-      deviceId: 'fp-test-session', antifraudReference: `antifraud-test-reference-${'x'.repeat(300)}`,
+      deviceId: 'fp-test-session', antifraudReference: 'a',
       idempotencyKey: '22222222-2222-4222-8222-222222222222',
     },
   };
