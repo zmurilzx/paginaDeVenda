@@ -82,6 +82,10 @@ export const publicPaymentError = (error) => {
   if (error?.status === 400 || error?.status === 409) {
     const detail = error.details?.detail;
     if (typeof detail === 'string' && detail.length < 240) return detail;
+
+    const firstFieldError = Object.entries(error.details || {})
+      .find(([, value]) => Array.isArray(value) && typeof value[0] === 'string' && value[0].length < 240);
+    if (firstFieldError) return firstFieldError[1][0];
   }
 
   if (error?.status === 429) return 'Muitas tentativas. Aguarde um minuto e tente novamente.';

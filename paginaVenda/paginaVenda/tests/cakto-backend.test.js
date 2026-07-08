@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import paymentHandler from '../api/cakto/payment.js';
 import webhookHandler from '../api/cakto/webhook.js';
-import { isAllowedRequestOrigin } from '../api/_lib/cakto.js';
+import { isAllowedRequestOrigin, publicPaymentError } from '../api/_lib/cakto.js';
 import { getPlanConfig, PLAN_SLUGS } from '../api/_lib/plans.js';
 
 const fakeEnvironment = {
@@ -30,6 +30,14 @@ test('a API aceita apenas origens do site, localhost ou previews da Vercel', () 
   assert.equal(isAllowedRequestOrigin({ headers: { origin: 'https://cinestreamoficial.site' } }), true);
   assert.equal(isAllowedRequestOrigin({ headers: { origin: 'https://teste.vercel.app' } }), true);
   assert.equal(isAllowedRequestOrigin({ headers: { origin: 'https://site-malicioso.example' } }), false);
+});
+
+test('a API repassa erros estruturados da Cakto para diagnóstico do checkout', () => {
+  const error = new Error('A Cakto recusou a operação.');
+  error.status = 400;
+  error.details = { items: ['Oferta não encontrada para o produto informado.'] };
+
+  assert.equal(publicPaymentError(error), 'Oferta não encontrada para o produto informado.');
 });
 
 test('o endpoint rejeita plano desconhecido antes de chamar a Cakto', async () => {
@@ -72,7 +80,7 @@ test('o backend cria o payload Pix com IDs definidos no servidor, sem cobrança 
     body: {
       plan: 'mensal', paymentMethod: 'pix',
       customer: { name: 'Cliente Teste', email: 'cliente@example.com', phone: '11999999999', docNumber: '12345678901' },
-      deviceId: 'fp-test-session', antifraudReference: 'antifraud-test-reference',
+      deviceId: 'fp-test-session', antifraudReference: `antifraud-test-reference-${'x'.repeat(300)}`,
       idempotencyKey: '22222222-2222-4222-8222-222222222222',
     },
   };
