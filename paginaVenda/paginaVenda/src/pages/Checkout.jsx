@@ -12,14 +12,22 @@ import {
   ShieldCheck,
   WalletCards,
 } from 'lucide-react';
-import Logo from '@/components/Logo';
 import Seo from '@/components/Seo';
 import { Button } from '@/components/ui/button';
 import { getSubscriptionPlan } from '@/data/subscriptionPlans';
 import { cleanupCaktoAntifraud, completeCaktoAntifraud, initCaktoAntifraud } from '@/lib/caktoSdk';
-import { trackCheckoutStart, trackPaymentAttempt, trackPurchase } from '@/utils/analytics';
+import {
+  getTrackingMetadata,
+  sendMarketingEvent,
+  trackCheckoutLead,
+  trackCheckoutStart,
+  trackPaymentAttempt,
+  trackPaymentError,
+  trackPixGenerated,
+  trackPurchase,
+} from '@/utils/analytics';
 
-const inputClass = 'mt-2 h-12 w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 text-sm text-white outline-none transition placeholder:text-white/35 hover:border-white/25 focus:border-purple-400 focus:ring-4 focus:ring-purple-500/15';
+const inputClass = 'mt-2 h-12 w-full rounded-lg border border-slate-300 bg-white px-3.5 text-base text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-purple-600 focus:ring-4 focus:ring-purple-100 sm:px-4 sm:text-sm';
 const paidStatuses = ['paid', 'approved', 'purchase_approved'];
 const failedStatuses = ['declined', 'refused', 'canceled', 'cancelled'];
 
@@ -65,7 +73,7 @@ const initialForm = {
 };
 
 const Field = ({ label, className = '', ...inputProps }) => (
-  <label className={`block text-sm font-medium text-white/80 ${className}`}>
+  <label className={`block text-sm font-medium text-slate-700 ${className}`}>
     {label}
     <input className={inputClass} {...inputProps} />
   </label>
@@ -76,28 +84,28 @@ const OrderSummary = ({ plan, mobile = false }) => {
 
   if (mobile) {
     return (
-      <details className="group mb-5 overflow-hidden rounded-lg border border-white/10 bg-card text-foreground">
+      <details className="group mb-4 overflow-hidden rounded-xl border border-slate-200 bg-white text-slate-900 shadow-sm">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-4 marker:content-none">
           <div className="min-w-0">
-            <p className="text-xs font-medium text-white/50">Resumo do pedido</p>
-            <p className="mt-0.5 truncate text-sm font-semibold text-white">Plano {plan.name}</p>
+            <p className="text-xs font-medium text-slate-500">Resumo do pedido</p>
+            <p className="mt-0.5 truncate text-sm font-semibold text-slate-900">Plano {plan.name}</p>
           </div>
           <div className="shrink-0 text-right">
-            <strong className="block text-base text-white">{plan.price}</strong>
-            <span className="text-[11px] font-medium text-purple-300 group-open:hidden">Ver detalhes</span>
-            <span className="hidden text-[11px] font-medium text-purple-300 group-open:inline">Ocultar</span>
+            <strong className="block text-base text-slate-900">{plan.price}</strong>
+            <span className="text-[11px] font-medium text-purple-700 group-open:hidden">Ver detalhes</span>
+            <span className="hidden text-[11px] font-medium text-purple-700 group-open:inline">Ocultar</span>
           </div>
         </summary>
-        <div className="border-t border-white/10 px-4 py-4">
-          {monthly && <p className="text-sm text-white/65">Equivale a <strong className="text-white">{monthly} por mês</strong></p>}
-          <ul className="mt-3 space-y-2 text-xs text-white/65">
+        <div className="border-t border-slate-200 bg-slate-50/70 px-4 py-4">
+          {monthly && <p className="text-sm text-slate-600">Equivale a <strong className="text-slate-900">{monthly} por mês</strong></p>}
+          <ul className="mt-3 space-y-2 text-xs text-slate-600">
             {plan.features.slice(0, 3).map((feature) => (
-              <li key={feature} className="flex gap-2"><Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-green-400" /> {feature}</li>
+              <li key={feature} className="flex gap-2"><Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" /> {feature}</li>
             ))}
           </ul>
-          <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-sm">
-            <span className="text-white/65">Total</span>
-            <strong className="text-lg text-white">{plan.price}</strong>
+          <div className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3 text-sm">
+            <span className="text-slate-600">Total</span>
+            <strong className="text-lg text-slate-900">{plan.price}</strong>
           </div>
         </div>
       </details>
@@ -105,53 +113,53 @@ const OrderSummary = ({ plan, mobile = false }) => {
   }
 
   return (
-    <aside className="hidden bg-white/[0.035] text-foreground lg:block">
+    <aside className="hidden bg-slate-50 text-slate-900 lg:block">
       <div className="sticky top-0 p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-white/50">Resumo do pedido</p>
-        <div className="mt-5 border-b border-white/10 pb-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Resumo do pedido</p>
+        <div className="mt-5 border-b border-slate-200 pb-6">
           <div className="flex items-start justify-between gap-4">
             <div>
               <h2 className="text-xl font-semibold">Plano {plan.name}</h2>
-              <p className="mt-1 text-sm text-white/55">Assinatura CineStream</p>
+              <p className="mt-1 text-sm text-slate-500">Assinatura CineStream</p>
             </div>
-            {plan.badge && <span className="rounded border border-purple-400/30 bg-purple-500/10 px-2.5 py-1 text-[10px] font-semibold text-purple-200">{plan.badge}</span>}
+            {plan.badge && <span className="rounded-full border border-purple-200 bg-purple-50 px-2.5 py-1 text-[10px] font-semibold text-purple-700">{plan.badge}</span>}
           </div>
         </div>
 
-        <div className="border-b border-white/10 py-6">
+        <div className="border-b border-slate-200 py-6">
           {monthly ? (
             <>
-              <p className="text-sm text-white/55">Valor equivalente</p>
+              <p className="text-sm text-slate-500">Valor equivalente</p>
               <div className="mt-1 flex items-baseline gap-2">
                 <strong className="text-3xl tracking-tight">{monthly}</strong>
-                <span className="text-sm text-white/55">por mês</span>
+                <span className="text-sm text-slate-500">por mês</span>
               </div>
             </>
           ) : (
             <strong className="text-2xl">{plan.valuePresentation.installmentEquivalent}</strong>
           )}
-          {plan.valuePresentation.savings && <p className="mt-3 text-xs font-medium text-green-300">{plan.valuePresentation.savings}</p>}
+          {plan.valuePresentation.savings && <p className="mt-3 text-xs font-semibold text-emerald-700">{plan.valuePresentation.savings}</p>}
         </div>
 
-        <ul className="space-y-3 border-b border-white/10 py-6 text-sm leading-relaxed text-white/65">
+        <ul className="space-y-3 border-b border-slate-200 py-6 text-sm leading-relaxed text-slate-600">
           {plan.features.slice(0, 4).map((feature) => (
-            <li key={feature} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-green-400" /> {feature}</li>
+            <li key={feature} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /> {feature}</li>
           ))}
         </ul>
 
         <div className="py-6">
-          {plan.valuePresentation.comparison && <p className="mb-2 text-right text-xs text-white/35 line-through">{plan.valuePresentation.comparison}</p>}
+          {plan.valuePresentation.comparison && <p className="mb-2 text-right text-xs text-slate-400 line-through">{plan.valuePresentation.comparison}</p>}
           <div className="flex items-end justify-between gap-4">
-            <span className="text-sm text-white/65">Total</span>
+            <span className="text-sm text-slate-600">Total</span>
             <strong className="text-3xl tracking-tight">{plan.price}</strong>
           </div>
-          <p className="mt-2 text-right text-xs text-white/50">{plan.valuePresentation.detail}</p>
+          <p className="mt-2 text-right text-xs text-slate-500">{plan.valuePresentation.detail}</p>
         </div>
 
-        <div className="mt-2 space-y-3 border-t border-white/10 pt-6 text-xs text-white/50">
-          <p className="flex items-center gap-2.5"><ShieldCheck className="h-4 w-4 text-white/50" /> Pagamento processado pela Cakto</p>
-          <p className="flex items-center gap-2.5"><LockKeyhole className="h-4 w-4 text-white/50" /> Conexão segura e dados criptografados</p>
-          <p className="flex items-center gap-2.5"><WalletCards className="h-4 w-4 text-white/50" /> Pix e cartão de crédito</p>
+        <div className="mt-2 space-y-3 border-t border-slate-200 pt-6 text-xs text-slate-500">
+          <p className="flex items-center gap-2.5"><ShieldCheck className="h-4 w-4 text-emerald-600" /> Pagamento processado pela Cakto</p>
+          <p className="flex items-center gap-2.5"><LockKeyhole className="h-4 w-4 text-emerald-600" /> Conexão segura e dados criptografados</p>
+          <p className="flex items-center gap-2.5"><WalletCards className="h-4 w-4 text-slate-500" /> Pix e cartão de crédito</p>
         </div>
       </div>
     </aside>
@@ -166,15 +174,6 @@ const getDeviceId = () => {
     window.localStorage.setItem(storageKey, value);
   }
   return value;
-};
-
-const getTrackingMetadata = () => {
-  const params = new URLSearchParams(window.location.search);
-  return Object.fromEntries(
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck']
-      .filter((key) => params.get(key))
-      .map((key) => [key, params.get(key)]),
-  );
 };
 
 const Checkout = () => {
@@ -206,6 +205,11 @@ const Checkout = () => {
     if (!plan || checkoutTracked.current) return;
     checkoutTracked.current = true;
     trackCheckoutStart(plan.name, plan.price);
+    sendMarketingEvent('checkout_started', {
+      plan_slug: plan.slug,
+      plan_name: plan.name,
+      price: plan.price,
+    });
   }, [plan]);
 
   useEffect(() => {
@@ -246,6 +250,13 @@ const Checkout = () => {
     };
     window.sessionStorage.setItem('cinestream_last_purchase', JSON.stringify(purchase));
     trackPurchase(plan.name, plan.price, purchase.refId);
+    sendMarketingEvent('purchase', {
+      plan_slug: plan.slug,
+      plan_name: plan.name,
+      price: plan.price,
+      reference: purchase.refId,
+      payment_method: purchase.paymentMethod,
+    });
     navigate(`/obrigado?plano=${encodeURIComponent(plan.slug)}`, { replace: true, state: purchase });
   }, [method, navigate, paid, plan, result?.paymentMethod, result?.refId]);
 
@@ -264,7 +275,7 @@ const Checkout = () => {
 
   if (!plan) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center bg-background px-4 text-center text-foreground">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-slate-50 px-4 text-center text-slate-900">
         <h1 className="mb-4 text-3xl font-bold">Plano não encontrado</h1>
         <Link to="/#pricing"><Button>Voltar aos planos</Button></Link>
       </main>
@@ -297,6 +308,22 @@ const Checkout = () => {
     }
 
     trackPaymentAttempt(plan.name, method);
+    sendMarketingEvent('payment_attempt', {
+      plan_slug: plan.slug,
+      plan_name: plan.name,
+      price: plan.price,
+      payment_method: method,
+    });
+    trackCheckoutLead(plan.name, plan.price, form);
+    sendMarketingEvent('checkout_lead', {
+      plan_slug: plan.slug,
+      plan_name: plan.name,
+      price: plan.price,
+      customer_name: form.name,
+      customer_email: form.email,
+      customer_phone: form.phone,
+      payment_method: method,
+    });
     setLoading(true);
     try {
       const sdk = await initCaktoAntifraud();
@@ -355,8 +382,27 @@ const Checkout = () => {
       if (!response.ok) throw new Error(data.error || 'Não foi possível processar o pagamento.');
 
       setResult(data);
+      if (data.pix) {
+        trackPixGenerated(plan.name, plan.price, data.refId);
+        sendMarketingEvent('pix_generated', {
+          plan_slug: plan.slug,
+          plan_name: plan.name,
+          price: plan.price,
+          reference: data.refId,
+          payment_id: data.id,
+          amount: data.amount,
+        });
+      }
       await cleanupCaktoAntifraud();
     } catch (submitError) {
+      trackPaymentError(plan.name, method, submitError.message);
+      sendMarketingEvent('payment_error', {
+        plan_slug: plan.slug,
+        plan_name: plan.name,
+        price: plan.price,
+        payment_method: method,
+        message: submitError.message,
+      });
       setError(submitError.message || 'Não foi possível processar o pagamento.');
       await cleanupCaktoAntifraud().catch(() => {});
       initCaktoAntifraud().catch(() => {});
@@ -372,39 +418,42 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-hidden bg-background pb-24 text-foreground sm:pb-0">
+    <div className="min-h-screen overflow-hidden bg-slate-50 pb-24 text-slate-900 sm:pb-0">
       <Seo title={`Checkout — Plano ${plan.name}`} description={`Finalize com segurança a assinatura do plano ${plan.name} CineStream.`} path={`/checkout/${plan.slug}`} noIndex />
-      <header className="relative z-10 border-b border-white/[0.07] bg-[#111116]">
+      <header className="relative z-10 border-b border-slate-200 bg-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-          <Link to="/" aria-label="Voltar à página inicial"><Logo /></Link>
-          <span className="inline-flex items-center gap-2 text-xs font-medium text-white/65">
-            <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" /> Checkout seguro
+          <Link to="/" aria-label="Voltar à página inicial" className="inline-flex items-center gap-2.5">
+            <img src="/favicon.svg" alt="" className="h-8 w-8" aria-hidden="true" />
+            <span className="text-lg font-bold tracking-tight text-slate-900">CineStream</span>
+          </Link>
+          <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
+            <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" /> Compra segura
           </span>
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto max-w-[1120px] px-4 py-6 md:px-6 md:py-9">
+      <main className="relative z-10 mx-auto max-w-[1120px] px-3 py-4 sm:px-4 sm:py-6 md:px-6 md:py-9">
         <div className="mb-5 flex items-center justify-between gap-4">
-          <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm text-white/60 transition hover:text-white">
+          <Link to="/#pricing" className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-slate-900">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Alterar plano
           </Link>
-          <span className="hidden text-xs text-white/55 sm:block">Ambiente de pagamento CineStream</span>
+          <span className="hidden text-xs text-slate-500 sm:block">Ambiente de pagamento CineStream</span>
         </div>
 
         {!result?.pix && <div className="lg:hidden"><OrderSummary plan={plan} mobile /></div>}
 
-        <div className="grid overflow-hidden rounded-lg border border-white/10 bg-card text-foreground shadow-2xl shadow-black/20 lg:grid-cols-[350px_minmax(0,1fr)]">
+        <div className="grid overflow-hidden rounded-xl border border-slate-200 bg-white text-slate-900 shadow-sm lg:grid-cols-[350px_minmax(0,1fr)]">
           <OrderSummary plan={plan} />
-          <section className="bg-card p-5 sm:p-8 lg:border-l lg:border-white/10 lg:p-10 xl:p-12">
+          <section className="bg-white p-4 sm:p-8 lg:border-l lg:border-slate-200 lg:p-10 xl:p-12">
             {result?.pix ? (
               <div className="mx-auto max-w-xl py-3 text-center sm:py-6">
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl border border-purple-400/30 bg-purple-500/10 text-purple-200">
+                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl border border-purple-200 bg-purple-50 text-purple-700">
                   <QrCode className="h-7 w-7" aria-hidden="true" />
                 </span>
                 <h1 className="mt-5 text-2xl font-bold sm:text-3xl">Seu Pix está pronto</h1>
-                <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/60">Escaneie o QR Code pelo aplicativo do seu banco ou copie o código abaixo. A confirmação acontece automaticamente.</p>
+                <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-600">Escaneie o QR Code pelo aplicativo do seu banco ou copie o código abaixo. A confirmação acontece automaticamente.</p>
 
-                <div className="mx-auto my-6 w-fit rounded-xl border border-white/10 bg-white p-3 shadow-lg shadow-black/20">
+                <div className="mx-auto my-6 w-fit rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
                   {qrImage ? (
                     <img src={qrImage} alt="QR Code Pix" className="h-56 w-56 sm:h-64 sm:w-64" />
                   ) : (
@@ -416,38 +465,38 @@ const Checkout = () => {
                   {copied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
                   {copied ? 'Código copiado' : 'Copiar código Pix'}
                 </Button>
-                <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-amber-300/25 bg-amber-300/10 px-4 py-2 text-xs text-amber-200">
+                <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-xs font-medium text-amber-800">
                   <Loader2 className="h-3.5 w-3.5 animate-spin" /> Aguardando confirmação do pagamento
                 </div>
-                {pixExpiration && <p className="mt-3 text-xs text-white/55">Pix válido até {pixExpiration}</p>}
-                <p className="mt-4 text-xs text-white/40">Pedido {result.refId}</p>
+                {pixExpiration && <p className="mt-3 text-xs text-slate-500">Pix válido até {pixExpiration}</p>}
+                <p className="mt-4 text-xs text-slate-400">Pedido {result.refId}</p>
               </div>
             ) : (
               <form id="checkout-payment-form" onSubmit={submitPayment}>
                 <div>
                   <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Finalize sua assinatura</h1>
-                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/60">Informe seus dados para concluir o pedido com segurança.</p>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">Informe seus dados para concluir o pedido com segurança.</p>
                 </div>
 
-                <fieldset className="mt-8">
-                  <legend className="mb-3 text-sm font-semibold text-white">Forma de pagamento</legend>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button type="button" aria-pressed={method === 'pix'} onClick={() => selectMethod('pix')} className={`relative flex min-h-[76px] items-center gap-3 rounded-lg border px-4 text-left transition ${method === 'pix' ? 'border-purple-400 bg-purple-500/10 ring-1 ring-purple-400' : 'border-white/10 bg-white/[0.04] hover:border-white/25'}`}>
-                      {method === 'pix' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-200" />}
-                      <QrCode className={`h-5 w-5 shrink-0 ${method === 'pix' ? 'text-purple-200' : 'text-white/45'}`} />
-                      <span><strong className="block text-sm text-white">Pix</strong><span className="mt-1 block text-[11px] text-white/55">Confirmação rápida</span></span>
+                <fieldset className="mt-7 sm:mt-8">
+                  <legend className="mb-3 text-sm font-semibold text-slate-900">Forma de pagamento</legend>
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                    <button type="button" aria-pressed={method === 'pix'} onClick={() => selectMethod('pix')} className={`relative flex min-h-[82px] items-center gap-2.5 rounded-lg border px-3 text-left transition sm:gap-3 sm:px-4 ${method === 'pix' ? 'border-purple-600 bg-purple-50 ring-1 ring-purple-600' : 'border-slate-200 bg-white hover:border-slate-400'}`}>
+                      {method === 'pix' && <BadgeCheck className="absolute right-2.5 top-2.5 h-4 w-4 text-purple-700 sm:right-3 sm:top-3" />}
+                      <QrCode className={`h-5 w-5 shrink-0 ${method === 'pix' ? 'text-purple-700' : 'text-slate-400'}`} />
+                      <span><strong className="block text-sm text-slate-900">Pix</strong><span className="mt-1 block text-[10px] text-slate-500 sm:text-[11px]">Confirmação rápida</span></span>
                     </button>
-                    <button type="button" aria-pressed={method === 'threeDs'} onClick={() => selectMethod('threeDs')} className={`relative flex min-h-[76px] items-center gap-3 rounded-lg border px-4 text-left transition ${method === 'threeDs' ? 'border-purple-400 bg-purple-500/10 ring-1 ring-purple-400' : 'border-white/10 bg-white/[0.04] hover:border-white/25'}`}>
-                      {method === 'threeDs' && <BadgeCheck className="absolute right-3 top-3 h-4 w-4 text-purple-200" />}
-                      <WalletCards className={`h-5 w-5 shrink-0 ${method === 'threeDs' ? 'text-purple-200' : 'text-white/45'}`} strokeWidth={1.7} />
-                      <span><strong className="block text-sm text-white">Cartão</strong><span className="mt-1 block text-[11px] text-white/55">Compra autenticada</span></span>
+                    <button type="button" aria-pressed={method === 'threeDs'} onClick={() => selectMethod('threeDs')} className={`relative flex min-h-[82px] items-center gap-2.5 rounded-lg border px-3 text-left transition sm:gap-3 sm:px-4 ${method === 'threeDs' ? 'border-purple-600 bg-purple-50 ring-1 ring-purple-600' : 'border-slate-200 bg-white hover:border-slate-400'}`}>
+                      {method === 'threeDs' && <BadgeCheck className="absolute right-2.5 top-2.5 h-4 w-4 text-purple-700 sm:right-3 sm:top-3" />}
+                      <WalletCards className={`h-5 w-5 shrink-0 ${method === 'threeDs' ? 'text-purple-700' : 'text-slate-400'}`} strokeWidth={1.7} />
+                      <span><strong className="block text-sm text-slate-900">Cartão</strong><span className="mt-1 block text-[10px] text-slate-500 sm:text-[11px]">Compra autenticada</span></span>
                     </button>
                   </div>
                 </fieldset>
 
-                <div className="mt-8 border-t border-white/10 pt-7">
-                  <h2 className="mb-5 font-semibold text-white">Dados do comprador</h2>
-                  <div className="grid gap-5 sm:grid-cols-2">
+                <div className="mt-7 border-t border-slate-200 pt-6 sm:mt-8 sm:pt-7">
+                  <h2 className="mb-4 font-semibold text-slate-900 sm:mb-5">Dados do comprador</h2>
+                  <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
                     <Field className="sm:col-span-2" label="Nome completo" name="name" value={form.name} onChange={updateField} autoComplete="name" placeholder="Digite seu nome" minLength="3" required />
                     <Field label="E-mail" type="email" name="email" value={form.email} onChange={updateField} autoComplete="email" placeholder="voce@email.com" required />
                     <Field label="Telefone com DDD" name="phone" value={form.phone} onChange={updateField} inputMode="tel" autoComplete="tel" placeholder="(11) 99999-9999" maxLength="15" required />
@@ -456,9 +505,9 @@ const Checkout = () => {
                 </div>
 
                 {method === 'threeDs' && (
-                  <div className="mt-8 border-t border-white/10 pt-7">
-                    <h2 className="mb-5 font-semibold text-white">Cartão e endereço de cobrança</h2>
-                    <div className="grid gap-5 sm:grid-cols-6">
+                  <div className="mt-7 border-t border-slate-200 pt-6 sm:mt-8 sm:pt-7">
+                    <h2 className="mb-4 font-semibold text-slate-900 sm:mb-5">Cartão e endereço de cobrança</h2>
+                    <div className="grid gap-4 sm:grid-cols-6 sm:gap-5">
                       <Field className="sm:col-span-3" label="Nome no cartão" name="holderName" value={form.holderName} onChange={updateField} autoComplete="cc-name" placeholder="Como está no cartão" required />
                       <Field className="sm:col-span-3" label="Número do cartão" name="cardNumber" value={form.cardNumber} onChange={updateField} inputMode="numeric" autoComplete="cc-number" placeholder="0000 0000 0000 0000" maxLength="23" required />
                       <Field className="sm:col-span-2" label="Mês" name="expMonth" value={form.expMonth} onChange={updateField} inputMode="numeric" autoComplete="cc-exp-month" placeholder="MM" maxLength="2" required />
@@ -474,35 +523,35 @@ const Checkout = () => {
                   </div>
                 )}
 
-                <label className="mt-7 flex cursor-pointer items-start gap-3 border-t border-white/10 pt-5 text-xs leading-relaxed text-white/60">
+                <label className="mt-7 flex cursor-pointer items-start gap-3 border-t border-slate-200 pt-5 text-xs leading-relaxed text-slate-600">
                   <input type="checkbox" checked={accepted} onChange={(event) => setAccepted(event.target.checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-purple-500" />
-                  <span>Li e concordo com os <Link to="/termos" target="_blank" className="text-purple-200 underline underline-offset-2">Termos de Uso</Link>, a <Link to="/privacidade" target="_blank" className="text-purple-200 underline underline-offset-2">Política de Privacidade</Link> e as condições do plano.</span>
+                  <span>Li e concordo com os <Link to="/termos" target="_blank" className="font-medium text-purple-700 underline underline-offset-2">Termos de Uso</Link>, a <Link to="/privacidade" target="_blank" className="font-medium text-purple-700 underline underline-offset-2">Política de Privacidade</Link> e as condições do plano.</span>
                 </label>
 
-                {error && <div role="alert" aria-live="polite" className="mt-5 rounded-xl border border-red-400/30 bg-red-500/10 p-4 text-sm text-red-200">{error}</div>}
-                <Button type="submit" disabled={loading || !sdkReady} className="mt-6 hidden min-h-14 w-full rounded-lg bg-purple-600 text-base font-semibold text-white shadow-sm transition hover:bg-purple-700 disabled:opacity-50 sm:inline-flex">
+                {error && <div role="alert" aria-live="polite" className="mt-5 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</div>}
+                <Button type="submit" disabled={loading || !sdkReady} className="mt-6 hidden min-h-14 w-full rounded-lg bg-purple-700 text-base font-semibold text-white shadow-sm transition hover:bg-purple-800 disabled:opacity-50 sm:inline-flex">
                   {loading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processando com segurança…</> : method === 'pix' ? <><QrCode className="mr-2 h-5 w-5" /> Gerar Pix de {plan.price}</> : <><LockKeyhole className="mr-2 h-5 w-5" /> Pagar {plan.price}</>}
                 </Button>
-                <p className="mt-3 hidden text-center text-[11px] text-white/40 sm:block">Seus dados de pagamento são protegidos e processados pela Cakto.</p>
+                <p className="mt-3 hidden text-center text-[11px] text-slate-500 sm:block">Seus dados de pagamento são protegidos e processados pela Cakto.</p>
               </form>
             )}
           </section>
 
         </div>
 
-        <p className="mt-5 text-center text-xs leading-relaxed text-white/55">Pagamento processado pela Cakto em ambiente protegido.</p>
+        <p className="mt-5 text-center text-xs leading-relaxed text-slate-500">Pagamento processado pela Cakto em ambiente protegido.</p>
       </main>
 
       {!result?.pix && (
-        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-card/95 p-3 shadow-[0_-12px_35px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:hidden">
-          <Button form="checkout-payment-form" type="submit" disabled={loading || !sdkReady} className="min-h-14 w-full rounded-lg bg-purple-600 text-sm font-semibold text-white hover:bg-purple-700 disabled:opacity-50">
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 shadow-[0_-8px_24px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:hidden">
+          <Button form="checkout-payment-form" type="submit" disabled={loading || !sdkReady} className="min-h-14 w-full rounded-lg bg-purple-700 text-sm font-semibold text-white hover:bg-purple-800 disabled:opacity-50">
             {loading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processando…</> : method === 'pix' ? <><QrCode className="mr-2 h-5 w-5" /> Gerar Pix de {plan.price}</> : <><LockKeyhole className="mr-2 h-5 w-5" /> Pagar {plan.price}</>}
           </Button>
-          <p className="mt-1.5 text-center text-[10px] text-white/55"><LockKeyhole className="mr-1 inline h-3 w-3 text-green-400" /> Pagamento protegido pela Cakto</p>
+          <p className="mt-1.5 text-center text-[10px] text-slate-500"><LockKeyhole className="mr-1 inline h-3 w-3 text-emerald-600" /> Pagamento protegido pela Cakto</p>
         </div>
       )}
 
-      <footer className="relative z-10 border-t border-white/10 py-6 text-center text-xs text-white/55">
+      <footer className="relative z-10 border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
         © {new Date().getFullYear()} CineStream · Compra protegida
       </footer>
     </div>

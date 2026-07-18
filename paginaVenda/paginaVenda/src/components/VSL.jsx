@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { trackVideoPlay } from '@/utils/analytics';
+import { ArrowUpRight, MessagesSquare } from 'lucide-react';
+import { trackButtonClick, trackVideoPlay } from '@/utils/analytics';
 
 const VSL = () => {
   const videoTracked = useRef(false);
@@ -33,7 +34,6 @@ const VSL = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight leading-tight">
             Tenha acesso a tudo isso por 28$
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-foreground/60">Assista à demonstração antes de escolher seu plano.</p>
         </motion.div>
 
         <motion.div
@@ -47,6 +47,27 @@ const VSL = () => {
             <div className="aspect-[9/16] bg-black" onPointerDown={handleVideoInteraction}>
               <wistia-player media-id="5gt55026re" aria-label="Apresentação em vídeo da CineStream" style={{ display: 'block', width: '100%', height: '100%' }} />
             </div>
+          </div>
+
+          <div className="mt-8 grid gap-3">
+            <a
+              href="#pricing"
+              onClick={() => trackButtonClick('Ver planos', 'vsl')}
+              className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-lg bg-purple-600 px-6 text-base font-semibold text-white transition-colors hover:bg-purple-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              Ver planos e assinar
+              <ArrowUpRight className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
+            </a>
+            <a
+              href="https://wa.me/5543999748808?text=Como%20funciona%20o%20app%3F"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackButtonClick('Falar no WhatsApp', 'vsl')}
+              className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-6 text-base font-semibold text-white transition-colors hover:bg-green-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <MessagesSquare className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
+              Falar no WhatsApp
+            </a>
           </div>
         </motion.div>
       </div>

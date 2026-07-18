@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { trackPageView } from '@/utils/analytics';
+import { persistAttribution, trackPageView } from '@/utils/analytics';
 
 const RouteEffects = () => {
   const location = useLocation();
 
   useEffect(() => {
+    persistAttribution();
     trackPageView(`${location.pathname}${location.hash}`);
 
     if (location.hash) {
@@ -15,7 +16,7 @@ const RouteEffects = () => {
     } else {
       window.scrollTo({ top: 0, behavior: 'auto' });
     }
-  }, [location.hash, location.pathname]);
+  }, [location.hash, location.pathname, location.search]);
 
   return null;
 };
