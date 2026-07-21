@@ -1,9 +1,13 @@
+const checkoutEnvironment = import.meta.env || {};
+
 export const subscriptionPlans = [
   {
     slug: 'mensal',
     name: 'Mensal',
     price: 'R$28,40',
     amountCents: 2840,
+    checkoutProvider: 'cakto',
+    checkoutUrl: checkoutEnvironment.VITE_CAKTO_MONTHLY_CHECKOUT_URL || 'https://pay.cakto.com.br/32sawv8',
     period: 'por mês',
     valuePresentation: {
       monthlyEquivalent: 'R$28,40',
@@ -18,6 +22,8 @@ export const subscriptionPlans = [
     name: 'Semestral',
     price: 'R$89,90',
     amountCents: 8990,
+    checkoutProvider: 'cakto',
+    checkoutUrl: checkoutEnvironment.VITE_CAKTO_SEMESTRAL_CHECKOUT_URL || 'https://pay.cakto.com.br/r8ao9dd',
     period: 'ou 6x de R$14,98',
     valuePresentation: {
       monthlyEquivalent: 'R$14,98',
@@ -36,6 +42,8 @@ export const subscriptionPlans = [
     name: 'Anual',
     price: 'R$167,00',
     amountCents: 16700,
+    checkoutProvider: 'cakto',
+    checkoutUrl: checkoutEnvironment.VITE_CAKTO_ANNUAL_CHECKOUT_URL || 'https://pay.cakto.com.br/3dhz8j2_745136',
     period: 'ou 12x de R$13,92',
     valuePresentation: {
       monthlyEquivalent: 'R$13,92',
@@ -52,6 +60,8 @@ export const subscriptionPlans = [
     name: 'Vitalício',
     price: 'R$147,00',
     amountCents: 14700,
+    checkoutProvider: 'cakto',
+    checkoutUrl: checkoutEnvironment.VITE_CAKTO_LIFETIME_CHECKOUT_URL || 'https://pay.cakto.com.br/tsfayhk_744174',
     period: 'ou 12x de R$12,25',
     valuePresentation: {
       monthlyEquivalent: 'R$12,25',

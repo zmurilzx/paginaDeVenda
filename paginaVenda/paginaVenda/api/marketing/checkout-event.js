@@ -1,4 +1,4 @@
-import { isAllowedRequestOrigin } from '../_lib/cakto.js';
+import { isAllowedRequestOrigin } from '../_lib/security.js';
 
 const allowedEvents = new Set([
   'checkout_started',

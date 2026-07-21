@@ -1,12 +1,32 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BadgeCheck, ShieldCheck } from 'lucide-react';
+import { BadgeCheck, Loader2, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { subscriptionPlans } from '@/data/subscriptionPlans';
 import { trackButtonClick, trackPlanSelect } from '@/utils/analytics';
 
-const PricingPlans = () => (
-  <section className="relative scroll-mt-16 overflow-hidden py-16 md:py-24" id="pricing" aria-labelledby="pricing-title">
+const PricingPlans = () => {
+  const [redirectingPlan, setRedirectingPlan] = useState('');
+  const [checkoutError, setCheckoutError] = useState('');
+
+  const startCheckout = async (plan) => {
+    setCheckoutError('');
+    setRedirectingPlan(plan.slug);
+    trackButtonClick(`Assinar ${plan.name}`, 'pricing');
+    trackPlanSelect(plan.name, plan.price);
+
+    try {
+      if (!plan.checkoutUrl) throw new Error(`O checkout do plano ${plan.name} ainda não foi configurado.`);
+      window.location.assign(plan.checkoutUrl);
+    } catch (error) {
+      setCheckoutError(error.message || 'Não foi possível abrir o checkout. Tente novamente.');
+      setRedirectingPlan('');
+    }
+  };
+
+  return (
+    <section className="relative scroll-mt-16 overflow-hidden py-16 md:py-24" id="pricing" aria-labelledby="pricing-title">
     <div className="absolute inset-0 -z-10 bg-gradient-to-b from-purple-900/15 via-black/10 to-background" />
     <div className="container mx-auto px-4 md:px-6 lg:px-8">
       <header className="mb-12 text-center">
@@ -34,11 +54,15 @@ const PricingPlans = () => (
               <p className="mt-2 text-sm text-foreground/60">{plan.period}</p>
             </div>
 
-            <Link to={`/checkout/${plan.slug}`} onClick={() => { trackButtonClick(`Assinar ${plan.name}`, 'pricing'); trackPlanSelect(plan.name, plan.price); }}>
-              <Button className={`mb-6 w-full py-6 text-sm font-bold ${plan.highlighted ? 'bg-purple-500 text-white hover:bg-purple-400' : 'bg-white text-black hover:bg-white/90'}`}>
-                Assinar plano {plan.name}
-              </Button>
-            </Link>
+            <Button
+              type="button"
+              disabled={Boolean(redirectingPlan)}
+              onClick={() => startCheckout(plan)}
+              className={`mb-6 w-full py-6 text-sm font-bold ${plan.highlighted ? 'bg-purple-500 text-white hover:bg-purple-400' : 'bg-white text-black hover:bg-white/90'}`}
+            >
+              {redirectingPlan === plan.slug && <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />}
+              {redirectingPlan === plan.slug ? 'Abrindo checkout…' : `Assinar plano ${plan.name}`}
+            </Button>
 
             <ul className="flex-1 space-y-3">
               {plan.features.map((feature) => (
@@ -52,12 +76,15 @@ const PricingPlans = () => (
         ))}
       </div>
 
+      {checkoutError && <p role="alert" className="mx-auto mt-6 max-w-xl rounded-lg border border-red-400/30 bg-red-500/10 px-4 py-3 text-center text-sm text-red-200">{checkoutError}</p>}
+
       <div className="mx-auto mt-8 max-w-3xl text-center text-xs leading-relaxed text-foreground/50">
-        <p className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" /> Pagamento processado com segurança pela Cakto.</p>
+        <p className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" /> Pagamento processado no ambiente seguro da Cakto.</p>
         <p className="mt-2">*A qualidade depende do conteúdo, dispositivo, televisão e conexão. Catálogo e disponibilidade podem variar. Ao contratar, você concorda com os <Link to="/termos" className="text-purple-300 underline underline-offset-4">Termos de Uso</Link>.</p>
       </div>
     </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default PricingPlans;

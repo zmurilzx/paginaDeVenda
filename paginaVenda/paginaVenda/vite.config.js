@@ -2,17 +2,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
-import configHandler from './api/cakto/config.js';
-import paymentHandler from './api/cakto/payment.js';
-import statusHandler from './api/cakto/status.js';
 import webhookHandler from './api/cakto/webhook.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const localApiHandlers = {
-  '/api/cakto/config': configHandler,
-  '/api/cakto/payment': paymentHandler,
-  '/api/cakto/status': statusHandler,
   '/api/cakto/webhook': webhookHandler,
 };
 
@@ -41,8 +35,8 @@ const readJsonBody = (request) => new Promise((resolve, reject) => {
   request.on('error', reject);
 });
 
-const localCaktoApi = () => ({
-  name: 'cinestream-local-cakto-api',
+const localServerlessApi = () => ({
+  name: 'cinestream-local-serverless-api',
   configureServer(server) {
     server.middlewares.use(async (incomingRequest, outgoingResponse, next) => {
       const url = new URL(incomingRequest.url, 'http://localhost');
@@ -94,12 +88,7 @@ export default defineConfig(({ mode }) => {
     .forEach(([key, value]) => { process.env[key] = value; });
 
   return {
-    plugins: [react(), localCaktoApi()],
-    define: {
-      'import.meta.env.VITE_CAKTO_CLIENT_ID': JSON.stringify(
-        mode === 'development' ? environment.CAKTO_CLIENT_ID || '' : '',
-      ),
-    },
+    plugins: [react(), localServerlessApi()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
