@@ -35,7 +35,7 @@ const PricingPlans = () => {
         <p className="mx-auto mt-4 max-w-2xl text-foreground/60">Todos os planos dão acesso ao serviço. A principal diferença é o período contratado.</p>
       </header>
 
-      <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
         {subscriptionPlans.map((plan, index) => (
           <motion.article
             key={plan.slug}
@@ -79,7 +79,7 @@ const PricingPlans = () => {
       {checkoutError && <p role="alert" className="mx-auto mt-6 max-w-xl rounded-lg border border-red-400/30 bg-red-500/10 px-4 py-3 text-center text-sm text-red-200">{checkoutError}</p>}
 
       <div className="mx-auto mt-8 max-w-3xl text-center text-xs leading-relaxed text-foreground/50">
-        <p className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" /> Pagamento processado no ambiente seguro da Cakto.</p>
+        <p className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" /> Pagamento processado em ambiente seguro.</p>
         <p className="mt-2">*A qualidade depende do conteúdo, dispositivo, televisão e conexão. Catálogo e disponibilidade podem variar. Ao contratar, você concorda com os <Link to="/termos" className="text-purple-300 underline underline-offset-4">Termos de Uso</Link>.</p>
       </div>
     </div>

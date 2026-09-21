@@ -21,7 +21,7 @@ const PaymentSecurity = () => {
     {
       icon: BadgeCheck,
       title: "Plataforma Verificada",
-      description: "Pagamento processado com segurança pela Cakto"
+      description: "Pagamento processado em ambiente seguro"
     }
   ];
 
@@ -35,7 +35,7 @@ const PaymentSecurity = () => {
               Pagamento Seguro
             </h2>
             <p className="text-base md:text-lg text-foreground/70 max-w-2xl mx-auto">
-              O pagamento é processado pela Cakto em ambiente protegido. <span className="text-purple-400 font-semibold">A liberação ocorre após a confirmação do pagamento.</span>
+              O pagamento é processado por uma plataforma externa em ambiente protegido. <span className="text-purple-400 font-semibold">A liberação ocorre após a confirmação do pagamento.</span>
             </p>
           </div>
 

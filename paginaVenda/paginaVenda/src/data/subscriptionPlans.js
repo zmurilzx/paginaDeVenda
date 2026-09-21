@@ -1,13 +1,11 @@
-const checkoutEnvironment = import.meta.env || {};
-
 export const subscriptionPlans = [
   {
     slug: 'mensal',
     name: 'Mensal',
     price: 'R$28,40',
     amountCents: 2840,
-    checkoutProvider: 'cakto',
-    checkoutUrl: checkoutEnvironment.VITE_CAKTO_MONTHLY_CHECKOUT_URL || 'https://pay.cakto.com.br/32sawv8',
+    checkoutProvider: 'external',
+    checkoutUrl: 'https://invoice.infinitepay.io/plans/cinestreamoficial/KLeTjEhkoJ',
     period: 'por mês',
     valuePresentation: {
       monthlyEquivalent: 'R$28,40',
@@ -22,8 +20,8 @@ export const subscriptionPlans = [
     name: 'Semestral',
     price: 'R$89,90',
     amountCents: 8990,
-    checkoutProvider: 'cakto',
-    checkoutUrl: checkoutEnvironment.VITE_CAKTO_SEMESTRAL_CHECKOUT_URL || 'https://pay.cakto.com.br/r8ao9dd',
+    checkoutProvider: 'external',
+    checkoutUrl: 'https://invoice.infinitepay.io/plans/cinestreamoficial/VZp3rWIrpN',
     period: 'ou 6x de R$14,98',
     valuePresentation: {
       monthlyEquivalent: 'R$14,98',
@@ -42,8 +40,8 @@ export const subscriptionPlans = [
     name: 'Anual',
     price: 'R$167,00',
     amountCents: 16700,
-    checkoutProvider: 'cakto',
-    checkoutUrl: checkoutEnvironment.VITE_CAKTO_ANNUAL_CHECKOUT_URL || 'https://pay.cakto.com.br/3dhz8j2_745136',
+    checkoutProvider: 'external',
+    checkoutUrl: 'https://invoice.infinitepay.io/plans/cinestreamoficial/IpM114tEeU',
     period: 'ou 12x de R$13,92',
     valuePresentation: {
       monthlyEquivalent: 'R$13,92',
@@ -54,25 +52,6 @@ export const subscriptionPlans = [
     },
     description: 'Doze meses de acesso',
     features: ['Doze meses de acesso', 'Qualidade de SD a 4K*', 'Acesso ao catálogo disponível', 'Suporte prioritário', 'Atualizações de conteúdo', 'Sem contrato de permanência'],
-  },
-  {
-    slug: 'vitalicio',
-    name: 'Vitalício',
-    price: 'R$147,00',
-    amountCents: 14700,
-    checkoutProvider: 'cakto',
-    checkoutUrl: checkoutEnvironment.VITE_CAKTO_LIFETIME_CHECKOUT_URL || 'https://pay.cakto.com.br/tsfayhk_744174',
-    period: 'ou 12x de R$12,25',
-    valuePresentation: {
-      monthlyEquivalent: 'R$12,25',
-      eyebrow: 'Equivale no primeiro ano',
-      equivalentCaption: 'por mês nos primeiros 12 meses, sem recorrência mensal',
-      detail: 'Valor total: R$147,00',
-      savings: 'Sem mensalidades futuras',
-    },
-    description: 'Pagamento único conforme a oferta',
-    badge: 'Pagamento único',
-    features: ['Acesso vitalício conforme os termos', 'Sem mensalidades futuras', 'Qualidade de SD a 4K*', 'Acesso ao catálogo disponível', 'Suporte prioritário', 'Atualizações de conteúdo'],
   },
 ];
 
