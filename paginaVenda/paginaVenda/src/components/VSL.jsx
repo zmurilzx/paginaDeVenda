@@ -31,11 +31,11 @@ const VSL = ({ analyticsEnabled }) => {
   };
 
   return (
-    <section className="relative scroll-mt-16 overflow-hidden py-16 md:py-24" id="demonstracao">
+    <section className="relative scroll-mt-16 overflow-hidden pb-16 pt-24 sm:pt-28 md:py-24" id="demonstracao">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-purple-900/5 to-background z-0"></div>
 
       <motion.div
-        className="absolute top-20 right-10 w-96 h-96 rounded-full bg-pink-500/10 blur-3xl"
+        className="absolute right-1/2 top-20 h-72 w-72 translate-x-1/2 rounded-full bg-pink-500/10 blur-3xl sm:right-10 sm:h-96 sm:w-96 sm:translate-x-0"
         animate={{ x: [0, -50, 0], y: [0, 50, 0] }}
         transition={{ duration: 25, repeat: Infinity, repeatType: "reverse" }}
       />

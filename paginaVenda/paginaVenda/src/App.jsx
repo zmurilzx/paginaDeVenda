@@ -66,7 +66,7 @@ function App() {
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="fixed bottom-8 right-8 z-50"
+          className="fixed bottom-24 right-4 z-50 sm:bottom-8 sm:right-8"
         >
           <Button
             onClick={scrollToTop}

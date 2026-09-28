@@ -18,7 +18,7 @@ const LojaCinestream = () => (
       >
         <h1 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">Loja CineStream</h1>
         <p className="mx-auto max-w-2xl text-foreground/60">Compare as configurações dos dispositivos e escolha o modelo ideal para sua TV.</p>
-        <p className="mx-auto mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-foreground/70">
+        <p className="mx-auto mt-5 inline-flex max-w-sm items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-left text-sm text-foreground/70">
           <Truck className="h-4 w-4 text-purple-300" strokeWidth={1.7} aria-hidden="true" />
           Entregamos para todo o Brasil — consulte prazo e frete
         </p>
