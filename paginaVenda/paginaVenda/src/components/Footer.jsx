@@ -2,6 +2,11 @@ import { Instagram, MessagesSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from '@/components/Logo';
 
+const resetPrivacyPreferences = () => {
+  window.localStorage.removeItem('cinestream_analytics_consent');
+  window.location.reload();
+};
+
 const Footer = () => (
   <footer className="border-t border-border/30 pb-8 pt-14">
     <div className="container mx-auto px-4 md:px-6">
@@ -17,6 +22,7 @@ const Footer = () => (
             <li><Link className="hover:text-white" to="/termos">Termos de uso</Link></li>
             <li><Link className="hover:text-white" to="/privacidade">Política de privacidade</Link></li>
             <li><Link className="hover:text-white" to="/reembolso">Política de reembolso</Link></li>
+            <li><button type="button" className="hover:text-white" onClick={resetPrivacyPreferences}>Preferências de privacidade</button></li>
           </ul>
         </nav>
         <div>

@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import Home from '@/pages/Home';
 import RouteEffects from '@/components/RouteEffects';
+import ConsentBanner from '@/components/ConsentBanner';
 
 const Loja = lazy(() => import('@/pages/Loja'));
 const ProdutoDetail = lazy(() => import('@/pages/ProdutoDetail'));
@@ -14,10 +15,16 @@ const Privacy = lazy(() => import('@/pages/Privacy'));
 const Terms = lazy(() => import('@/pages/Terms'));
 const RefundPolicy = lazy(() => import('@/pages/RefundPolicy'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
-const ThankYou = lazy(() => import('@/pages/ThankYou'));
+const CONSENT_STORAGE_KEY = 'cinestream_analytics_consent';
+
+const readConsent = () => {
+  if (typeof window === 'undefined') return false;
+  return window.localStorage.getItem(CONSENT_STORAGE_KEY) === 'granted';
+};
 
 function App() {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [analyticsConsent, setAnalyticsConsent] = useState(readConsent);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +35,11 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const setConsent = (granted) => {
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, granted ? 'granted' : 'denied');
+    setAnalyticsConsent(granted);
+  };
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -37,16 +49,15 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <RouteEffects />
+      <RouteEffects analyticsEnabled={analyticsConsent} />
       <Suspense fallback={<div className="flex min-h-screen items-center justify-center" role="status">Carregando…</div>}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home analyticsEnabled={analyticsConsent} />} />
           <Route path="/loja" element={<Loja />} />
           <Route path="/produto/:id" element={<ProdutoDetail />} />
           <Route path="/privacidade" element={<Privacy />} />
           <Route path="/termos" element={<Terms />} />
           <Route path="/reembolso" element={<RefundPolicy />} />
-          <Route path="/obrigado" element={<ThankYou />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
@@ -67,7 +78,8 @@ function App() {
         </motion.div>
       )}
 
-      <Analytics />
+      {analyticsConsent && <Analytics />}
+      <ConsentBanner onDecision={setConsent} />
     </div>
   );
 }

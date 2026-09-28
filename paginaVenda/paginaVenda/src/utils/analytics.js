@@ -1,6 +1,7 @@
 import { track } from '@vercel/analytics';
 
 const ATTRIBUTION_STORAGE_KEY = 'cinestream_attribution';
+const CONSENT_STORAGE_KEY = 'cinestream_analytics_consent';
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck'];
 
 const cleanObject = (value = {}) =>
@@ -9,7 +10,7 @@ const cleanObject = (value = {}) =>
   );
 
 export const persistAttribution = () => {
-  if (typeof window === 'undefined') return {};
+  if (typeof window === 'undefined' || window.localStorage.getItem(CONSENT_STORAGE_KEY) !== 'granted') return {};
 
   const params = new URLSearchParams(window.location.search);
   const current = Object.fromEntries(
@@ -56,7 +57,7 @@ export const getTrackingMetadata = () => {
 };
 
 const sendEvent = (eventName, properties = {}) => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || window.localStorage.getItem(CONSENT_STORAGE_KEY) !== 'granted') return;
 
   const eventProperties = cleanObject({ ...getTrackingMetadata(), ...properties });
 
@@ -86,26 +87,6 @@ const sendEvent = (eventName, properties = {}) => {
   }
 };
 
-export const sendMarketingEvent = (eventName, properties = {}) => {
-  if (typeof window === 'undefined') return Promise.resolve();
-
-  return fetch('/api/marketing/checkout-event', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      event: eventName,
-      properties: cleanObject({ ...getTrackingMetadata(), ...properties }),
-      page: window.location.pathname,
-      occurredAt: new Date().toISOString(),
-    }),
-    keepalive: true,
-  }).catch((error) => {
-    if (import.meta.env.DEV) {
-      console.warn('Falha ao enviar evento de marketing.', error);
-    }
-  });
-};
-
 export const trackPageView = (page) => sendEvent('page_view', { page });
 
 export const trackButtonClick = (buttonName, location) =>
@@ -114,28 +95,4 @@ export const trackButtonClick = (buttonName, location) =>
 export const trackPlanSelect = (planName, price) =>
   sendEvent('plan_select', { plan_name: planName, price });
 
-export const trackCheckoutStart = (planName, price) =>
-  sendEvent('checkout_start', { plan_name: planName, price });
-
-export const trackPaymentAttempt = (planName, paymentMethod) =>
-  sendEvent('payment_attempt', { plan_name: planName, payment_method: paymentMethod });
-
-export const trackCheckoutLead = (planName, price, customer) =>
-  sendEvent('checkout_lead', {
-    plan_name: planName,
-    price,
-    customer_name: customer.name,
-    customer_email: customer.email,
-    customer_phone: customer.phone,
-  });
-
-export const trackPixGenerated = (planName, price, reference) =>
-  sendEvent('pix_generated', { plan_name: planName, price, reference });
-
-export const trackPaymentError = (planName, paymentMethod, message) =>
-  sendEvent('payment_error', { plan_name: planName, payment_method: paymentMethod, message });
-
 export const trackVideoPlay = () => sendEvent('video_play');
-
-export const trackPurchase = (planName, price, reference) =>
-  sendEvent('purchase', { plan_name: planName, price, reference });

@@ -1,10 +1,27 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, MessagesSquare } from 'lucide-react';
 import { trackButtonClick, trackVideoPlay } from '@/utils/analytics';
 
-const VSL = () => {
+const VSL = ({ analyticsEnabled }) => {
   const videoTracked = useRef(false);
+
+  useEffect(() => {
+    if (!analyticsEnabled) return undefined;
+
+    const addScript = (id, src, type) => {
+      if (document.getElementById(id)) return;
+      const script = document.createElement('script');
+      script.id = id;
+      script.src = src;
+      if (type) script.type = type;
+      document.head.appendChild(script);
+    };
+
+    addScript('wistia-player-script', 'https://fast.wistia.com/player.js');
+    addScript('wistia-video-script', 'https://fast.wistia.com/embed/5gt55026re.js', 'module');
+    return undefined;
+  }, [analyticsEnabled]);
 
   const handleVideoInteraction = () => {
     if (!videoTracked.current) {
@@ -45,7 +62,11 @@ const VSL = () => {
         >
           <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10">
             <div className="aspect-[9/16] bg-black" onPointerDown={handleVideoInteraction}>
-              <wistia-player media-id="5gt55026re" aria-label="Apresentação em vídeo da CineStream" style={{ display: 'block', width: '100%', height: '100%' }} />
+              {analyticsEnabled ? (
+                <wistia-player media-id="5gt55026re" aria-label="Apresentação em vídeo da CineStream" style={{ display: 'block', width: '100%', height: '100%' }} />
+              ) : (
+                <div className="flex h-full items-center justify-center px-6 text-center text-sm text-white/65">Aceite as métricas para carregar a apresentação em vídeo.</div>
+              )}
             </div>
           </div>
 
