@@ -6,7 +6,7 @@ const questions = [
 ];
 
 const Faq = () => (
-  <section id="faq" className="scroll-mt-16 border-t border-white/10 py-16 md:py-24" aria-labelledby="faq-title">
+  <section id="faq" className="defer-render scroll-mt-16 border-t border-white/10 py-16 md:py-24" aria-labelledby="faq-title">
     <div className="container mx-auto max-w-2xl px-4 md:px-6">
       <header className="mb-10 text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-purple-300">Dúvidas frequentes</p>

@@ -209,3 +209,8 @@
 .animate-shimmer {
   animation: shimmer 3s infinite;
 }
+
+.defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}

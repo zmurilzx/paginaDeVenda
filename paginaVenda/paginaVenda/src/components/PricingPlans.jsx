@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BadgeCheck, Loader2, ShieldCheck } from 'lucide-react';
+import { BadgeCheck, Loader2, MessagesSquare, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { subscriptionPlans } from '@/data/subscriptionPlans';
@@ -24,6 +24,9 @@ const PricingPlans = () => {
       setRedirectingPlan('');
     }
   };
+
+  const supportUrl = (plan) =>
+    `https://wa.me/5543999748808?text=${encodeURIComponent(`Olá! Quero tirar uma dúvida sobre o plano ${plan.name} (${plan.price}).`)}`;
 
   return (
     <section className="relative scroll-mt-16 overflow-hidden py-16 md:py-24" id="pricing" aria-labelledby="pricing-title">
@@ -52,6 +55,13 @@ const PricingPlans = () => {
               <p className="mt-2 min-h-10 text-sm text-foreground/55">{plan.description}</p>
               <div className="mt-5 text-4xl font-bold">{plan.price}</div>
               <p className="mt-2 text-sm text-foreground/60">{plan.period}</p>
+              <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-sm">
+                <p className="font-semibold text-purple-200">{plan.valuePresentation.eyebrow}</p>
+                <p className="mt-1 text-foreground/75">Equivale a {plan.valuePresentation.monthlyEquivalent} por mês</p>
+                <p className="mt-1 text-xs text-foreground/50">{plan.valuePresentation.detail}</p>
+                {plan.valuePresentation.comparison && <p className="mt-2 text-xs text-foreground/50">{plan.valuePresentation.comparison}</p>}
+                {plan.valuePresentation.savings && <p className="mt-1 text-sm font-semibold text-green-300">{plan.valuePresentation.savings}</p>}
+              </div>
             </div>
 
             <Button
@@ -63,6 +73,17 @@ const PricingPlans = () => {
               {redirectingPlan === plan.slug && <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />}
               {redirectingPlan === plan.slug ? 'Abrindo checkout…' : `Assinar plano ${plan.name}`}
             </Button>
+
+            <a
+              href={supportUrl(plan)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackButtonClick(`Dúvida plano ${plan.name}`, 'pricing')}
+              className="mb-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/15 px-4 text-sm font-medium text-foreground/80 transition-colors hover:bg-white/5 hover:text-white"
+            >
+              <MessagesSquare className="h-4 w-4 text-green-400" strokeWidth={1.7} aria-hidden="true" />
+              Tirar uma dúvida no WhatsApp
+            </a>
 
             <ul className="flex-1 space-y-3">
               {plan.features.map((feature) => (
@@ -81,6 +102,12 @@ const PricingPlans = () => {
       <div className="mx-auto mt-8 max-w-3xl text-center text-xs leading-relaxed text-foreground/50">
         <p className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" /> Pagamento processado em ambiente seguro.</p>
         <p className="mt-2">*A qualidade depende do conteúdo, dispositivo, televisão e conexão. Catálogo e disponibilidade podem variar. Ao contratar, você concorda com os <Link to="/termos" className="text-purple-300 underline underline-offset-4">Termos de Uso</Link>.</p>
+      </div>
+
+      <div className="mx-auto mt-10 grid max-w-4xl gap-3 text-center text-sm text-foreground/65 sm:grid-cols-3">
+        <div className="rounded-xl border border-white/10 bg-card/35 p-4"><ShieldCheck className="mx-auto mb-2 h-5 w-5 text-purple-300" aria-hidden="true" />Pagamento concluído no checkout do parceiro</div>
+        <div className="rounded-xl border border-white/10 bg-card/35 p-4"><MessagesSquare className="mx-auto mb-2 h-5 w-5 text-green-400" aria-hidden="true" />Dúvidas e compatibilidade pelo WhatsApp</div>
+        <div className="rounded-xl border border-white/10 bg-card/35 p-4"><BadgeCheck className="mx-auto mb-2 h-5 w-5 text-purple-300" aria-hidden="true" />Condições apresentadas antes do pagamento</div>
       </div>
     </div>
     </section>

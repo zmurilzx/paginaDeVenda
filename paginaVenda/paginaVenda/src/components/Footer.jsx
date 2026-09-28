@@ -8,7 +8,7 @@ const resetPrivacyPreferences = () => {
 };
 
 const Footer = () => (
-  <footer className="border-t border-border/30 pb-8 pt-14">
+  <footer className="defer-render border-t border-border/30 pb-8 pt-14">
     <div className="container mx-auto px-4 md:px-6">
       <div className="mx-auto mb-10 grid max-w-5xl gap-10 md:grid-cols-3">
         <div className="text-center md:text-left">
