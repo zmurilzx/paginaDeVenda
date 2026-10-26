@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 const SITE_NAME = 'CineStream';
 const SITE_URL = 'https://cinestreamoficial.site';
+const DEFAULT_TITLE = 'Wapp - Melhor streaming do Brasil';
 const DEFAULT_DESCRIPTION = 'Planos de entretenimento e dispositivos para aproveitar seus conteúdos favoritos na TV.';
 
 const setMeta = (selector, attributes) => {
@@ -15,7 +16,7 @@ const setMeta = (selector, attributes) => {
 
 const Seo = ({ title, description = DEFAULT_DESCRIPTION, path = '/', noIndex = false }) => {
   useEffect(() => {
-    const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — entretenimento na sua TV`;
+    const fullTitle = title ? `${title} | ${SITE_NAME}` : DEFAULT_TITLE;
     const canonicalUrl = new URL(path, SITE_URL).toString();
     document.title = fullTitle;
 
