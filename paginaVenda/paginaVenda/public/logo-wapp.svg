@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 64" role="img" aria-labelledby="title desc">
+  <title id="title">Wapp</title>
+  <desc id="desc">Símbolo cúbico roxo acompanhado do nome Wapp</desc>
+  <defs>
+    <linearGradient id="cube" x1="8" y1="10" x2="56" y2="54" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2e123f"/>
+      <stop offset="0.5" stop-color="#6d28a8"/>
+      <stop offset="1" stop-color="#9333ea"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#111116"/>
+  <path fill="url(#cube)" fill-rule="evenodd" d="M32 6 58 20v24L32 58 6 44V20L32 6Zm0 14-12 7v10l12 7 12-7V27l-12-7Z"/>
+  <path d="M32 6v14M6 20l14 7m38-7-14 7M32 58V44" stroke="#050507" stroke-opacity=".42" stroke-width="2"/>
+  <text x="78" y="43" fill="#f8f7fb" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="-.7">Wapp</text>
+</svg>

@@ -1,11 +1,10 @@
 const Logo = () => (
   <img
-    src="/logo-header.png"
-    alt="CineStream"
-    className="h-9 w-auto sm:h-10"
-    width="211"
-    height="40"
-    fetchPriority="high"
+    src="/logo-wapp.svg"
+    alt="Wapp"
+    className="h-10 w-auto sm:h-12"
+    width="190"
+    height="64"
   />
 );
 

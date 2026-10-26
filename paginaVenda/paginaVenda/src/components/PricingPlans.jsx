@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { BadgeCheck, Loader2, MessagesSquare, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -25,9 +24,6 @@ const PricingPlans = () => {
     }
   };
 
-  const supportUrl = (plan) =>
-    `https://wa.me/5543999748808?text=${encodeURIComponent(`Olá! Quero tirar uma dúvida sobre o plano ${plan.name} (${plan.price}).`)}`;
-
   return (
     <section className="relative scroll-mt-16 overflow-hidden py-16 md:py-24" id="pricing" aria-labelledby="pricing-title">
     <div className="absolute inset-0 -z-10 bg-gradient-to-b from-purple-900/15 via-black/10 to-background" />
@@ -39,13 +35,9 @@ const PricingPlans = () => {
       </header>
 
       <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {subscriptionPlans.map((plan, index) => (
-          <motion.article
+        {subscriptionPlans.map((plan) => (
+          <article
             key={plan.slug}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.08 }}
             className={`relative flex flex-col rounded-2xl border p-6 ${plan.highlighted ? 'border-purple-400/60 bg-purple-950/35 shadow-xl shadow-purple-950/20 xl:-translate-y-2' : 'border-white/10 bg-card/55'}`}
           >
             {plan.badge && <span className={`absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-4 py-1 text-xs font-semibold ${plan.highlighted ? 'bg-purple-500 text-white' : 'border border-white/15 bg-background text-foreground/80'}`}>{plan.badge}</span>}
@@ -74,17 +66,6 @@ const PricingPlans = () => {
               {redirectingPlan === plan.slug ? 'Abrindo checkout…' : `Assinar plano ${plan.name}`}
             </Button>
 
-            <a
-              href={supportUrl(plan)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackButtonClick(`Dúvida plano ${plan.name}`, 'pricing')}
-              className="mb-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/15 px-4 text-sm font-medium text-foreground/80 transition-colors hover:bg-white/5 hover:text-white"
-            >
-              <MessagesSquare className="h-4 w-4 text-green-400" strokeWidth={1.7} aria-hidden="true" />
-              Tirar uma dúvida no WhatsApp
-            </a>
-
             <ul className="flex-1 space-y-3">
               {plan.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-2 text-sm text-foreground/70">
@@ -93,7 +74,7 @@ const PricingPlans = () => {
                 </li>
               ))}
             </ul>
-          </motion.article>
+          </article>
         ))}
       </div>
 
@@ -104,10 +85,18 @@ const PricingPlans = () => {
         <p className="mt-2">*A qualidade depende do conteúdo, dispositivo, televisão e conexão. Catálogo e disponibilidade podem variar. Ao contratar, você concorda com os <Link to="/termos" className="text-purple-300 underline underline-offset-4">Termos de Uso</Link>.</p>
       </div>
 
-      <div className="mx-auto mt-10 grid max-w-4xl gap-3 text-center text-sm text-foreground/65 sm:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-card/35 p-4"><ShieldCheck className="mx-auto mb-2 h-5 w-5 text-purple-300" aria-hidden="true" />Pagamento concluído no checkout do parceiro</div>
-        <div className="rounded-xl border border-white/10 bg-card/35 p-4"><MessagesSquare className="mx-auto mb-2 h-5 w-5 text-green-400" aria-hidden="true" />Dúvidas e compatibilidade pelo WhatsApp</div>
-        <div className="rounded-xl border border-white/10 bg-card/35 p-4"><BadgeCheck className="mx-auto mb-2 h-5 w-5 text-purple-300" aria-hidden="true" />Condições apresentadas antes do pagamento</div>
+      <div className="mx-auto mt-8 max-w-2xl rounded-2xl border border-green-400/20 bg-green-600/10 p-5 text-center">
+        <h3 className="font-semibold">Ainda não sabe qual plano escolher?</h3>
+        <p className="mt-2 text-sm text-foreground/65">Confirme compatibilidade e condições com o atendimento antes de contratar.</p>
+        <a
+          href="https://wa.me/5543999748808?text=Olá!%20Quero%20ajuda%20para%20escolher%20um%20plano%20CineStream."
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackButtonClick('Ajuda para escolher plano', 'pricing')}
+          className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-green-600 px-5 text-sm font-semibold text-white transition-colors hover:bg-green-500"
+        >
+          <MessagesSquare className="h-4 w-4" aria-hidden="true" /> Falar no WhatsApp
+        </a>
       </div>
     </div>
     </section>

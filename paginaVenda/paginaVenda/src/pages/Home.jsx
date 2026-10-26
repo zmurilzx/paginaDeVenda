@@ -4,6 +4,7 @@ import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Faq from '@/components/Faq';
+import ConversionHighlights from '@/components/ConversionHighlights';
 
 const Home = ({ analyticsEnabled }) => {
   return (
@@ -11,6 +12,7 @@ const Home = ({ analyticsEnabled }) => {
       <Seo description="Escolha seu plano CineStream para acessar filmes, séries e canais. Compare as opções e assine pelo checkout seguro." />
       <Navbar />
       <VSL analyticsEnabled={analyticsEnabled} />
+      <ConversionHighlights />
       <PricingPlans />
       <Faq />
       <Footer />
