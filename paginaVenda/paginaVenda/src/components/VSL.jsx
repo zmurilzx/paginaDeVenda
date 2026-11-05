@@ -57,7 +57,7 @@ const VSL = ({ analyticsEnabled }) => {
               <ArrowUpRight className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
             </a>
             <a
-              href="https://wa.me/5543999748808?text=Olá!%20Quero%20entender%20qual%20plano%20CineStream%20é%20ideal%20para%20mim."
+              href="https://wa.me/5543999748808?text=Olá!%20Quero%20entender%20qual%20plano%20Wapp%20é%20ideal%20para%20mim."
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackButtonClick('Falar no WhatsApp', 'hero')}
@@ -75,13 +75,13 @@ const VSL = ({ analyticsEnabled }) => {
           <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl shadow-purple-950/25">
             <div className="aspect-[9/16]" onPointerDown={handleVideoInteraction}>
               {canShowVideo ? (
-                <wistia-player media-id="908t1d4xsg" aspect="0.5625" aria-label="Apresentação em vídeo da CineStream" style={{ display: 'block', width: '100%', height: '100%' }} />
+                <wistia-player media-id="908t1d4xsg" aspect="0.5625" aria-label="Apresentação em vídeo da Wapp" style={{ display: 'block', width: '100%', height: '100%' }} />
               ) : (
                 <div className="flex h-full flex-col items-center justify-center bg-gradient-to-b from-purple-950/50 to-black px-8 text-center">
                   <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-purple-500 text-white shadow-lg shadow-purple-500/20">
                     <Play className="ml-1 h-7 w-7" fill="currentColor" aria-hidden="true" />
                   </span>
-                  <h2 className="mt-5 text-xl font-bold">Conheça a experiência CineStream</h2>
+                  <h2 className="mt-5 text-xl font-bold">Conheça a experiência Wapp</h2>
                   <p className="mt-3 text-sm leading-relaxed text-white/60">O vídeo é hospedado pela Wistia e será carregado somente quando você solicitar.</p>
                   <button
                     type="button"

@@ -1,4 +1,4 @@
-# CineStream
+# Wapp
 
 Landing page e catálogo construídos com React, Vite e Tailwind CSS.
 

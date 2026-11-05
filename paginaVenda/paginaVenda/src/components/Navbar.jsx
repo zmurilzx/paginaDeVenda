@@ -36,7 +36,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8 flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center" aria-label="CineStream — página inicial">
+        <Link to="/" className="flex items-center" aria-label="Wapp — página inicial">
           <Logo />
         </Link>
 

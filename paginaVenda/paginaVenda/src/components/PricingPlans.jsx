@@ -89,7 +89,7 @@ const PricingPlans = () => {
         <h3 className="font-semibold">Ainda não sabe qual plano escolher?</h3>
         <p className="mt-2 text-sm text-foreground/65">Confirme compatibilidade e condições com o atendimento antes de contratar.</p>
         <a
-          href="https://wa.me/5543999748808?text=Olá!%20Quero%20ajuda%20para%20escolher%20um%20plano%20CineStream."
+          href="https://wa.me/5543999748808?text=Olá!%20Quero%20ajuda%20para%20escolher%20um%20plano%20Wapp."
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackButtonClick('Ajuda para escolher plano', 'pricing')}

@@ -29,12 +29,12 @@ const Footer = () => (
           <h2 className="mb-4 font-semibold">Atendimento</h2>
           <div className="flex justify-center gap-3 md:justify-start">
             <a href="https://wa.me/5543999748808" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-green-600/15 text-green-400 hover:bg-green-600/25" aria-label="Atendimento pelo WhatsApp"><MessagesSquare strokeWidth={1.7} aria-hidden="true" /></a>
-            <a href="https://www.instagram.com/cine.stream2k" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-purple-500/15 text-purple-300 hover:bg-purple-500/25" aria-label="CineStream no Instagram"><Instagram aria-hidden="true" /></a>
+            <a href="https://www.instagram.com/cine.stream2k" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-purple-500/15 text-purple-300 hover:bg-purple-500/25" aria-label="Wapp no Instagram"><Instagram aria-hidden="true" /></a>
           </div>
         </div>
       </div>
       <div className="mx-auto max-w-5xl border-t border-border/30 pt-6 text-center text-sm text-foreground/50 md:text-left">
-        © {new Date().getFullYear()} CineStream. Todos os direitos reservados.
+        © {new Date().getFullYear()} Wapp. Todos os direitos reservados.
       </div>
     </div>
   </footer>

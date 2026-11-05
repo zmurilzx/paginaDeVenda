@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-const SITE_NAME = 'CineStream';
-const SITE_URL = 'https://cinestreamoficial.site';
+const SITE_NAME = 'Wapp';
+const SITE_URL = 'https://oficialwapp.site';
 const DEFAULT_TITLE = 'Wapp - Melhor streaming do Brasil';
 const DEFAULT_DESCRIPTION = 'Planos de entretenimento e dispositivos para aproveitar seus conteúdos favoritos na TV.';
 

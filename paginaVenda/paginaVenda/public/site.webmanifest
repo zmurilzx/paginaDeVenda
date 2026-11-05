@@ -1,6 +1,6 @@
 {
-  "name": "CineStream",
-  "short_name": "CineStream",
+  "name": "Wapp",
+  "short_name": "Wapp",
   "description": "Entretenimento e dispositivos para sua TV.",
   "start_url": "/",
   "display": "standalone",

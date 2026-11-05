@@ -1,7 +1,7 @@
 import LegalLayout from '@/components/LegalLayout';
 
 const RefundPolicy = () => (
-  <LegalLayout title="Política de Reembolso" description="Como solicitar cancelamento, devolução ou análise de reembolso na CineStream." path="/reembolso">
+  <LegalLayout title="Política de Reembolso" description="Como solicitar cancelamento, devolução ou análise de reembolso na Wapp." path="/reembolso">
     <section><h2>1. Como solicitar</h2><p>Envie o número do pedido, nome usado na compra, motivo da solicitação e evidências relevantes pelo WhatsApp. Nunca envie senha ou número completo de cartão.</p></section>
     <section><h2>2. Serviços e acessos digitais</h2><p>Pedidos de cancelamento ou reembolso serão analisados conforme a legislação aplicável, a data da contratação, a ativação do acesso e as condições exibidas no checkout. A resposta informará os próximos passos e eventual prazo da operadora de pagamento.</p></section>
     <section><h2>3. Produtos físicos</h2><p>Em caso de defeito, avaria, item incorreto ou intenção de devolução, entre em contato antes de enviar o produto. Preserve embalagem, acessórios e comprovantes. A equipe fornecerá as instruções de postagem quando cabível.</p></section>

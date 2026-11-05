@@ -9,7 +9,7 @@ import ConversionHighlights from '@/components/ConversionHighlights';
 const Home = ({ analyticsEnabled }) => {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Seo description="Escolha seu plano CineStream para acessar filmes, séries e canais. Compare as opções e assine pelo checkout seguro." />
+      <Seo description="Escolha seu plano Wapp para acessar filmes, séries e canais. Compare as opções e assine pelo checkout seguro." />
       <Navbar />
       <VSL analyticsEnabled={analyticsEnabled} />
       <ConversionHighlights />

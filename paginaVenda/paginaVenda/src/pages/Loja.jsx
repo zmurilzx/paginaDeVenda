@@ -7,7 +7,7 @@ import Seo from '@/components/Seo';
 const Loja = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Seo title="Loja" description="Conheça dispositivos para transformar sua TV e consulte disponibilidade com a CineStream." path="/loja" />
+      <Seo title="Loja" description="Conheça dispositivos para transformar sua TV e consulte disponibilidade com a Wapp." path="/loja" />
       <Navbar />
       <LojaCinestream />
       <PaymentSecurity />
