@@ -26,7 +26,7 @@ export const subscriptionPlans = [
     valuePresentation: {
       monthlyEquivalent: 'R$16,17',
       eyebrow: 'Melhor custo por mês',
-      detail: 'Total do período: R$97,00',
+      detail: 'Total do período: R$89,90',
       comparison: 'No mensal por 6 meses: R$170,40',
       savings: 'Economize 43%',
     },
