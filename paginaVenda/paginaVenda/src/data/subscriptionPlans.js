@@ -18,7 +18,7 @@ export const subscriptionPlans = [
   {
     slug: 'semestral',
     name: 'Semestral',
-    price: 'R$97,00',
+    price: 'R$89,90',
     amountCents: 9700,
     checkoutProvider: 'external',
     checkoutUrl: 'https://invoice.infinitepay.io/plans/cinestreamoficial/VZp3rWIrpN',
